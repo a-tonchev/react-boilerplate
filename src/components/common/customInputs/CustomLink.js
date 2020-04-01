@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Icon } from '@material-ui/core';
+import { Button, Icon, Link as MuiLink } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(() => ({
@@ -21,7 +21,14 @@ const useStyles = makeStyles(() => ({
 const CustomLink = props => {
   const classes = useStyles();
   const {
-    button, icon, text, tooltip, children, ...rest
+    button,
+    buttonProps = {},
+    icon,
+    text,
+    tooltip,
+    children,
+    plain,
+    ...rest
   } = props;
   let content = (
     <>
@@ -30,11 +37,16 @@ const CustomLink = props => {
       {children || <span />}
     </>
   );
-  if (button) content = <Button className={classes.link}>{content}</Button>;
+  if (button) content = <Button {...buttonProps} className={classes.link}>{content}</Button>;
 
   if (tooltip) content = <Tooltip title={tooltip}><Button className={classes.link}>{content}</Button></Tooltip>;
 
-  return <Link {...rest} className={classes.link}>{content}</Link>;
+  if (plain) return <Link {...rest} className={classes.link}>{content}</Link>;
+  return (
+    <MuiLink {...rest} component={Link}>
+      {content}
+    </MuiLink>
+  );
 };
 
 export default CustomLink;

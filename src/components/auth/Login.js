@@ -3,10 +3,8 @@ import {
   Avatar,
   Button,
   CssBaseline,
-  TextField,
   FormControlLabel,
   Checkbox,
-  Link,
   Grid,
   Box,
   Typography,
@@ -14,16 +12,17 @@ import {
   Container,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import CustomTextField from '../common/CustomTextField';
+import CustomLink from '../common/customInputs/CustomLink';
+import CustomTextField from '../common/customInputs/CustomTextField';
 import Connections from '../../helpers/Connections';
 import { UserContext } from '../../contexts/UserContext';
 
 const Copyright = () => (
   <Typography variant="body2" color="textSecondary" align="center">
     {'Copyright © '}
-    <Link color="inherit" href="https://material-ui.com/">
+    <CustomLink color="inherit" href="https://material-ui.com/">
       Your Website
-    </Link>{' '}
+    </CustomLink>{' '}
     {new Date().getFullYear()}
     {'.'}
   </Typography>
@@ -54,9 +53,10 @@ export default function SignIn() {
   const [values, setValues] = useState({
     email: '',
     password: '',
+    terms: false,
   });
   const [error, setError] = useState(null);
-  const { userData, loginUser } = useContext(UserContext);
+  const { loginUser } = useContext(UserContext);
 
   const login = async () => {
     setError(null);
@@ -65,6 +65,12 @@ export default function SignIn() {
       setError({ email: 'User not found' });
     } else {
       loginUser(user);
+    }
+  };
+
+  const onKeyDown = event => {
+    if (event.key === 'Enter') {
+      login().then();
     }
   };
 
@@ -90,6 +96,7 @@ export default function SignIn() {
             autoComplete="email"
             value={values.email}
             onChange={handleChange}
+            onKeyDown={onKeyDown}
             autoFocus
             fullWidth
             required
@@ -101,6 +108,7 @@ export default function SignIn() {
             autoComplete="current-password"
             value={values.password}
             onChange={handleChange}
+            onKeyDown={onKeyDown}
             type="password"
             autoFocus
             fullWidth
@@ -109,7 +117,7 @@ export default function SignIn() {
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label="Agree with terms"
           />
           <Button
             fullWidth
@@ -122,14 +130,14 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="/forgot" variant="body2">
+              <CustomLink to="/forgot" variant="body2">
                 Forgot password?
-              </Link>
+              </CustomLink>
             </Grid>
             <Grid item>
-              <Link to="/forgot" variant="body2">
+              <CustomLink to="/signup" variant="body2">
                 Don't have an account? Sign Up
-              </Link>
+              </CustomLink>
             </Grid>
           </Grid>
         </form>

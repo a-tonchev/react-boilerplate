@@ -6,12 +6,11 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Button,
   Typography,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Authorized from './common/Authorized';
+import Authorized from './auth/Authorized';
+import CustomLink from './common/customInputs/CustomLink';
 
 const useStyles = makeStyles({
   root: {
@@ -38,18 +37,18 @@ const Home = () => {
             Hello React Home!
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            This page is demo home page, you can test the functionality with
+            This page is demo home page, <CustomLink to="/login">
+            {t('login')}
+          </CustomLink> you can test the functionality with
             login as username user, password user or username admin, password admin for admin.
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <Authorized publicOnly>
-          <Link to="/login">
-            <Button size="small" color="primary">
-              {t('login')}
-            </Button>
-          </Link>
+          <CustomLink button to="/login">
+            {t('login')}
+          </CustomLink>
         </Authorized>
       </CardActions>
     </Card>

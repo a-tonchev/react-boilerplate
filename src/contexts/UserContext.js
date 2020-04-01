@@ -1,6 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import i18n from '../translations/i18n';
+import '../translations/i18n';
 import Loading from '../components/common/Loading';
 import UserEnums from '../enums/UserEnums';
 import LanguageEnums from '../enums/LanguageEnums';

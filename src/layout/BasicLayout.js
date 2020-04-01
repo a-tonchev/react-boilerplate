@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
-import Header from './Header';
+import Header from './header/Header';
 
 const BasicLayout = ({ children }) => (
   <>

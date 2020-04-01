@@ -1,4 +1,12 @@
 const overrides = {
+  MuiLink: {
+    underlineHover: {
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'none',
+      },
+    },
+  },
   drawerPaper: {
     backgroundColor: 'rgb(17,70,128)',
     color: '#f8f8f8',
