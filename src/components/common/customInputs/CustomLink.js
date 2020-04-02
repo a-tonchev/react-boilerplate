@@ -18,6 +18,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const PureLink = ({ href, children, ...rest }) => <a href={href} {...rest}>{children}</a>;
+
 const CustomLink = props => {
   const classes = useStyles();
   const {
@@ -41,9 +43,14 @@ const CustomLink = props => {
 
   if (tooltip) content = <Tooltip title={tooltip}><Button className={classes.link}>{content}</Button></Tooltip>;
 
-  if (plain) return <Link {...rest} className={classes.link}>{content}</Link>;
+  if (plain) {
+    if (rest.href) {
+      return <a {...rest} className={classes.link}>{content}</a>;
+    }
+    return <Link {...rest} className={classes.link}>{content}</Link>;
+  }
   return (
-    <MuiLink {...rest} component={Link}>
+    <MuiLink {...rest} component={rest.href ? PureLink : Link}>
       {content}
     </MuiLink>
   );

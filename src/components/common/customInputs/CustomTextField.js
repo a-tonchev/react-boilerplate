@@ -25,6 +25,12 @@ const CustomTextField = (
   },
 ) => {
   const { t } = useTranslation();
+
+  const handleChange = e => {
+    const { value: val } = e.target;
+    onChange({ name, value: val });
+  };
+
   const classes = stylesToUse();
   return (
     <>
@@ -35,7 +41,7 @@ const CustomTextField = (
         variant="outlined"
         fullWidth
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         error={!!error}
         InputProps={{
           endAdornment: !!endText && <InputAdornment position="end">{endText}</InputAdornment>,

@@ -3,8 +3,6 @@ import {
   Avatar,
   Button,
   CssBaseline,
-  FormControlLabel,
-  Checkbox,
   Grid,
   Box,
   Typography,
@@ -12,16 +10,17 @@ import {
   Container,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
 import CustomLink from '../common/customInputs/CustomLink';
 import CustomTextField from '../common/customInputs/CustomTextField';
 import Connections from '../../helpers/Connections';
 import { UserContext } from '../../contexts/UserContext';
+import CustomCheckBox from '../common/customInputs/CustomCheckBox';
+import useErrorCheck from '../common/customHooks/errorHook';
 
 const Copyright = () => (
   <Typography variant="body2" color="textSecondary" align="center">
     {'Copyright © '}
-    <CustomLink color="inherit" href="https://material-ui.com/">
+    <CustomLink plain target="_blank" href="https://material-ui.com/">
       Your Website
     </CustomLink>{' '}
     {new Date().getFullYear()}
@@ -49,35 +48,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const validations = {
+  email: {
+    type: 'isEmail',
+    text: 'email.notValid',
+  },
+  password: [{
+    type: 'isEmpty',
+    text: 'field.required',
+  }],
+  terms: {
+    type: 'isTrue',
+    text: 'field.required',
+  },
+};
+
+
 export default function SignIn() {
   const classes = useStyles();
+
   const [values, setValues] = useState({
     email: '',
     password: '',
     terms: false,
   });
-  const [error, setError] = useState(null);
+
+  const [error, setCustomError, isError] = useErrorCheck({
+    values,
+    validations,
+  });
+
   const { loginUser } = useContext(UserContext);
-  const { t } = useTranslation();
+
   const login = async () => {
-    setError(null);
-    const user = await Connections.getFakeLogin(values.email);
-    if (!user) {
-      setError({ email: t('user.notFound') });
-    } else {
-      loginUser(user);
+    if (!isError(error)) {
+      const user = await Connections.getFakeLogin(values.email);
+      if (!user) {
+        setCustomError({ email: 'user.notFound' });
+      } else {
+        loginUser(user);
+        // setError(null);
+      }
     }
   };
-
   const onKeyDown = event => {
     if (event.key === 'Enter') {
       login().then();
     }
   };
 
-  const handleChange = event => {
-    const { name } = event.target;
-    setValues({ ...values, [name]: event.target.value });
+  const handleChange = ({ name, value }) => {
+    setValues({ ...values, [name]: value });
   };
 
   return (
@@ -93,7 +114,7 @@ export default function SignIn() {
         <form className={classes.form} noValidate>
           <CustomTextField
             name="email"
-            label={t('email.address')}
+            label="email.address"
             autoComplete="email"
             value={values.email}
             onChange={handleChange}
@@ -101,11 +122,11 @@ export default function SignIn() {
             autoFocus
             fullWidth
             required
-            error={error && error.email ? error.email : null}
+            error={isError(error, 'email')}
           />
           <CustomTextField
             name="password"
-            label={t('password')}
+            label="password"
             autoComplete="current-password"
             value={values.password}
             onChange={handleChange}
@@ -115,10 +136,13 @@ export default function SignIn() {
             fullWidth
             required
             margin="normal"
+            error={isError(error, 'password')}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label={t('terms.agree')}
+          <CustomCheckBox
+            label="terms.agree"
+            name="terms"
+            onChange={handleChange}
+            error={isError(error, 'terms')}
           />
           <Button
             fullWidth
@@ -127,17 +151,17 @@ export default function SignIn() {
             className={classes.submit}
             onClick={login}
           >
-            {t('login')}
+            login
           </Button>
           <Grid container>
             <Grid item xs>
               <CustomLink to="/forgot" variant="body2">
-                {t('password.forgot')}
+                password.forgot
               </CustomLink>
             </Grid>
             <Grid item>
               <CustomLink to="/signup" variant="body2">
-                {t('signUp.noAccount')}
+                signUp.noAccount
               </CustomLink>
             </Grid>
           </Grid>

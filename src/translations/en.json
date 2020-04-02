@@ -9,7 +9,9 @@
   "users.all": "All users",
   "messages": "Messages",
   "notifications": "Notifications",
+  "email": "E-mail",
   "email.address": "E-mail Address",
+  "email.notValid": "E-mail not valid!",
   "password": "Password",
   "password.forgot": "Forgot password?",
   "terms.agree": "Agree with terms",
@@ -23,5 +25,6 @@
   "welcome.text": "This page is demo home page, you can test the functionality with login as user@mywebsite.com or admin@mywebsite.com (any password)",
   "search": "Search",
   "pages.my": "My pages",
-  "pages.all": "All pages"
+  "pages.all": "All pages",
+  "field.required": "The field is required!"
 }

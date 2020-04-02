@@ -9,7 +9,9 @@
   "users.all": "Alle Benutzer",
   "messages": "Nachrichten",
   "notifications": "Notifications",
+  "email": "E-Mail",
   "email.address": "E-Mail Adresse",
+  "email.notValid": "E-Mail ist nicht valid!",
   "password": "Passwort",
   "password.forgot": "Passwort vergessen?",
   "terms.agree": "Datenschutz akzeptieren",
@@ -23,5 +25,6 @@
   "welcome.text": "Das ist eine demo Seite, du kannst die funktionalität mit user@mywebsite.com oder admin@mywebsite.com (passwort ist egal).",
   "search": "Suche",
   "pages.my": "Meine Seiten",
-  "pages.all": "Alle Seiten"
+  "pages.all": "Alle Seiten",
+  "field.required": "Das ist ein Pflichtfeld!"
 }

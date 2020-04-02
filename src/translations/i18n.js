@@ -3,11 +3,11 @@ import { initReactI18next } from 'react-i18next';
 import en from './en.json';
 import de from './de.json';
 
-const defaultLanguage = 'en';
 
 i18n.use(initReactI18next).init(
   {
     lng: 'en',
+    fallbackLng: 'en',
     keySeparator: false, // we do not use keys in form messages.welcome
     resources: {
       en: {
@@ -20,7 +20,6 @@ i18n.use(initReactI18next).init(
     interpolation: {
       escapeValue: false, // react already safes from xss
     },
-    debug: false,
     react: {
       transSupportBasicHtmlNodes: true,
     },
@@ -28,8 +27,6 @@ i18n.use(initReactI18next).init(
   (err) => {
     if (err) return console.error('something went wrong loading', err);
   },
-
 );
 
-export { defaultLanguage };
 export default i18n;

@@ -18,6 +18,12 @@ const CustomCheckBox = (
   },
 ) => {
   const { t } = useTranslation();
+
+  const handleChangeCheckBox = e => {
+    const { checked } = e.target;
+    onChange({ name, value: checked });
+  };
+
   return (
     <>
       <FormControlLabel
@@ -25,13 +31,13 @@ const CustomCheckBox = (
           <Checkbox
             value={value}
             checked={value}
-            onChange={onChange}
+            onChange={handleChangeCheckBox}
             name={name}
             color="primary"
             {...rest}
           />
         )}
-        label={label}
+        label={t(label)}
       />
       {!!error && (
       <FormHelperText

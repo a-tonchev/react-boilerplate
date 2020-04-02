@@ -1,6 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import '../translations/i18n';
+import i18n from '../translations/i18n';
 import Loading from '../components/common/Loading';
 import UserEnums from '../enums/UserEnums';
 import LanguageEnums from '../enums/LanguageEnums';
@@ -33,6 +33,7 @@ const UserContextProvider = ({ children }) => {
 
   const changeLanguage = (newLang = LanguageEnums.DEFAULT) => {
     i18nHook.changeLanguage(newLang).then();
+    i18n.changeLanguage(newLang);
     if (newLang) LocalStorage.save('language', newLang);
     setLanguage(newLang);
   };
