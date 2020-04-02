@@ -85,6 +85,7 @@ const UserContextProvider = ({ children }) => {
     else changeLanguage();
 
     setMounted(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!mounted) return <Loading />;

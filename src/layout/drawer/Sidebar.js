@@ -10,8 +10,6 @@ import {
 } from '@material-ui/core';
 import {
   ChevronLeft as ChevronLeftIcon,
-  MoveToInbox as InboxIcon,
-  Mail as MailIcon,
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
