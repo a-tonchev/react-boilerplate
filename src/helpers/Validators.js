@@ -18,7 +18,7 @@ export default {
       } = validator;
       if (!error[key]) {
         if (customValidation) {
-          if (customValidation()) {
+          if (customValidation(value)) {
             error[key] = text;
             error.general = true;
           }
