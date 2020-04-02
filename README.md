@@ -6,6 +6,7 @@
 - Handling of authentications and authorizations: Public, LoggedIn, Admin, permissions, roles
 - Basic routes that use the Authorizations
 - Helpers to support connection and other functionalities
+- SEO Optimized meta tags (With react helmet)
 
 ## Available Scripts
 
