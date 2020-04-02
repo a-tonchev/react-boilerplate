@@ -7,6 +7,7 @@
 - Basic routes that use the Authorizations
 - Helpers to support connection and other functionalities
 - SEO Optimized meta tags (With react helmet)
+- Basic translation with two translation files - english and german
 
 ## Available Scripts
 
