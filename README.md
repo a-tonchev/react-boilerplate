@@ -1,4 +1,11 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## React boilerplate with basic functionalities for every site:
+
+- Login field
+- Store login data at localStorage (can be easily changed with cookies)
+- Material UI Template + Mobile view
+- Handling of authentications and authorizations: Public, LoggedIn, Admin, permissions, roles
+- Basic routes that use the Authorizations
+- Helpers to support connection and other functionalities
 
 ## Available Scripts
 
