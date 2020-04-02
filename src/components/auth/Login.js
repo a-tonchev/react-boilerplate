@@ -12,6 +12,7 @@ import {
   Container,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import CustomLink from '../common/customInputs/CustomLink';
 import CustomTextField from '../common/customInputs/CustomTextField';
 import Connections from '../../helpers/Connections';
@@ -57,12 +58,12 @@ export default function SignIn() {
   });
   const [error, setError] = useState(null);
   const { loginUser } = useContext(UserContext);
-
+  const { t } = useTranslation();
   const login = async () => {
     setError(null);
     const user = await Connections.getFakeLogin(values.email);
     if (!user) {
-      setError({ email: 'User not found' });
+      setError({ email: t('user.notFound') });
     } else {
       loginUser(user);
     }
@@ -92,7 +93,7 @@ export default function SignIn() {
         <form className={classes.form} noValidate>
           <CustomTextField
             name="email"
-            label="Email Address"
+            label={t('email.address')}
             autoComplete="email"
             value={values.email}
             onChange={handleChange}
@@ -104,7 +105,7 @@ export default function SignIn() {
           />
           <CustomTextField
             name="password"
-            label="Password"
+            label={t('password')}
             autoComplete="current-password"
             value={values.password}
             onChange={handleChange}
@@ -117,7 +118,7 @@ export default function SignIn() {
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Agree with terms"
+            label={t('terms.agree')}
           />
           <Button
             fullWidth
@@ -126,17 +127,17 @@ export default function SignIn() {
             className={classes.submit}
             onClick={login}
           >
-            Sign In
+            {t('login')}
           </Button>
           <Grid container>
             <Grid item xs>
               <CustomLink to="/forgot" variant="body2">
-                Forgot password?
+                {t('password.forgot')}
               </CustomLink>
             </Grid>
             <Grid item>
               <CustomLink to="/signup" variant="body2">
-                Don't have an account? Sign Up
+                {t('signUp.noAccount')}
               </CustomLink>
             </Grid>
           </Grid>

@@ -19,16 +19,25 @@ const useStyles = makeStyles(theme => ({
     '&:before': {
       borderBottomColor: 'white !Important',
     },
+    [theme.breakpoints.down('sm')]: {
+      color: 'black',
+      '&:before': {
+        borderBottomColor: 'black !Important',
+      },
+    },
   },
   selectIcon: {
     color: 'white',
+    [theme.breakpoints.down('sm')]: {
+      color: 'black',
+    },
   },
 }));
 
 const LanguagesPicker = () => {
   const classes = useStyles();
   const { changeLanguage } = useContext(UserContext);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
   const handleChange = event => {
     changeLanguage(event.target.value);
@@ -52,8 +61,8 @@ const LanguagesPicker = () => {
                         }
                     }
         >
-          <MenuItem value="en">EN</MenuItem>
-          <MenuItem value="de">DE</MenuItem>
+          <MenuItem value="en">{t('EN')}</MenuItem>
+          <MenuItem value="de">{t('DE')}</MenuItem>
         </Select>
       </FormControl>
     </div>

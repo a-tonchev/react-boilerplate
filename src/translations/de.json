@@ -1,3 +1,27 @@
 {
-  "login": "Einloggen"
+  "app.name": "My APP",
+  "app.title": "My App",
+  "app.description": "My App description",
+  "app.pageNotFound": "Die Seite wurde nicht gefunden!",
+  "user.notFound": "Benutzer nicht gefunden",
+  "profile": "Profil",
+  "account.my": "Mein Account",
+  "users.all": "Alle Benutzer",
+  "messages": "Nachrichten",
+  "notifications": "Notifications",
+  "email.address": "E-Mail Adresse",
+  "password": "Passwort",
+  "password.forgot": "Passwort vergessen?",
+  "terms.agree": "Datenschutz akzeptieren",
+  "login": "Einloggen",
+  "logout": "Ausloggen",
+  "signUp": "Sign Up",
+  "signUp.noAccount": "Noch keinene Account? Sign Up",
+  "EN": "EN",
+  "DE": "DE",
+  "home": "Home",
+  "welcome.text": "Das ist eine demo Seite, du kannst die funktionalität mit user@mywebsite.com oder admin@mywebsite.com (passwort ist egal).",
+  "search": "Suche",
+  "pages.my": "Meine Seiten",
+  "pages.all": "Alle Seiten"
 }

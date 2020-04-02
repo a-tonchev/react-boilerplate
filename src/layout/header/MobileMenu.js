@@ -2,16 +2,15 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   IconButton,
-  Badge,
   MenuItem,
-  Menu,
+  Menu as MuiMenu,
 } from '@material-ui/core';
 import {
-  AccountCircle,
-  Mail as MailIcon,
-  Notifications as NotificationsIcon,
   MoreVert as MoreIcon,
 } from '@material-ui/icons';
+
+import { menu } from './DesktopMenu';
+import Authorized from '../../components/auth/Authorized';
 
 const useStyles = makeStyles((theme) => ({
   sectionMobile: {
@@ -27,12 +26,11 @@ const mobileMenuId = 'primary-search-account-menu-mobile';
 const MobileMenu = ({
   mobileMoreAnchorEl,
   handleMobileMenuClose,
-  handleProfileMenuOpen,
+  ...rest
 }) => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
   return (
-    <Menu
+    <MuiMenu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={mobileMenuId}
@@ -41,34 +39,33 @@ const MobileMenu = ({
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
+      {menu.map((el, ind) => {
+        const {
+          component: Component, onClick, text, authorizations,
+        } = el;
+        let WrappedComponent = onClick
+          ? (
+            <MenuItem key={`${ind}_${1}`} onClick={rest[onClick]}>
+              <Component />
+              {text ? <p>{text}</p> : <></>}
+            </MenuItem>
+          )
+          : (
+            <MenuItem key={`${ind}_${1}`}>
+              <Component />
+              {text ? <p>{text}</p> : <></>}
+            </MenuItem>
+          );
+        if (authorizations) {
+          WrappedComponent = (
+            <Authorized key={`${ind}_${0}`} {...authorizations}>
+              {WrappedComponent}
+            </Authorized>
+          );
+        }
+        return WrappedComponent;
+      })}
+    </MuiMenu>
   );
 };
 

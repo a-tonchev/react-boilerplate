@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 import Drawer from '../drawer/Drawer';
 import { MobileMenu, MobileMenuSection } from './MobileMenu';
-import { DesktopMenu, DesktopMenuSection } from './DesktopMenu';
+import { ProfileMenu, DesktopMenuSection } from './DesktopMenu';
 import HeaderLogo from './HeaderLogo';
 import HeaderSearch from './HeaderSearch';
 
@@ -59,7 +59,7 @@ export default function Header() {
         handleMobileMenuClose={handleMobileMenuClose}
         handleProfileMenuOpen={handleProfileMenuOpen}
       />
-      <DesktopMenu
+      <ProfileMenu
         anchorEl={anchorEl}
         handleMenuClose={handleMenuClose}
       />

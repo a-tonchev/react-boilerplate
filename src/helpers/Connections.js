@@ -1,4 +1,4 @@
-import users from '../fakeData/users';
+import users from '../data/fakeData/users';
 
 export default {
   getFakeLogin: (email) => new Promise((resolve) => {

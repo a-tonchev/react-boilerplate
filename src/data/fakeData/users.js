@@ -14,6 +14,7 @@ const users = [
     email: 'admin@mywebsite.com',
     language: 'en',
     token: '12345',
+    roles: ['admin'],
   },
 ];
 export default users;

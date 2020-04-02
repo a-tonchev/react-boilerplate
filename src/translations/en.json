@@ -1,3 +1,27 @@
 {
-  "login": "Sign In"
+  "app.name": "My APP",
+  "app.title": "My App",
+  "app.description": "My App description",
+  "app.pageNotFound": "The requested page was not found!",
+  "user.notFound": "User not found",
+  "profile": "Profile",
+  "account.my": "My Account",
+  "users.all": "All users",
+  "messages": "Messages",
+  "notifications": "Notifications",
+  "email.address": "E-mail Address",
+  "password": "Password",
+  "password.forgot": "Forgot password?",
+  "terms.agree": "Agree with terms",
+  "login": "Sign In",
+  "logout": "Logout",
+  "signUp": "Sign Up",
+  "signUp.noAccount": "Don't have an account? Sign Up",
+  "EN": "EN",
+  "DE": "DE",
+  "home": "Home",
+  "welcome.text": "This page is demo home page, you can test the functionality with login as user@mywebsite.com or admin@mywebsite.com (any password)",
+  "search": "Search",
+  "pages.my": "My pages",
+  "pages.all": "All pages"
 }

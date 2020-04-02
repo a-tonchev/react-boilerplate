@@ -13,7 +13,6 @@ const defaultValues = {
     roles: [],
     permissions: [],
   },
-  dispatchUserData: () => {},
   language: LanguageEnums.DEFAULT,
 };
 
@@ -33,7 +32,6 @@ const UserContextProvider = ({ children }) => {
   const { i18n: i18nHook } = useTranslation();
 
   const changeLanguage = (newLang = LanguageEnums.DEFAULT) => {
-    // TODO set language in localStorage
     i18nHook.changeLanguage(newLang).then();
     if (newLang) LocalStorage.save('language', newLang);
     setLanguage(newLang);
@@ -55,8 +53,8 @@ const UserContextProvider = ({ children }) => {
     const {
       token, roles, permissions, language: newLang,
     } = data;
-    // TODO set token in localStorage
     if (token) {
+      // TODO save token in localStorage or cookie
       const userDataToStore = {
         loggedIn: true,
         roles,
@@ -71,7 +69,7 @@ const UserContextProvider = ({ children }) => {
   };
 
   const logoutUser = () => {
-    // TODO remove token and login data from localStorage (except language)
+    // TODO remove token from localStorage or cookies
     dispatchUserData({
       ...defaultValues.userData,
       language: userData.language,
@@ -80,7 +78,6 @@ const UserContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // TODO take userData from localStorage
     const storedUserData = LocalStorage.getObject('userData');
     const storedLanguage = LocalStorage.get('language');
     if (storedUserData) setUserData(storedUserData);
@@ -88,7 +85,6 @@ const UserContextProvider = ({ children }) => {
     else changeLanguage();
 
     setMounted(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!mounted) return <Loading />;

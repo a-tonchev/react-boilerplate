@@ -4,6 +4,7 @@ import {
   InputBase,
 } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
+import {useTranslation} from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -47,13 +48,14 @@ const useStyles = makeStyles((theme) => ({
 
 const HeaderSearch = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
   return (
     <div className={classes.search}>
       <div className={classes.searchIcon}>
         <SearchIcon />
       </div>
       <InputBase
-        placeholder="Search…"
+        placeholder={`${t('search')}...`}
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,

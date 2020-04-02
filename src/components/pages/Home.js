@@ -9,8 +9,9 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import Authorized from './auth/Authorized';
-import CustomLink from './common/customInputs/CustomLink';
+import { Helmet } from 'react-helmet/es/Helmet';
+import Authorized from '../auth/Authorized';
+import CustomLink from '../common/customInputs/CustomLink';
 
 const useStyles = makeStyles({
   root: {
@@ -26,6 +27,10 @@ const Home = () => {
   const { t } = useTranslation();
   return (
     <Card className={classes.root}>
+      <Helmet>
+        <title>{t('app.title')} | Home</title>
+        <meta name="description" content={`${t('app.description')} | Home`} />
+      </Helmet>
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -37,10 +42,7 @@ const Home = () => {
             Hello React Home!
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            This page is demo home page, <CustomLink to="/login">
-            {t('login')}
-          </CustomLink> you can test the functionality with
-            login as username user, password user or username admin, password admin for admin.
+            {t('welcome.text')}
           </Typography>
         </CardContent>
       </CardActionArea>
