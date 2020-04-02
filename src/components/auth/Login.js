@@ -73,7 +73,7 @@ export default function SignIn() {
     terms: false,
   });
 
-  const [error, setCustomError, isError] = useErrorCheck({
+  const [error, setCustomError, isError, getActivateError] = useErrorCheck({
     values,
     validations,
   });
@@ -81,7 +81,8 @@ export default function SignIn() {
   const { loginUser } = useContext(UserContext);
 
   const login = async () => {
-    if (!isError(error)) {
+    const err = getActivateError();
+    if (!err) {
       const user = await Connections.getFakeLogin(values.email);
       if (!user) {
         setCustomError({ email: 'user.notFound' });

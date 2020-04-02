@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Validators from '../../../helpers/Validators';
 
-const useErrorCheck = ({ values, validations }) => {
+const useErrorCheck = ({ values, validations, active = false }) => {
   const [error, setError] = useState(null);
   const [customError, setCustomErrors] = useState(null);
+  const [errorActive, activateError] = useState(active);
   const { t } = useTranslation();
-
   useEffect(() => {
     let validationErrors = null;
     if (customError) {
@@ -14,7 +14,6 @@ const useErrorCheck = ({ values, validations }) => {
     }
     setError(validationErrors);
   }, [customError]);
-
   useEffect(() => {
     const preparedValidations = {};
     setCustomErrors(null);
@@ -35,9 +34,12 @@ const useErrorCheck = ({ values, validations }) => {
     setError(validationErrors);
   }, [values, t, validations]);
 
-  const isError = Validators.getError;
-
-  return [error, setCustomErrors, isError];
+  const isError = errorActive ? Validators.getError : () => false;
+  const getActivateError = () => {
+    activateError(true);
+    return Validators.getError(error);
+  };
+  return [error, setCustomErrors, isError, getActivateError];
 };
 
 export default useErrorCheck;
