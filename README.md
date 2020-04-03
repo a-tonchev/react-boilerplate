@@ -104,8 +104,8 @@ const { userData } = useContext(UserContext);
 <Authorized>
  <SomeOtherComponents />
 </Authorized>
+```
 
-`
 
 but I recommend to use the <Authorized /> Component. 
 
