@@ -130,3 +130,37 @@ Following routing components are available:
 | ------------- | ------------- | 
 | Public  | Only for guests available e.g. login fields  |
 | Authenticated  | Only for logged-in users available  |
+
+### Custom input fields and validation
+
+All custom inputs are in components/common/customInputs
+
+#### Custom fields
+
+Custom fields have been prepared for usage with the material ui components. The main differences are:
+
+1. On change delivers directli name and value (no need to destruct always the event.target), each component delivers standard output, even checkbox
+2. It contains error FormHelperText - if error available, the error just appears in the input field.
+
+For error handling I use 
+
+
+#### Validation and errors
+
+For the textfield validations there is the errorHook, to validate error the methods are used in helpers/Validators
+
+Inputs:
+
+| Attributes  | Type | Description |
+| ------------- | ------------- | ------------- | 
+| values  | Object |  The object with fields that need to be validates e.g. { email, password }  |
+| validations  | Object | Validation object that has fields like bellow and help to check the values  |
+| active  | Boolean | Per default fields are not validated immediately, because we want to validate after clicking on send button  |
+
+Outputs:
+
+| Attributes  | Type | Description |
+| ------------- | ------------- | ------------- | 
+| error  | Object |  Object with all errors { email: 'error text for email' }, null or { general: false } if there is no error  |
+| setCustomError  | Function | Parameter custom error, to replace error with custom error, when e.g. server respond with some error regarding field, e.g. user does not exist |
+| isError  | Function | Check if errors available or if field has error - isError() show if errors at all, else isError('email') checks if field email contains any errors |
