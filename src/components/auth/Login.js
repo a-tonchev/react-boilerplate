@@ -65,7 +65,7 @@ const validations = {
 };
 
 
-export default function SignIn() {
+export default function Login() {
   const classes = useStyles();
 
   const { t } = useTranslation();
