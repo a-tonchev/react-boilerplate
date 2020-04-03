@@ -97,7 +97,7 @@ The language field is of type string uses the ISO 639 language codes.
 
 userData can be checked via hooks:
 
-`import { UserContext } from '../../contexts/UserContext';
+```import { UserContext } from '../../contexts/UserContext';
 const { userData } = useContext(UserContext);
 
 ...
