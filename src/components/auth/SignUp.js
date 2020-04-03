@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Avatar,
   Button,
@@ -13,10 +13,10 @@ import { useTranslation } from 'react-i18next';
 import CustomLink from '../common/customInputs/CustomLink';
 import CustomTextField from '../common/customInputs/CustomTextField';
 import Connections from '../../helpers/Connections';
-import { UserContext } from '../../contexts/UserContext';
 import CustomCheckBox from '../common/customInputs/CustomCheckBox';
 import useErrorCheck from '../common/customHooks/errorHook';
-import UrlEnums from '../../enums/UrlEnums';
+import useLoading from '../common/customHooks/loadingHook';
+import SuccessBox from '../common/SuccessBox';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,22 +38,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const validations = {
-  email: {
-    type: 'isEmail',
-    text: 'email.notValid',
-  },
-  password: [{
-    type: 'isEmpty',
-    text: 'field.required',
-  }],
-  terms: {
-    type: 'isTrue',
-    text: 'field.required',
-  },
-};
-
-
 export default function SignUp() {
   const classes = useStyles();
 
@@ -61,8 +45,40 @@ export default function SignUp() {
   const [values, setValues] = useState({
     email: '',
     password: '',
+    repeatPassword: '',
+    firstName: '',
+    lastName: '',
     terms: false,
   });
+
+  const [signUpCompleted, setSignUpCompleted] = useState(false);
+  const { loading, Loading, setLoading } = useLoading();
+  const validations = {
+    email: {
+      type: 'isEmail',
+      text: 'email.notValid',
+    },
+    password: {
+      type: 'isEmpty',
+      text: 'field.required',
+    },
+    repeatPassword: {
+      customValidation: () => values.password !== values.repeatPassword,
+      text: 'password.shouldMatch',
+    },
+    firstName: {
+      type: 'isName',
+      text: 'name.invalid',
+    },
+    lastName: {
+      type: 'isName',
+      text: 'name.invalid',
+    },
+    terms: {
+      type: 'isTrue',
+      text: 'field.required',
+    },
+  };
 
   const {
     setCustomError,
@@ -73,25 +89,32 @@ export default function SignUp() {
     validations,
   });
 
-  const { loginUser } = useContext(UserContext);
+  if (signUpCompleted) {
+    return (
+      <SuccessBox
+        text="signUp.successfulRegistration"
+      />
+    );
+  }
 
-  const login = async () => {
+  const signUp = async () => {
     setCustomError(null);
+    setLoading(true);
     const err = getActivateError();
     if (!err) {
       const user = await Connections.getFakeLogin(values.email);
       if (!user) {
-        setCustomError({ email: 'user.notFound' });
+        setSignUpCompleted(true);
       } else {
-        loginUser(user);
+        setCustomError({ email: 'user.alreadyExists' });
       }
+      setLoading(false);
+    } else {
+      setLoading(false);
     }
   };
-  const onKeyDown = event => {
-    if (event.key === 'Enter') {
-      login().then();
-    }
-  };
+
+  if (loading) return <Loading />;
 
   const handleChange = ({ name, value }) => {
     setValues({ ...values, [name]: value });
@@ -114,7 +137,6 @@ export default function SignUp() {
             autoComplete="email"
             value={values.email}
             onChange={handleChange}
-            onKeyDown={onKeyDown}
             type="email"
             autoFocus
             fullWidth
@@ -127,11 +149,38 @@ export default function SignUp() {
             autoComplete="current-password"
             value={values.password}
             onChange={handleChange}
-            onKeyDown={onKeyDown}
             type="password"
             fullWidth
             required
             error={isError('password')}
+          />
+          <CustomTextField
+            name="repeatPassword"
+            label="repeatPassword"
+            value={values.repeatPassword}
+            onChange={handleChange}
+            type="password"
+            fullWidth
+            required
+            error={isError('repeatPassword')}
+          />
+          <CustomTextField
+            name="firstName"
+            label="firstName"
+            value={values.firstName}
+            onChange={handleChange}
+            fullWidth
+            required
+            error={isError('firstName')}
+          />
+          <CustomTextField
+            name="lastName"
+            label="lastName"
+            value={values.lastName}
+            onChange={handleChange}
+            fullWidth
+            required
+            error={isError('lastName')}
           />
           <CustomCheckBox
             label="terms.agree"
@@ -144,19 +193,14 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={login}
+            onClick={signUp}
           >
             {t('login')}
           </Button>
           <Grid container>
             <Grid item xs>
-              <CustomLink to="/forgot" variant="body2">
-                {t('password.forgot')}
-              </CustomLink>
-            </Grid>
-            <Grid item>
-              <CustomLink to={UrlEnums.SIGN_UP} variant="body2">
-                {t('signUp.noAccount')}
+              <CustomLink to="/login" variant="body2">
+                {t('login.alreadyAccount')}
               </CustomLink>
             </Grid>
           </Grid>

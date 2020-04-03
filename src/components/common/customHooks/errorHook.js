@@ -26,7 +26,8 @@ const useErrorCheck = ({ values, validations, active = false }) => {
     const validationErrors = Validation.validate(preparedValidations);
     setValidationError(validationErrors);
     setError(Validation.extendValidation(validationErrors, customError, validations));
-  }, [values, t, validations, customError, active]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values, t, customError, active]);
 
   const isError = fieldToTest => {
     if (!errorActive) return false;

@@ -35,7 +35,7 @@ const CustomTextField = (
   return (
     <>
       <TextField
-        label={label}
+        label={t(label)}
         name={name}
         className={valid ? classes.success : ''}
         variant="outlined"
@@ -43,6 +43,7 @@ const CustomTextField = (
         value={value}
         onChange={handleChange}
         error={!!error}
+        margin="normal"
         InputProps={{
           endAdornment: !!endText && <InputAdornment position="end">{endText}</InputAdornment>,
         }}

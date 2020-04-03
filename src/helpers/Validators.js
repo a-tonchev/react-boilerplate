@@ -8,4 +8,7 @@ export default {
   isTrue(field) {
     return !!field;
   },
+  isName(name) {
+    return name && name.length && name.length > 2;
+  },
 };

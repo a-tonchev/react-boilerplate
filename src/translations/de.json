@@ -7,6 +7,9 @@
   "profile": "Profil",
   "account.my": "Mein Account",
   "users.all": "Alle Benutzer",
+  "user.alreadyExists": "Der Benutzer existiert bereits!",
+  "firstName": "Vorname",
+  "lastName": "Nachname",
   "messages": "Nachrichten",
   "notifications": "Notifications",
   "email": "E-Mail",
@@ -14,11 +17,15 @@
   "email.notValid": "E-Mail ist nicht valid!",
   "password": "Passwort",
   "password.forgot": "Passwort vergessen?",
+  "password.shouldMatch": "Das Passwort passt nicht!",
+  "repeatPassword": "Passwort wiederholen",
   "terms.agree": "Datenschutz akzeptieren",
   "login": "Einloggen",
+  "login.alreadyAccount": "Hast du bereits einen Account? Einloggen",
   "logout": "Ausloggen",
   "signUp": "Sign Up",
   "signUp.noAccount": "Noch keinene Account? Sign Up",
+  "signUp.successfulRegistration": "Danke! Du hast dich erfolgreich registriert. Bitte bestätige noch deine E-Mail!",
   "EN": "EN",
   "DE": "DE",
   "home": "Home",
@@ -26,5 +33,6 @@
   "search": "Suche",
   "pages.my": "Meine Seiten",
   "pages.all": "Alle Seiten",
-  "field.required": "Das ist ein Pflichtfeld!"
+  "field.required": "Das ist ein Pflichtfeld!",
+  "name.invalid": "Name soll mindestens aus 2 Buchstaben bestehen!"
 }
