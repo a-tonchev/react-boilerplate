@@ -1,22 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Validators from '../../../helpers/Validators';
+import Validation from '../../../helpers/Validation';
 
 const useErrorCheck = ({ values, validations, active = false }) => {
   const [error, setError] = useState(null);
-  const [customError, setCustomErrors] = useState(null);
+  const [customError, setCustomError] = useState(null);
   const [errorActive, activateError] = useState(active);
   const { t } = useTranslation();
-  useEffect(() => {
-    let validationErrors = null;
-    if (customError) {
-      validationErrors = { ...customError, general: true };
-    }
-    setError(validationErrors);
-  }, [customError]);
+
   useEffect(() => {
     const preparedValidations = {};
-    setCustomErrors(null);
     for (const [key, validator] of Object.entries(validations)) {
       const validFunction = val => ({
         ...val,
@@ -29,17 +22,24 @@ const useErrorCheck = ({ values, validations, active = false }) => {
         preparedValidations[key] = validFunction(validator);
       }
     }
-    const validationErrors = Validators.validate(preparedValidations);
+    const validationErrors = Validation.validate(preparedValidations);
+    setError(Validation.extendValidation(validationErrors, customError, validations));
+  }, [values, t, validations, customError, active]);
 
-    setError(validationErrors);
-  }, [values, t, validations]);
-
-  const isError = errorActive ? Validators.getError : () => false;
+  const isError = fieldToTest => {
+    if (!errorActive) return false;
+    return Validation.getError(error, fieldToTest);
+  };
   const getActivateError = () => {
     activateError(true);
-    return Validators.getError(error);
+    return Validation.getError(error);
   };
-  return [error, setCustomErrors, isError, getActivateError];
+  return {
+    error,
+    setCustomError,
+    isError,
+    getActivateError,
+  };
 };
 
 export default useErrorCheck;

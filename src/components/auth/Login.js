@@ -10,6 +10,7 @@ import {
   Container,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import CustomLink from '../common/customInputs/CustomLink';
 import CustomTextField from '../common/customInputs/CustomTextField';
 import Connections from '../../helpers/Connections';
@@ -67,13 +68,18 @@ const validations = {
 export default function SignIn() {
   const classes = useStyles();
 
+  const { t } = useTranslation();
   const [values, setValues] = useState({
     email: '',
     password: '',
     terms: false,
   });
 
-  const [error, setCustomError, isError, getActivateError] = useErrorCheck({
+  const {
+    setCustomError,
+    isError,
+    getActivateError,
+  } = useErrorCheck({
     values,
     validations,
   });
@@ -110,7 +116,7 @@ export default function SignIn() {
           <Icon>lock_outlined</Icon>
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          {t('login')}
         </Typography>
         <form className={classes.form} noValidate>
           <CustomTextField
@@ -120,10 +126,11 @@ export default function SignIn() {
             value={values.email}
             onChange={handleChange}
             onKeyDown={onKeyDown}
+            type="email"
             autoFocus
             fullWidth
             required
-            error={isError(error, 'email')}
+            error={isError('email')}
           />
           <CustomTextField
             name="password"
@@ -133,17 +140,16 @@ export default function SignIn() {
             onChange={handleChange}
             onKeyDown={onKeyDown}
             type="password"
-            autoFocus
             fullWidth
             required
             margin="normal"
-            error={isError(error, 'password')}
+            error={isError('password')}
           />
           <CustomCheckBox
             label="terms.agree"
             name="terms"
             onChange={handleChange}
-            error={isError(error, 'terms')}
+            error={isError('terms')}
           />
           <Button
             fullWidth
@@ -152,17 +158,17 @@ export default function SignIn() {
             className={classes.submit}
             onClick={login}
           >
-            login
+            {t('login')}
           </Button>
           <Grid container>
             <Grid item xs>
               <CustomLink to="/forgot" variant="body2">
-                password.forgot
+                {t('password.forgot')}
               </CustomLink>
             </Grid>
             <Grid item>
               <CustomLink to="/signup" variant="body2">
-                signUp.noAccount
+                {t('signUp.noAccount')}
               </CustomLink>
             </Grid>
           </Grid>

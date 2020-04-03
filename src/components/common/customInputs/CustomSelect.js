@@ -20,12 +20,17 @@ const CustomSelect = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const handleChange = e => {
+    const { value: val } = e.target;
+    onChange({ name, value: val });
+  };
+
   return (
     <FormControl fullWidth className={classes.formControl} error={!!error}>
       <InputLabel id="demo-simple-select-helper-label">{label}</InputLabel>
       <Select
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         {...rest}
       >
         {options.map(option => <MenuItem key={option.value} value={option.value}>{option.text}</MenuItem>)}
