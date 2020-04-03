@@ -77,6 +77,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 ## Short Documentation and Structure
 
 - [Handling User Login](###Handling-User-Login)
+- [Routing](###Handling-Routing)
 
 ### Handling User Login and Authorization
 
@@ -106,9 +107,7 @@ const { userData } = useContext(UserContext);
 </Authorized>
 ```
 
-
 but I recommend to use the <Authorized /> Component. 
-
 
 | Authorized props  | Type | Description |
 | ------------- | ------------- | ------------- |
@@ -118,3 +117,16 @@ but I recommend to use the <Authorized /> Component.
 | allowedRoles  | Array  | Children will be rendered only if user has some of the roles in the array |
 | allowedPermissions  | Array  | Children will be rendered only if user has permission that is included in the array |
 
+For Authorization of Routes check Routing
+
+### Routing
+
+I use react-router-dom for the basic routing, in the boilerplate you can find all routing components in the /routes directory.
+
+Following routing components are available:
+
+
+| Route Component  | Description |
+| ------------- | ------------- | 
+| Public  | Only for guests available e.g. login fields  |
+| Authenticated  | Only for logged-in users available  |
