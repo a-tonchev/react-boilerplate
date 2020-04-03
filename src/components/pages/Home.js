@@ -34,7 +34,7 @@ const Home = () => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/img/demo.jpg"
+          image="/img/demo.png"
           title="Demo"
         />
         <CardContent>
