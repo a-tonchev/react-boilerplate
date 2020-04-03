@@ -78,6 +78,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 - [Handling User Login](###Handling-User-Login)
 - [Routing](###Handling-Routing)
+- [Custom input fields and validation](###Custom input fields and validation)
 
 ### Handling User Login and Authorization
 
