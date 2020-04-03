@@ -5,6 +5,7 @@ import Validation from '../../../helpers/Validation';
 const useErrorCheck = ({ values, validations, active = false }) => {
   const [error, setError] = useState(null);
   const [customError, setCustomError] = useState(null);
+  const [validationError, setValidationError] = useState(null);
   const [errorActive, activateError] = useState(active);
   const { t } = useTranslation();
 
@@ -23,6 +24,7 @@ const useErrorCheck = ({ values, validations, active = false }) => {
       }
     }
     const validationErrors = Validation.validate(preparedValidations);
+    setValidationError(validationErrors);
     setError(Validation.extendValidation(validationErrors, customError, validations));
   }, [values, t, validations, customError, active]);
 
@@ -32,7 +34,7 @@ const useErrorCheck = ({ values, validations, active = false }) => {
   };
   const getActivateError = () => {
     activateError(true);
-    return Validation.getError(error);
+    return Validation.getError(validationError);
   };
   return {
     error,
