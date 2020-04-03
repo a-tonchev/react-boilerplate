@@ -164,3 +164,69 @@ Outputs:
 | error  | Object |  Object with all errors { email: 'error text for email' }, null or { general: false } if there is no error  |
 | setCustomError  | Function | Parameter custom error, to replace error with custom error, when e.g. server respond with some error regarding field, e.g. user does not exist |
 | isError  | Function | Check if errors available or if field has error - isError() show if errors at all, else isError('email') checks if field email contains any errors |
+
+How to use:
+
+```
+import useErrorCheck from '../common/customHooks/errorHook';
+
+/* 
+ Add validations existing in the helpers/Validators, or you can add custom validator with field 'customValidation'
+ Important THIS VALIDATOR SHOULD BE OUTSIDE THE COMPONENT, else eternal re-rendering will happen. If you want to use it inside component, then you should exclude it from the errorHook useEffect depts array!
+ */
+const validations = {
+  email: {
+    type: 'isEmail',
+    text: 'email.notValid',
+  },
+  password: [{
+    type: 'isEmpty',
+    text: 'field.required',
+  }],
+  terms: {
+    type: 'isTrue',
+    text: 'field.required',
+  },
+};
+
+export default function Login() {
+   const {
+    setCustomError,
+    isError,
+    getActivateError,
+  } = useErrorCheck({
+    values,
+    validations,
+  });
+
+    const login = async () => {
+     // Here we activate the error handling - for first time directly after klick on the login button, then all errors will pop-up
+     const err = getActivateError();
+     if (!err) {
+       const user = await Connections.getFakeLogin(values.email);
+       if (!user) {
+         setCustomError({ email: 'user.notFound' });
+       } else {
+         loginUser(user);
+         // setError(null);
+       }
+     }
+   };
+
+  .....
+      // To display directly the error, just pass the isError(fieldName) to the custom component, this will return the error message.
+      <CustomTextField
+         name="password"
+         label="password"
+         autoComplete="current-password"
+         value={values.password}
+         onChange={handleChange}
+         onKeyDown={onKeyDown}
+         type="password"
+         fullWidth
+         required
+         margin="normal"
+         error={isError('password')}
+       />
+ ......
+}
