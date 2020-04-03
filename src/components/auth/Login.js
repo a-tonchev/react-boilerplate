@@ -87,6 +87,7 @@ export default function Login() {
   const { loginUser } = useContext(UserContext);
 
   const login = async () => {
+    setCustomError(null);
     const err = getActivateError();
     if (!err) {
       const user = await Connections.getFakeLogin(values.email);
