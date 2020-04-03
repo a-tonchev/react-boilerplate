@@ -76,6 +76,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## Short Documentation
 
-- [Handling User Login](###Handling%User%Login)
+- [Handling User Login](###Handling-User-Login)
 
 ### Handling User Login
