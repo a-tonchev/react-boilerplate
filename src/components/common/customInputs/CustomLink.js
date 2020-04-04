@@ -12,6 +12,7 @@ const useStyles = makeStyles(() => ({
       color: 'inherit',
       textDecoration: 'none',
     },
+    boxSizing: 'border-box',
   },
   text: {
     marginLeft: 3,
@@ -34,9 +35,9 @@ const CustomLink = props => {
   } = props;
   let content = (
     <>
-      {icon ? <Icon>{icon}</Icon> : <span />}
-      {text ? <span className={classes.text}>{text}</span> : <span />}
-      {children || <span />}
+      {icon ? <Icon>{icon}</Icon> : null}
+      {text ? <span className={classes.text}>{text}</span> : null}
+      {children || null}
     </>
   );
   if (button) content = <Button {...buttonProps} className={classes.link}>{content}</Button>;
@@ -45,9 +46,9 @@ const CustomLink = props => {
 
   if (plain) {
     if (rest.href) {
-      return <a {...rest} className={classes.link}>{content}</a>;
+      return <a className={classes.link} {...rest}>{content}</a>;
     }
-    return <Link {...rest} className={classes.link}>{content}</Link>;
+    return <Link className={classes.link} {...rest}>{content}</Link>;
   }
   return (
     <MuiLink {...rest} component={rest.href ? PureLink : Link}>

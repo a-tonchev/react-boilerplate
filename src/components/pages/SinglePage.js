@@ -10,8 +10,6 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet/es/Helmet';
-import Authorized from '../auth/Authorized';
-import CustomLink from '../common/customInputs/CustomLink';
 
 const useStyles = makeStyles({
   root: {
@@ -22,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Home = () => {
+const SinglePage = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   return (
@@ -57,4 +55,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default SinglePage;

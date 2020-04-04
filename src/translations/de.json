@@ -34,5 +34,6 @@
   "pages.my": "Meine Seiten",
   "pages.all": "Alle Seiten",
   "field.required": "Das ist ein Pflichtfeld!",
-  "name.invalid": "Name soll mindestens aus 2 Buchstaben bestehen!"
+  "name.invalid": "Name soll mindestens aus 2 Buchstaben bestehen!",
+  "by": "von"
 }

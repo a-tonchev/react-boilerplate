@@ -51,12 +51,14 @@ const Sidebar = () => {
       </div>
       <Divider />
       <List>
-        <ListItem button key="home">
-          <ListItemIcon>
-            <Icon>home</Icon>
-          </ListItemIcon>
-          <ListItemText primary={t('home')} />
-        </ListItem>
+        <CustomLink plain to={UrlEnums.MAIN}>
+          <ListItem button key="home">
+            <ListItemIcon>
+              <Icon>home</Icon>
+            </ListItemIcon>
+            <ListItemText primary={t('home')} />
+          </ListItem>
+        </CustomLink>
         <Authorized publicOnly>
           <CustomLink plain to={UrlEnums.LOGIN}>
             <ListItem button key="login">
@@ -68,12 +70,14 @@ const Sidebar = () => {
           </CustomLink>
         </Authorized>
         <Authorized authenticated>
-          <ListItem button key="profile">
-            <ListItemIcon>
-              <Icon>account_circle</Icon>
-            </ListItemIcon>
-            <ListItemText primary={t('profile')} />
-          </ListItem>
+          <CustomLink plain to={UrlEnums.PROFILE}>
+            <ListItem button key="profile">
+              <ListItemIcon>
+                <Icon>account_circle</Icon>
+              </ListItemIcon>
+              <ListItemText primary={t('profile')} />
+            </ListItem>
+          </CustomLink>
           <ListItem button key="myPages">
             <ListItemIcon>
               <Icon>web_asset</Icon>
@@ -83,18 +87,22 @@ const Sidebar = () => {
         </Authorized>
         <Authorized adminOnly>
           <Divider />
-          <ListItem button key="allUsers">
-            <ListItemIcon>
-              <Icon>supervisor_account</Icon>
-            </ListItemIcon>
-            <ListItemText primary={t('users.all')} />
-          </ListItem>
-          <ListItem button key="allPages">
-            <ListItemIcon>
-              <Icon>web</Icon>
-            </ListItemIcon>
-            <ListItemText primary={t('pages.all')} />
-          </ListItem>
+          <CustomLink plain to={UrlEnums.ALL_USERS}>
+            <ListItem button key="allUsers">
+              <ListItemIcon>
+                <Icon>supervisor_account</Icon>
+              </ListItemIcon>
+              <ListItemText primary={t('users.all')} />
+            </ListItem>
+          </CustomLink>
+          <CustomLink plain to={UrlEnums.MAIN}>
+            <ListItem button key="allPages">
+              <ListItemIcon>
+                <Icon>web</Icon>
+              </ListItemIcon>
+              <ListItemText primary={t('pages.all')} />
+            </ListItem>
+          </CustomLink>
         </Authorized>
       </List>
     </>

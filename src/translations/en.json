@@ -34,5 +34,6 @@
   "pages.my": "My pages",
   "pages.all": "All pages",
   "field.required": "The field is required!",
-  "name.invalid": "Name should be at least 2 letters!"
+  "name.invalid": "Name should be at least 2 letters!",
+  "by": "by"
 }

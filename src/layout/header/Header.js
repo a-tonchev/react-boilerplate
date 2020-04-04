@@ -4,7 +4,7 @@ import {
   AppBar,
   Toolbar,
 } from '@material-ui/core';
-import Drawer from '../drawer/Drawer';
+import Drawer from '../sidebar/Drawer';
 import { MobileMenu, MobileMenuSection } from './MobileMenu';
 import { ProfileMenu, DesktopMenuSection } from './DesktopMenu';
 import HeaderLogo from './HeaderLogo';

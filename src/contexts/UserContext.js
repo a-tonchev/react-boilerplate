@@ -39,20 +39,28 @@ const UserContextProvider = ({ children }) => {
   };
 
   const setUserData = ({
-    loggedIn = false, roles = [], permissions = [],
+    loggedIn = false,
+    roles = [],
+    permissions = [],
+    ...rest
   }) => {
     dispatchUserData({
       loggedIn,
       isAdmin: !!(roles && roles.length && roles.includes(UserEnums.ADMIN_ROLE)),
       roles,
       permissions,
+      ...rest,
     });
     setMounted(true);
   };
 
   const loginUser = data => {
     const {
-      token, roles, permissions, language: newLang,
+      token,
+      roles,
+      permissions,
+      language: newLang,
+      ...rest
     } = data;
     if (token) {
       // TODO save token in localStorage or cookie
@@ -60,6 +68,7 @@ const UserContextProvider = ({ children }) => {
         loggedIn: true,
         roles,
         permissions,
+        ...rest,
       };
       setUserData(userDataToStore);
       LocalStorage.saveObject('userData', userDataToStore);
