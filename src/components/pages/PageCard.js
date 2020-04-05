@@ -65,62 +65,65 @@ export default function PageCard({
   const [raised, setRaised] = useState(false);
   const { t } = useTranslation();
   return (
-    <CardActionArea
+    <li
       className={classes.root}
       style={style}
-      component="div"
     >
-      <Card
-        onMouseOver={() => setRaised(true)}
-        onFocus={() => setRaised(true)}
-        onMouseOut={() => setRaised(false)}
-        onBlur={() => setRaised(false)}
-        elevation={raised ? 3 : 0}
+      <CardActionArea
+        component="div"
       >
-        <CustomLink
-          to={`/page/${id}/${StringHelper.slugify(title)}`}
-          plain
+        <Card
+          onMouseOver={() => setRaised(true)}
+          onFocus={() => setRaised(true)}
+          onMouseOut={() => setRaised(false)}
+          onBlur={() => setRaised(false)}
+          elevation={raised ? 3 : 0}
         >
-          <CardMedia
-            className={classes.media}
-            image={`/img/demo/${image}`}
-            title="Paella dish"
-          />
-          <CardContent
-            className={classes.cardContent}
+          <CustomLink
+            to={`/page/${id}/${StringHelper.slugify(title)}`}
+            plain
           >
-            <Typography className={classes.text}>
-              {title}
-            </Typography>
-            <Typography className={classes.price}>
-              $ 50.15
-            </Typography>
-            <Typography variant="caption">{`${t('by')} ${t('app.name')}`}</Typography>
-          </CardContent>
-          <div />
-        </CustomLink>
-        <CardActions disableSpacing className={classes.cardActions}>
-          <IconButton>
-            <Icon fontSize="small" className={classes.favoriteEmptyIcon}>
-              favorite_border
-            </Icon>
-          </IconButton>
-          <CustomButton
-            variant="text"
-            className={classes.ratingBox}
-
-          >
-            <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
-            <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
-            <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
-            <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
-            <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
-            <Typography className={classes.ratingText} color="primary" variant="caption">
-              5
-            </Typography>
-          </CustomButton>
-        </CardActions>
-      </Card>
-    </CardActionArea>
+            <CardMedia
+              className={classes.media}
+              image={`/img/demo/${image}`}
+              title="Paella dish"
+            />
+            <CardContent
+              className={classes.cardContent}
+            >
+              <Typography className={classes.text}>
+                {title}
+              </Typography>
+              <Typography className={classes.price}>
+                $ 50.15
+              </Typography>
+              <Typography variant="caption">{`${t('by')} ${t('app.name')}`}</Typography>
+            </CardContent>
+            <div />
+          </CustomLink>
+          <CardActions disableSpacing className={classes.cardActions}>
+            <IconButton aria-label="favourite">
+              <Icon fontSize="small" className={classes.favoriteEmptyIcon}>
+                favorite_border
+              </Icon>
+            </IconButton>
+            <CustomButton
+              variant="text"
+              className={classes.ratingBox}
+              aria-label="rating"
+            >
+              <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
+              <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
+              <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
+              <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
+              <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
+              <Typography className={classes.ratingText} color="primary" variant="caption">
+                5
+              </Typography>
+            </CustomButton>
+          </CardActions>
+        </Card>
+      </CardActionArea>
+    </li>
   );
 }

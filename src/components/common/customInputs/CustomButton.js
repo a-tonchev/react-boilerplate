@@ -27,7 +27,15 @@ const CustomButton = ({
 
   const classes = useStyles();
   if (buttonTheme === 'green') buttonProps.className = classes.green;
-  return <Button variant="contained" {...buttonProps}>{children}</Button>;
+  return (
+    <Button
+      aria-label={text || 'button'}
+      variant="contained"
+      {...buttonProps}
+    >
+      {children}
+    </Button>
+  );
 };
 
 export default CustomButton;

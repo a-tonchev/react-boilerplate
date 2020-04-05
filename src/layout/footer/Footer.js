@@ -5,7 +5,12 @@ import CustomLink from '../../components/common/customInputs/CustomLink';
 const Copyright = () => (
   <Typography variant="body2" color="textSecondary" align="center">
     {'Copyright © '}
-    <CustomLink plain target="_blank" href="https://github.com/a-tonchev/react-boilerplate">
+    <CustomLink
+      rel="noreferrer"
+      plain
+      target="_blank"
+      href="https://github.com/a-tonchev/react-boilerplate"
+    >
       Your Website
     </CustomLink>{' '}
     {new Date().getFullYear()}
