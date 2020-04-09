@@ -30,11 +30,11 @@ const Home = () => {
   const { firstName } = userData;
   return (
     <>
-      <Card className={classes.root}>
-        <Helmet>
-          <title>{t('app.title')} | Home</title>
-          <meta name="description" content={`${t('app.description')} | Home`} />
-        </Helmet>
+      <Helmet>
+        <title>{t('app.title')} | Home</title>
+        <meta name="description" content={`${t('app.description')} | Home`} />
+      </Helmet>
+      <Card className={classes.root} elevation={0}>
         <CardActionArea>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">

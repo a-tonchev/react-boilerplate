@@ -5,12 +5,14 @@ import {
   CardActionArea,
   Icon,
   IconButton,
+  Grid,
 } from '@material-ui/core';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
+import Rating from '@material-ui/lab/Rating';
 import CustomLink from '../common/customInputs/CustomLink';
 import StringHelper from '../../helpers/StringHelper';
 import CustomButton from '../common/customInputs/CustomButton';
@@ -47,11 +49,13 @@ const useStyles = makeStyles(() => ({
   },
   ratingText: {
     marginLeft: 2,
-    fontWeight: 'bold',
   },
   ratingBox: {
     marginLeft: 'auto',
     marginRight: 4,
+  },
+  rating: {
+    fontSize: '80%',
   },
 }));
 
@@ -65,7 +69,12 @@ export default function PageCard({
   const [raised, setRaised] = useState(false);
   const { t } = useTranslation();
   return (
-    <li
+    <Grid
+      item
+      xs={6}
+      md={3}
+      lg={2}
+      key={id}
       className={classes.root}
       style={style}
     >
@@ -112,18 +121,24 @@ export default function PageCard({
               className={classes.ratingBox}
               aria-label="rating"
             >
-              <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
-              <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
-              <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
-              <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
-              <Icon color="primary" fontSize="small" className={classes.starIcon}>star</Icon>
-              <Typography className={classes.ratingText} color="primary" variant="caption">
+              <Rating
+                name="read-only"
+                value={5}
+                size="small"
+                readOnly
+                color="primary"
+                className={classes.rating}
+              />
+              <Typography
+                className={classes.ratingText}
+                variant="caption"
+              >
                 5
               </Typography>
             </CustomButton>
           </CardActions>
         </Card>
       </CardActionArea>
-    </li>
+    </Grid>
   );
 }

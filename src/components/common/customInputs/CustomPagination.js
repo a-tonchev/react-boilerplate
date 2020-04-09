@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Link, withRouter,
 } from 'react-router-dom';
@@ -21,18 +21,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomPagination = ({ location, theme }) => {
+const CustomPagination = ({
+  page, theme, perPage, total = 0, setPage, location, history,
+}) => {
   const { isMobile } = theme;
   const classes = useStyles();
   const query = new URLSearchParams(location.search);
-  const page = parseInt(query.get('page'), 10) || 1;
+  const queryPage = parseInt(query.get('page'), 10) || 1;
   const { pathname } = location;
+  const totalPages = Math.ceil(total / perPage);
+  useEffect(() => {
+    if (queryPage > totalPages) {
+      query.delete('page');
+      const newUrl = `${pathname}?${query.toString()}`;
+      history.push(newUrl);
+    } else if (queryPage !== page) setPage(queryPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
   return (
     <div className={classes.root}>
       <Pagination
         page={page}
+        onChange={handleChange}
         className={classes.pagination}
-        count={10}
+        count={!total ? 1 : totalPages}
         color="primary"
         size="large"
         siblingCount={isMobile ? 0 : 1}

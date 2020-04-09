@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Grid,
-  Divider,
 } from '@material-ui/core';
 import Connections from '../../helpers/Connections';
 import useLoading from '../common/customHooks/loadingHook';
-import CustomPagination from '../common/customInputs/CustomPagination';
 import PageList from './PageList';
 
 const useStyles = makeStyles({
@@ -29,6 +27,7 @@ const AllPages = () => {
       setLoading(false);
     };
     getPages().then();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) return <Loading />;
@@ -36,7 +35,6 @@ const AllPages = () => {
   return (
     <Grid container spacing={1} className={classes.root}>
       <PageList pages={pages} />
-      <CustomPagination />
     </Grid>
   );
 };
