@@ -35,14 +35,10 @@ const useStyles = makeStyles({
   },
 });
 
-function usePrevious(value, totalPages) {
+function usePrevious(value) {
   const ref = useRef();
 
   useEffect(() => {
-    /* elmnt.scroll({
-      top: 0,
-      behavior: 'smooth',
-    }); */
     window.scroll({
       top: 0,
     });
@@ -56,8 +52,7 @@ const PageList = ({ pages: items, location }) => {
   const classes = useStyles();
   const [page, setPage] = useState(1);
   const [perPage] = useState(24);
-  const totalPages = Math.ceil(items.length / perPage);
-  const previousPage = usePrevious(page, totalPages);
+  const previousPage = usePrevious(page);
   const itemsPerPage = items.filter(
     (item, index) => index >= (perPage * page - perPage) && index < perPage * page,
   );
@@ -83,9 +78,6 @@ const PageList = ({ pages: items, location }) => {
           timeout={{
             enter: 600,
             exit: 600,
-          }}
-          onEntered={() => {
-            const elmnt = document.getElementById('root');
           }}
           classNames="items"
         >

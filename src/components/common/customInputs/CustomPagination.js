@@ -52,7 +52,6 @@ const CustomPagination = ({
         count={!total ? 1 : totalPages}
         color="primary"
         size="large"
-        siblingCount={1}
         renderItem={item => {
           const { page: itemPage } = item;
           query.set('page', itemPage);
