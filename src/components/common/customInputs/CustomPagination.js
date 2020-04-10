@@ -29,6 +29,7 @@ const CustomPagination = ({
   const query = new URLSearchParams(location.search);
   const queryPage = parseInt(query.get('page'), 10) || 1;
   const { pathname } = location;
+  console.log(location.key);
   const totalPages = Math.ceil(total / perPage);
   useEffect(() => {
     if (queryPage > totalPages) {
@@ -51,7 +52,7 @@ const CustomPagination = ({
         count={!total ? 1 : totalPages}
         color="primary"
         size="large"
-        siblingCount={isMobile ? 0 : 1}
+        siblingCount={1}
         renderItem={item => {
           const { page: itemPage } = item;
           query.set('page', itemPage);

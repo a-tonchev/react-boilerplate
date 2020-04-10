@@ -34,7 +34,7 @@ const AllPages = () => {
 
   return (
     <Grid container spacing={1} className={classes.root}>
-      <PageList pages={pages} />
+      <PageList pages={[...pages, ...pages, ...pages, ...pages]} />
     </Grid>
   );
 };
