@@ -1,7 +1,7 @@
 import React, { useState, createContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../translations/i18n';
-import Loading from '../components/common/Loading';
+import Loading from '../components/common/loading/Loading';
 import UserEnums from '../enums/UserEnums';
 import LanguageEnums from '../enums/LanguageEnums';
 import LocalStorage from '../helpers/LocalStorage';

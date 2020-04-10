@@ -34,13 +34,12 @@ const useStyles = makeStyles({
   },
 });
 
-function usePrevious(value, isMobile) {
+function usePrevious(value) {
   const ref = useRef();
 
   useEffect(() => {
     window.scroll({
       top: 0,
-      behavior: isMobile ? 'auto' : 'smooth',
     });
     ref.current = value;
   }, [value]);
@@ -48,24 +47,20 @@ function usePrevious(value, isMobile) {
   return ref.current;
 }
 
-const PageList = ({ pages: items, location, theme }) => {
+const PageList = ({ pages: items, location }) => {
   const classes = useStyles();
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [perPage] = useState(24);
-  const { isMobile } = theme;
-  const previousPage = usePrevious(page, isMobile);
-  const itemsPerPage = items.filter(
+  usePrevious(page);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 1300);
+  }, [page]);
+  const pageItems = items.filter(
     (item, index) => index >= (perPage * page - perPage) && index < perPage * page,
   );
   const wrapClass = 'moving';
-  /*
-  if (previousPage - 1 === page) {
-    wrapClass = 'moving-backward';
-  }
-  if (page - 1 === previousPage) {
-    wrapClass = 'moving-forward';
-  }
-*/
   return (
     <Grid container className={`${classes.gridList}`} spacing={0}>
       <PageListFilters key="pageListFilters" />
@@ -76,14 +71,14 @@ const PageList = ({ pages: items, location, theme }) => {
         <CSSTransition
           key={location.key}
           timeout={{
-            enter: 1000,
-            exit: 1000,
+            enter: 600,
+            exit: 600,
           }}
           classNames="items"
         >
           <Grid item xs={12}>
             <Grid container spacing={2}>
-              {itemsPerPage.map(
+              {pageItems.map(
                 ({ title, id, image }) => (
                   <PageCard
                     plain
@@ -92,49 +87,12 @@ const PageList = ({ pages: items, location, theme }) => {
                     id={id}
                     key={id}
                     image={image}
+                    loading={loading}
                   />
                 ),
               )}
             </Grid>
           </Grid>
-          {/* <>
-            <div className="test-class">
-              <Grid item xs={12}>
-                <Grid container spacing={2}>
-                  {itemsPerPage.map(
-                    ({ title, id, image }) => (
-                      <PageCard
-                        plain
-                        style={{ height: 'auto' }}
-                        title={title}
-                        id={id}
-                        key={id}
-                        image={image}
-                      />
-                    ),
-                  )}
-                </Grid>
-              </Grid>
-            </div>
-            <div className="test-class-2">
-              <Grid item xs={12}>
-                <Grid container spacing={2}>
-                  {itemsPerPage.map(
-                    ({ title, id, image }) => (
-                      <PageCard
-                        plain
-                        style={{ height: 'auto' }}
-                        title={title}
-                        id={id}
-                        key={id}
-                        image={image}
-                      />
-                    ),
-                  )}
-                </Grid>
-              </Grid>
-            </div>
-          </> */}
         </CSSTransition>
       </TransitionGroup>
       <CustomPagination
@@ -148,4 +106,4 @@ const PageList = ({ pages: items, location, theme }) => {
   );
 };
 
-export default withTheme(withRouter(PageList));
+export default withRouter(PageList);
