@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withTheme } from '@material-ui/core/styles';
 import {
   Grid,
 } from '@material-ui/core';
-import withWidth from '@material-ui/core/withWidth';
 import {
   CSSTransition,
   TransitionGroup,
@@ -35,12 +34,13 @@ const useStyles = makeStyles({
   },
 });
 
-function usePrevious(value) {
+function usePrevious(value, isMobile) {
   const ref = useRef();
 
   useEffect(() => {
     window.scroll({
       top: 0,
+      behavior: isMobile ? 'auto' : 'smooth',
     });
     ref.current = value;
   }, [value]);
@@ -48,24 +48,24 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const PageList = ({ pages: items, location }) => {
+const PageList = ({ pages: items, location, theme }) => {
   const classes = useStyles();
   const [page, setPage] = useState(1);
   const [perPage] = useState(24);
-  const previousPage = usePrevious(page);
+  const { isMobile } = theme;
+  const previousPage = usePrevious(page, isMobile);
   const itemsPerPage = items.filter(
     (item, index) => index >= (perPage * page - perPage) && index < perPage * page,
   );
-
-  let wrapClass = 'moving';
-
+  const wrapClass = 'moving';
+  /*
   if (previousPage - 1 === page) {
     wrapClass = 'moving-backward';
   }
   if (page - 1 === previousPage) {
     wrapClass = 'moving-forward';
   }
-  console.log(wrapClass);
+*/
   return (
     <Grid container className={`${classes.gridList}`} spacing={0}>
       <PageListFilters key="pageListFilters" />
@@ -76,8 +76,8 @@ const PageList = ({ pages: items, location }) => {
         <CSSTransition
           key={location.key}
           timeout={{
-            enter: 600,
-            exit: 600,
+            enter: 1000,
+            exit: 1000,
           }}
           classNames="items"
         >
@@ -148,4 +148,4 @@ const PageList = ({ pages: items, location }) => {
   );
 };
 
-export default withWidth()(withRouter(PageList));
+export default withTheme(withRouter(PageList));

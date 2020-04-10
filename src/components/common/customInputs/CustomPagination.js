@@ -29,7 +29,6 @@ const CustomPagination = ({
   const query = new URLSearchParams(location.search);
   const queryPage = parseInt(query.get('page'), 10) || 1;
   const { pathname } = location;
-  console.log(location.key);
   const totalPages = Math.ceil(total / perPage);
   useEffect(() => {
     if (queryPage > totalPages) {
