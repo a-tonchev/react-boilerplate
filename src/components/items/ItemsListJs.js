@@ -5,7 +5,7 @@ import {
   GridList,
 } from '@material-ui/core';
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
-import PageCard from './PageCard';
+import ItemCard from './ItemCard';
 
 const useStyles = makeStyles({
   gridList: {
@@ -41,7 +41,7 @@ const getGridData = props => {
   };
 };
 
-const PageListJs = ({ pages, ...props }) => {
+const ItemsListJs = ({ pages, ...props }) => {
   const {
     columns,
   } = getGridData(props);
@@ -49,7 +49,7 @@ const PageListJs = ({ pages, ...props }) => {
   return (
     <GridList cols={columns} className={classes.gridList} spacing={16}>
       {pages.map(({ title, id, image }) => (
-        <PageCard
+        <ItemCard
           key={id}
           plain
           style={{ height: 'auto' }}
@@ -62,4 +62,4 @@ const PageListJs = ({ pages, ...props }) => {
   );
 };
 
-export default withWidth()(PageListJs);
+export default withWidth()(ItemsListJs);

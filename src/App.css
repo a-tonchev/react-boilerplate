@@ -192,8 +192,8 @@ a {
 .moving .items-enter-active {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
-  -webkit-animation-duration: 600ms;
-  animation-duration: 600ms;
+  -webkit-animation-duration: 1000ms;
+  animation-duration: 1000ms;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   display: inline-block;
@@ -204,58 +204,12 @@ a {
 }
 
 .moving .items-exit-active {
-  -webkit-animation-duration: 600ms;
-  animation-duration: 600ms;
+  -webkit-animation-duration: 1000ms;
+  animation-duration: 1000ms;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   -webkit-animation-name: fadeOut;
   animation-name: fadeOut;
-}
-
-.moving-forward .items-enter-active {
-  -webkit-animation-name: fadeInRight;
-  animation-name: fadeInRight;
-  -webkit-animation-duration: 600ms;
-  animation-duration: 600ms;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  display: inline-block;
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-}
-
-.moving-forward .items-exit-active {
-  -webkit-animation-duration: 600ms;
-  animation-duration: 600ms;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation-name: fadeOutLeft;
-  animation-name: fadeOutLeft;
-}
-
-.moving-backward .items-enter-active {
-  -webkit-animation-name: fadeInLeft;
-  animation-name: fadeInLeft;
-  -webkit-animation-duration: 600ms;
-  animation-duration: 600ms;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  display: inline-block;
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-}
-
-.moving-backward .items-exit-active {
-  -webkit-animation-duration: 600ms;
-  animation-duration: 600ms;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation-name: fadeOutRight;
-  animation-name: fadeOutRight;
 }
 
 .page-transition {

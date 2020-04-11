@@ -7,6 +7,7 @@ import history from './helpers/History';
 import { UserContextProvider } from './contexts/UserContext';
 import MainRoutes from './routes/MainRoutes';
 import DesignProvider from './layout/DesignProvider';
+import { ItemContextProvider } from './contexts/ItemContext';
 
 const App = () => {
   const { t } = useTranslation();
@@ -17,9 +18,11 @@ const App = () => {
         <meta name="description" content={t('app.description')} />
       </Helmet>
       <UserContextProvider>
-        <DesignProvider>
-          <MainRoutes />
-        </DesignProvider>
+        <ItemContextProvider>
+          <DesignProvider>
+            <MainRoutes />
+          </DesignProvider>
+        </ItemContextProvider>
       </UserContextProvider>
     </Router>
   );

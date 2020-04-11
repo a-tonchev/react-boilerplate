@@ -9,13 +9,21 @@ import { FormHelperText } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   formControl: {
-    minWidth: 120,
+    minWidth: 50,
+    verticalAlign: 'middle',
   },
 }));
 
 
 const CustomSelect = ({
-  label, value, onChange, error, options = [], ...rest
+  label,
+  value,
+  onChange,
+  error,
+  name,
+  fullWidth = true,
+  options = [],
+  ...rest
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -26,8 +34,12 @@ const CustomSelect = ({
   };
 
   return (
-    <FormControl fullWidth className={classes.formControl} error={!!error}>
-      <InputLabel id="demo-simple-select-helper-label">{label}</InputLabel>
+    <FormControl
+      fullWidth={fullWidth}
+      className={classes.formControl}
+      error={!!error}
+    >
+      {label && <InputLabel id="demo-simple-select-helper-label">{label}</InputLabel>}
       <Select
         value={value}
         onChange={handleChange}

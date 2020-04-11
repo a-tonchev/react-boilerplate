@@ -14,6 +14,7 @@ import CustomButton from '../customInputs/CustomButton';
 const useStyles = makeStyles(() => ({
   root: {
     boxSizing: 'border-box',
+    zIndex: 1000,
   },
   media: {
     height: 0,

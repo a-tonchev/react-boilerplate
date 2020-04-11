@@ -6,7 +6,7 @@ import {
   GridList, GridListTile, GridListTileBar, Icon, IconButton,
 } from '@material-ui/core';
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
-import PageCard from './PageCard';
+import ItemCard from './ItemCard';
 import CustomLink from '../common/customInputs/CustomLink';
 import StringHelper from '../../helpers/StringHelper';
 
@@ -47,7 +47,7 @@ const getGridData = props => {
   };
 };
 
-const PageListTextOver = ({ pages, ...props }) => {
+const ItemsListTextOver = ({ pages, ...props }) => {
   const {
     tileHeight,
     columns,
@@ -82,4 +82,4 @@ const PageListTextOver = ({ pages, ...props }) => {
   );
 };
 
-export default withWidth()(PageListTextOver);
+export default withWidth()(ItemsListTextOver);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   Link, withRouter,
 } from 'react-router-dom';
@@ -6,6 +6,7 @@ import withWidth from '@material-ui/core/withWidth';
 import Pagination from '@material-ui/lab/Pagination';
 import PaginationItem from '@material-ui/lab/PaginationItem';
 import { makeStyles, withTheme } from '@material-ui/core/styles';
+import { ItemContext } from '../../../contexts/ItemContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,46 +17,62 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     marginTop: 20,
   },
+  showOneRoot: {
+    display: 'inline-block',
+  },
   pagination: {
     display: 'inline-block',
   },
 }));
 
 const CustomPagination = ({
-  page, theme, perPage, total = 0, setPage, location, history,
+  theme,
+  location,
+  showOne,
 }) => {
+  const [pPage, setPPage] = useState(1);
+  const { pagingData } = useContext(ItemContext);
+  const { totalPages = 1, setPage = () => {}, page = 1 } = pagingData;
   const { isMobile } = theme;
   const classes = useStyles();
   const query = new URLSearchParams(location.search);
-  const queryPage = parseInt(query.get('page'), 10) || 1;
   const { pathname } = location;
-  const totalPages = Math.ceil(total / perPage);
-  useEffect(() => {
-    if (queryPage > totalPages) {
-      query.delete('page');
-      const newUrl = `${pathname}?${query.toString()}`;
-      history.push(newUrl);
-    } else if (queryPage !== page) setPage(queryPage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleChange = (event, value) => {
+    setPPage(value);
     setPage(value);
+    if (!showOne) {
+      window.scrollTo({ top: 0, left: 0 });
+    }
   };
+
+  useEffect(() => {
+    if (page !== pPage) {
+      setPPage(page);
+    }
+  }, [page]);
+
   return (
-    <div className={classes.root}>
+    <div className={showOne ? classes.showOneRoot : classes.root}>
       <Pagination
-        page={page}
+        page={pPage}
         onChange={handleChange}
         className={classes.pagination}
-        count={!total ? 1 : totalPages}
+        count={totalPages}
         color="primary"
         size="large"
         siblingCount={isMobile ? 0 : 1}
         renderItem={item => {
-          const { page: itemPage } = item;
+          const { page: itemPage, type, selected } = item;
           query.set('page', itemPage);
           const newUrl = `${pathname}?${query.toString()}`;
+          if (
+            (showOne
+            && !selected
+            && type === 'page')
+            || (type === 'end-ellipsis'
+            || type === 'start-ellipsis')
+          ) return <div />;
           return (
             <PaginationItem
               component={Link}

@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet/es/Helmet';
 import Authorized from './auth/Authorized';
 import CustomLink from './common/customInputs/CustomLink';
-import AllPages from './pages/AllPages';
+import AllItems from './items/AllItems';
 import { UserContext } from '../contexts/UserContext';
 
 const useStyles = makeStyles({
@@ -53,7 +53,7 @@ const Home = () => {
           </Authorized>
         </CardActions>
       </Card>
-      <AllPages />
+      <AllItems />
     </>
   );
 };
