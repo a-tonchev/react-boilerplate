@@ -62,13 +62,14 @@ const ItemContextProvider = ({ children, location, history }) => {
 
   useEffect(() => {
     if (!itemsMounted && preparedItems.length) setItemsMounted(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preparedItems]);
 
   useEffect(() => {
-    // window.scrollTo({ top: 0, left: 0 });
     if (page > totalPages && (itemsLength || itemsMounted)) {
       resetPage();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, totalPages, itemsLength]);
 
   useEffect(() => {

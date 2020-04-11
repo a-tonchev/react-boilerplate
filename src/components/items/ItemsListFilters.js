@@ -42,9 +42,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ItemsListFilters = ({
-
-}) => {
+const ItemsListFilters = () => {
   const classes = useStyles();
 
   const { pagingData } = useContext(ItemContext);
