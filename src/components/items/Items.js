@@ -24,18 +24,20 @@ const Items = () => {
   const { loading, setLoading } = useLoading(true);
 
   const {
-    pagingData,
+    filtersData,
     setItemsData,
   } = useContext(ItemContext);
 
   const {
     pageData,
     resetPage,
-  } = pagingData;
+  } = filtersData;
 
   const {
     page,
     perPage,
+    sortBy,
+    sortDirection,
   } = pageData;
 
   const getNewItems = async () => {
@@ -43,6 +45,8 @@ const Items = () => {
     const newItemsData = await Connections.getFakePagesData({
       perPage,
       page,
+      sortBy,
+      sortDirection,
     });
     const {
       items,
@@ -61,7 +65,7 @@ const Items = () => {
   useEffect(() => {
     getNewItems().then();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, perPage]);
+  }, [page, perPage, sortBy, sortDirection]);
 
   return (
     <Grid container spacing={1} className={classes.root}>

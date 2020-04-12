@@ -1,26 +1,7 @@
 import React, { useState, createContext, useEffect } from 'react';
-import usePages from '../components/common/customHooks/pageHook';
-import useSorting from '../components/common/customHooks/sortingHook';
+import useFilters, { sortingTypes, perPageValues } from '../components/common/customHooks/filtersHook';
 import UrlHelper from '../helpers/UrlHelper';
 import Loading from '../components/common/loading/Loading';
-
-const sortingTypes = [
-  {
-    name: 'bestMatch',
-    translation: 'sorting.bestMatch',
-    directions: ['desc'],
-  },
-  {
-    name: 'date',
-    translation: 'sorting.date',
-    directions: ['asc', 'desc'],
-  },
-  {
-    name: 'price',
-    translation: 'sorting.price',
-    directions: ['asc', 'desc'],
-  },
-];
 
 const defaultValues = {
   sortingData: {
@@ -28,10 +9,10 @@ const defaultValues = {
     sortingTypes,
     sortDirection: sortingTypes[0].directions[0],
   },
-  pagingData: {
+  filtersData: {
     page: 1,
     setPage: () => {},
-    perPage: 24,
+    perPage: perPageValues[0],
     setPerPage: () => {},
     itemsLength: 0,
     totalPages: 1,
@@ -50,27 +31,55 @@ const ItemContextProvider = ({ children }) => {
   const [mounted, setMounted] = useState(false);
 
   const { itemsLength } = itemsData;
-  const pagingData = usePages({ itemsLength });
-  const sortingData = useSorting(sortingTypes);
+  const filtersData = useFilters({ itemsLength });
 
   const {
     setPageData,
     pageData,
-  } = pagingData;
+  } = filtersData;
 
   const {
     page,
     perPage,
+    sortBy,
+    sortDirection,
   } = pageData;
 
   useEffect(() => {
     const queryPage = UrlHelper.getIntParam('page', 1);
-    const queryPerPage = UrlHelper.getIntParam('perPage', 24);
+    let queryPerPage = UrlHelper.getIntParam('perPage', perPageValues[0]);
+    let querySortBy = UrlHelper.getParam('sortBy');
+    const sortingType = sortingTypes.find(st => st.name === querySortBy);
+    let querySortDirection = UrlHelper.getParam('sortDirection');
 
+    if (!perPageValues.includes(queryPerPage)) {
+      [queryPerPage] = perPageValues;
+      UrlHelper.setParam('perPage', queryPerPage);
+    }
+
+    if (sortingType) {
+      querySortDirection = !sortingType.directions.includes(querySortDirection)
+        ? sortingType.directions[0]
+        : querySortDirection;
+      UrlHelper.setParam('sortDirection', querySortDirection);
+    } else {
+      querySortBy = '';
+      querySortDirection = '';
+      UrlHelper.deleteParam('sortBy');
+      UrlHelper.deleteParam('sortDirection');
+    }
     const newPageData = {
       ...pageData,
-      perPage: (queryPerPage === 48) ? queryPerPage : perPage,
+      perPage: queryPerPage,
       page: (queryPage !== page) ? queryPage : page,
+      sortBy: (
+        querySortBy &&
+        querySortBy !== sortBy
+      ) ? querySortBy : sortBy,
+      sortDirection: (
+        querySortDirection &&
+        querySortDirection !== sortDirection
+      ) ? querySortDirection : sortDirection,
     };
 
     setPageData({ ...newPageData });
@@ -82,8 +91,7 @@ const ItemContextProvider = ({ children }) => {
   return (
     <ItemContext.Provider
       value={{
-        pagingData,
-        sortingData,
+        filtersData,
         itemsData,
         setItemsData,
       }}

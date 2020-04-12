@@ -35,5 +35,9 @@
   "pages.all": "All pages",
   "field.required": "The field is required!",
   "name.invalid": "Name should be at least 2 letters!",
-  "by": "by"
+  "by": "by",
+  "sorting.bestMatch": "Best Match",
+  "sorting.date": "Newest",
+  "sorting.price": "Price",
+  "sortBy": "Sort by"
 }

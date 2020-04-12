@@ -7,13 +7,15 @@ import {
   Typography,
   Card,
   Divider,
+  TableSortLabel,
 } from '@material-ui/core';
 import withWidth from '@material-ui/core/withWidth';
+import { useTranslation } from 'react-i18next';
 import CustomButton from '../common/customInputs/CustomButton';
 import CustomSelect from '../common/customInputs/CustomSelect';
 import CustomPagination from '../common/customInputs/CustomPagination';
 import { ItemContext } from '../../contexts/ItemContext';
-import Loading from '../common/loading/Loading';
+import { perPageValues, sortingTypes } from '../common/customHooks/filtersHook';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,10 +48,11 @@ const useStyles = makeStyles(theme => ({
 const ItemsListFilters = () => {
   const classes = useStyles();
 
-  const { pagingData } = useContext(ItemContext);
-  const { setPerPage = () => {}, pageData } = pagingData;
-  const { perPage } = pageData;
+  const { t } = useTranslation();
 
+  const { filtersData } = useContext(ItemContext);
+  const { setPerPage = () => {}, pageData, setSortBy } = filtersData;
+  const { perPage, sortBy, sortDirection } = pageData;
   const changePerPage = ({ value }) => {
     setPerPage(value);
   };
@@ -61,38 +64,48 @@ const ItemsListFilters = () => {
           <Typography
             display="inline"
             variant="body1"
-          >Sort by:
+          > {t('sortBy')}:
           </Typography>
           <Card
             className={classes.root}
             variant="outlined"
             display="inline"
           >
-            <CustomButton
-              variant="text"
-              size="small"
-              color="primary"
-            >
-              Best Match
-            </CustomButton>
-            <div className={classes.dividerBox}>
-              <Divider className={classes.divider} orientation="vertical" />
-            </div>
-            <CustomButton
-              variant="text"
-              size="small"
-            >
-              Newest
-            </CustomButton>
-            <div className={classes.dividerBox}>
-              <Divider className={classes.divider} orientation="vertical" />
-            </div>
-            <CustomButton
-              variant="text"
-              size="small"
-            >
-              Price
-            </CustomButton>
+            {
+              sortingTypes.map((st, index) => {
+                const { name: itemSortBy, directions, translation } = st;
+                const showSort = sortBy === itemSortBy && directions.length > 1;
+                let directionForNextSort = directions[0];
+                if (showSort) {
+                  directionForNextSort = sortDirection === directions[0] ? directions[1] : directionForNextSort;
+                }
+
+                return (
+                  <span key={itemSortBy}>
+                    <CustomButton
+                      variant="text"
+                      size="small"
+                      color={sortBy === itemSortBy ? 'primary' : 'default'}
+                      onClick={() => setSortBy(itemSortBy, directionForNextSort)}
+                    >
+                      {showSort && (
+                      <TableSortLabel
+                        active
+                        direction={sortDirection}
+                        onClick={() => {}}
+                      />
+                      )}
+                      {t(translation)}
+                    </CustomButton>
+                    {index < sortingTypes.length - 1 && (
+                    <div className={classes.dividerBox}>
+                      <Divider className={classes.divider} orientation="vertical" />
+                    </div>
+                    )}
+                  </span>
+                );
+              })
+            }
           </Card>
         </Grid>
         <Grid item xs={12} md={6} className={classes.view}>
@@ -108,14 +121,12 @@ const ItemsListFilters = () => {
             name="perPage"
             value={perPage}
             onChange={changePerPage}
-            options={[{
-              value: 24,
-              text: '24',
-            }, {
-              value: 48,
-              text: '48',
-            },
-            ]}
+            options={
+              perPageValues.map(val => ({
+                value: val,
+                text: val,
+              }))
+            }
           />
           <CustomPagination
             key="customPagination"

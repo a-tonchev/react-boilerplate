@@ -33,9 +33,9 @@ const CustomPagination = ({
   showOne,
 }) => {
   const [pPage, setPPage] = useState(1);
-  const { pagingData, itemsData } = useContext(ItemContext);
+  const { filtersData, itemsData } = useContext(ItemContext);
   const { itemsMounted } = itemsData;
-  const { totalPages = 1, setPage = () => {}, pageData } = pagingData;
+  const { totalPages = 1, setPage = () => {}, pageData } = filtersData;
   const {
     page = 1,
   } = pageData;

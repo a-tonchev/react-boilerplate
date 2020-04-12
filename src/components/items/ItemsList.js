@@ -47,10 +47,10 @@ const ItemsList = ({
 }) => {
   const classes = useStyles();
   const {
-    pagingData,
+    filtersData,
     itemsData,
   } = useContext(ItemContext);
-  const { pageData } = pagingData;
+  const { pageData } = filtersData;
   const { perPage } = pageData;
   const { items, itemsMounted } = itemsData;
   const itemsList = items.map(
