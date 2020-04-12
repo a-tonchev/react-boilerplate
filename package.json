@@ -25,6 +25,7 @@
     "start": "react-scripts start",
     "start-secure": "HTTPS=true SSL_CRT_FILE=certs/cert.pem SSL_KEY_FILE=certs/key.pem react-scripts start",
     "build": "react-scripts build",
+    "serve-build": "serve -s build -l 4000",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --fix --ext .js ."
