@@ -13,6 +13,7 @@ import CustomButton from '../common/customInputs/CustomButton';
 import CustomSelect from '../common/customInputs/CustomSelect';
 import CustomPagination from '../common/customInputs/CustomPagination';
 import { ItemContext } from '../../contexts/ItemContext';
+import Loading from '../common/loading/Loading';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,10 +47,13 @@ const ItemsListFilters = () => {
   const classes = useStyles();
 
   const { pagingData } = useContext(ItemContext);
-  const { setPerPage = () => {}, perPage = 24 } = pagingData;
+  const { setPerPage = () => {}, pageData } = pagingData;
+  const { perPage } = pageData;
+
   const changePerPage = ({ value }) => {
     setPerPage(value);
   };
+
   return (
     <Grid item xs={12}>
       <Grid container spacing={0}>

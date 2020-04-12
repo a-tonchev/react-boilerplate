@@ -1,7 +1,8 @@
 import React, { useState, createContext, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
 import usePages from '../components/common/customHooks/pageHook';
 import useSorting from '../components/common/customHooks/sortingHook';
+import UrlHelper from '../helpers/UrlHelper';
+import Loading from '../components/common/loading/Loading';
 
 const sortingTypes = [
   {
@@ -33,62 +34,58 @@ const defaultValues = {
     perPage: 24,
     setPerPage: () => {},
     itemsLength: 0,
-    totalPages: 0,
+    totalPages: 1,
+  },
+  itemsData: {
+    items: [],
+    itemsMounted: false,
+    itemsLength: 0,
   },
 };
 
 const ItemContext = createContext(defaultValues);
 
-const ItemContextProvider = ({ children, location, history }) => {
-  const [preparedItems, setPreparedItems] = useState([]);
-  const [allItems, setAllItems] = useState([]);
-  const [itemsMounted, setItemsMounted] = useState(false);
+const ItemContextProvider = ({ children }) => {
+  const [itemsData, setItemsData] = useState(defaultValues.itemsData);
+  const [mounted, setMounted] = useState(false);
 
-  const pagingData = usePages({ items: allItems, location, history });
+  const { itemsLength } = itemsData;
+  const pagingData = usePages({ itemsLength });
   const sortingData = useSorting(sortingTypes);
 
-  const query = new URLSearchParams(location.search);
-  const queryPage = parseInt(query.get('page'), 10) || 1;
-  const queryPerPage = parseInt(query.get('perPage'), 10) || 24;
-
   const {
-    totalPages,
-    page,
-    setPage,
-    itemsLength,
-    setItemsPerPage,
-    resetPage,
+    setPageData,
+    pageData,
   } = pagingData;
 
-  useEffect(() => {
-    if (!itemsMounted && preparedItems.length) setItemsMounted(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [preparedItems]);
+  const {
+    page,
+    perPage,
+  } = pageData;
 
   useEffect(() => {
-    if (page > totalPages && (itemsLength || itemsMounted)) {
-      resetPage();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, totalPages, itemsLength]);
+    const queryPage = UrlHelper.getIntParam('page', 1);
+    const queryPerPage = UrlHelper.getIntParam('perPage', 24);
 
-  useEffect(() => {
-    if (queryPage !== page) setPage(queryPage);
-    if (queryPerPage === 48) setItemsPerPage(queryPerPage);
+    const newPageData = {
+      ...pageData,
+      perPage: (queryPerPage === 48) ? queryPerPage : perPage,
+      page: (queryPage !== page) ? queryPage : page,
+    };
+
+    setPageData({ ...newPageData });
+    setMounted(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  if (!mounted) return <Loading />;
 
   return (
     <ItemContext.Provider
       value={{
         pagingData,
         sortingData,
-        preparedItems,
-        setPreparedItems,
-        allItems,
-        setAllItems,
-        itemsMounted,
-        setItemsMounted,
+        itemsData,
+        setItemsData,
       }}
     >
       {children}
@@ -98,10 +95,8 @@ const ItemContextProvider = ({ children, location, history }) => {
 
 const ItemContextConsumer = ItemContext.Consumer;
 
-const routedItemContextProvider = withRouter(ItemContextProvider);
-
 export {
   ItemContext,
-  routedItemContextProvider as ItemContextProvider,
+  ItemContextProvider,
   ItemContextConsumer,
 };

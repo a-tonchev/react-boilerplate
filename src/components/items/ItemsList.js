@@ -5,8 +5,6 @@ import {
 } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import ItemCard from './ItemCard';
-import PageListFilters from './ItemsListFilters';
-import CustomPagination from '../common/customInputs/CustomPagination';
 import LoadingItem from '../common/loading/LoadingItem';
 import { ItemContext } from '../../contexts/ItemContext';
 
@@ -44,13 +42,18 @@ const getLoadingCards = (perPage, classes) => {
   return cards;
 };
 
-
 const ItemsList = ({
   loading,
 }) => {
   const classes = useStyles();
-  const { pagingData, preparedItems, itemsMounted } = useContext(ItemContext);
-  const itemsList = preparedItems.map(
+  const {
+    pagingData,
+    itemsData,
+  } = useContext(ItemContext);
+  const { pageData } = pagingData;
+  const { perPage } = pageData;
+  const { items, itemsMounted } = itemsData;
+  const itemsList = items.map(
     ({ title, id, image }) => (
       <ItemCard
         plain
@@ -61,30 +64,21 @@ const ItemsList = ({
       />
     ),
   );
+  if (loading || !itemsMounted) {
+    return (
+      <Grid item xs={12}>
+        <Grid container spacing={2}>
+          {getLoadingCards(perPage, classes)}
+        </Grid>
+      </Grid>
+    );
+  }
+
   return (
-    <Grid container className={`${classes.gridList}`} spacing={0}>
-      <PageListFilters
-        key="pageListFilters"
-      />
-      {
-        loading || !itemsMounted ? (
-          <Grid item xs={12}>
-            <Grid container spacing={2}>
-              {getLoadingCards(pagingData.perPage, classes)}
-            </Grid>
-          </Grid>
-        )
-          : (
-            <Grid item xs={12}>
-              <Grid container spacing={2}>
-                {itemsList}
-              </Grid>
-            </Grid>
-          )
-      }
-      <CustomPagination
-        key="customPagination"
-      />
+    <Grid item xs={12}>
+      <Grid container spacing={2}>
+        {itemsList}
+      </Grid>
     </Grid>
   );
 };

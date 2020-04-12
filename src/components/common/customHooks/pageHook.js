@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import UrlHelper from '../../../helpers/UrlHelper';
 
 function usePrevious(value) {
   const ref = useRef();
@@ -10,41 +11,46 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const usePages = ({ items, location, history }) => {
-  const [page, setPage] = useState(1);
-  const itemsLength = items.length;
-  const previousPage = usePrevious(page);
-  const [perPage, setItemsPerPage] = useState(24);
+const defaultPageData = {
+  page: 1,
+  perPage: 24,
+};
 
-  const resetPage = () => {
-    setPage(1);
-    const query = new URLSearchParams(location.search);
-    const { pathname } = location;
-    query.delete('page');
-    const newUrl = `${pathname}?${query.toString()}`;
-    history.push(newUrl);
-  };
-
-  const setPerPage = (itemsPerPage) => {
-    setItemsPerPage(itemsPerPage);
-    setPage(1);
-    const query = new URLSearchParams(location.search);
-    const { pathname } = location;
-    query.set('perPage', itemsPerPage);
-    query.set('page', '1');
-    const newUrl = `${pathname}?${query.toString()}`;
-    history.push(newUrl);
-  };
-
+const usePages = ({ itemsLength }) => {
+  const [pageData, setPageData] = useState(defaultPageData);
+  const { page, perPage } = pageData;
   const totalPages = Math.ceil(itemsLength / perPage) || 1;
+
+  const setDataAttr = attr => value => {
+    setPageData({
+      ...pageData,
+      [attr]: value,
+    });
+  };
+
+  const previousPage = usePrevious(page);
+
+  const resetPage = (newPage = 1) => {
+    setDataAttr('page')(newPage);
+    UrlHelper.deleteParam('page');
+  };
+
+  const setPerPage = (newPerPage) => {
+    setPageData({
+      ...pageData,
+      perPage: newPerPage,
+      page: 1,
+    });
+    UrlHelper.setParam('perPage', newPerPage);
+    UrlHelper.setParam('page', 1);
+  };
+
   return {
     previousPage,
-    page,
-    setPage,
-    perPage,
-    itemsLength,
     totalPages,
-    setItemsPerPage,
+    setPage: setDataAttr('page'),
+    pageData,
+    setPageData,
     setPerPage,
     resetPage,
   };

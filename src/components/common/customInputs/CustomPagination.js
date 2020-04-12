@@ -7,6 +7,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import PaginationItem from '@material-ui/lab/PaginationItem';
 import { makeStyles, withTheme } from '@material-ui/core/styles';
 import { ItemContext } from '../../../contexts/ItemContext';
+import Loading from '../loading/Loading';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   showOneRoot: {
     display: 'inline-block',
+    minWidth: 84,
   },
   pagination: {
     display: 'inline-block',
@@ -31,8 +33,13 @@ const CustomPagination = ({
   showOne,
 }) => {
   const [pPage, setPPage] = useState(1);
-  const { pagingData } = useContext(ItemContext);
-  const { totalPages = 1, setPage = () => {}, page = 1 } = pagingData;
+  const { pagingData, itemsData } = useContext(ItemContext);
+  const { itemsMounted } = itemsData;
+  const { totalPages = 1, setPage = () => {}, pageData } = pagingData;
+  const {
+    page = 1,
+  } = pageData;
+
   const { isMobile } = theme;
   const classes = useStyles();
   const query = new URLSearchParams(location.search);
@@ -55,34 +62,36 @@ const CustomPagination = ({
 
   return (
     <div className={showOne ? classes.showOneRoot : classes.root}>
-      <Pagination
-        page={pPage}
-        onChange={handleChange}
-        className={classes.pagination}
-        count={totalPages}
-        color="primary"
-        size="large"
-        siblingCount={isMobile ? 0 : 1}
-        renderItem={item => {
-          const { page: itemPage, type, selected } = item;
-          query.set('page', itemPage);
-          const newUrl = `${pathname}?${query.toString()}`;
-          if (
-            (showOne
+      {!itemsMounted ? <Loading /> : (
+        <Pagination
+          page={pPage}
+          onChange={handleChange}
+          className={classes.pagination}
+          count={totalPages}
+          color="primary"
+          size={showOne ? 'small' : 'large'}
+          siblingCount={isMobile ? 0 : 1}
+          renderItem={item => {
+            const { page: itemPage, type, selected } = item;
+            query.set('page', itemPage);
+            const newUrl = `${pathname}?${query.toString()}`;
+            if (
+              (showOne
             && !selected
             && type === 'page')
             || (type === 'end-ellipsis'
             || type === 'start-ellipsis')
-          ) return <div />;
-          return (
-            <PaginationItem
-              component={Link}
-              to={newUrl}
-              {...item}
-            />
-          );
-        }}
-      />
+            ) return <div />;
+            return (
+              <PaginationItem
+                component={Link}
+                to={newUrl}
+                {...item}
+              />
+            );
+          }}
+        />
+      )}
     </div>
   );
 };
