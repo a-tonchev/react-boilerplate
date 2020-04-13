@@ -2,9 +2,11 @@ import React, { useEffect, useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 
 const Logout = () => {
-  const { logoutUser } = useContext(UserContext);
+  const { dispatchUserData } = useContext(UserContext);
   useEffect(() => {
-    logoutUser();
+    dispatchUserData({
+      type: 'LOGOUT_USER',
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

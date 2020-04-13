@@ -15,7 +15,7 @@ import CustomButton from '../common/customInputs/CustomButton';
 import CustomSelect from '../common/customInputs/CustomSelect';
 import CustomPagination from '../common/customInputs/CustomPagination';
 import { ItemContext } from '../../contexts/ItemContext';
-import { perPageValues, sortingTypes } from '../common/customHooks/filtersHook';
+import { sortingTypes, perPageValues } from '../../config/ItemConfig';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,11 +50,14 @@ const ItemsListFilters = () => {
 
   const { t } = useTranslation();
 
-  const { filtersData } = useContext(ItemContext);
-  const { setPerPage = () => {}, pageData, setSortBy } = filtersData;
-  const { perPage, sortBy, sortDirection } = pageData;
+  const { itemsData, dispatchItemsData } = useContext(ItemContext);
+  const { perPage, sortBy, sortDirection } = itemsData;
+
   const changePerPage = ({ value }) => {
-    setPerPage(value);
+    dispatchItemsData({
+      type: 'SET_PER_PAGE',
+      perPage: value,
+    });
   };
 
   return (
@@ -86,7 +89,11 @@ const ItemsListFilters = () => {
                       variant="text"
                       size="small"
                       color={sortBy === itemSortBy ? 'primary' : 'default'}
-                      onClick={() => setSortBy(itemSortBy, directionForNextSort)}
+                      onClick={() => dispatchItemsData({
+                        sortBy: itemSortBy,
+                        sortDirection: directionForNextSort,
+                        type: 'SET_SORT_BY',
+                      })}
                     >
                       {showSort && (
                       <TableSortLabel

@@ -47,12 +47,9 @@ const ItemsList = ({
 }) => {
   const classes = useStyles();
   const {
-    filtersData,
     itemsData,
   } = useContext(ItemContext);
-  const { pageData } = filtersData;
-  const { perPage } = pageData;
-  const { items, itemsMounted } = itemsData;
+  const { perPage, items, itemsMounted } = itemsData;
   const itemsList = items.map(
     ({ title, id, image }) => (
       <ItemCard

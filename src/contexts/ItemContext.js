@@ -1,49 +1,67 @@
-import React, { useState, createContext, useEffect } from 'react';
-import useFilters, { sortingTypes, perPageValues } from '../components/common/customHooks/filtersHook';
+import React, {
+  createContext, useEffect, useReducer,
+} from 'react';
 import UrlHelper from '../helpers/UrlHelper';
 import Loading from '../components/common/loading/Loading';
+import { viewTypes, sortingTypes, perPageValues } from '../config/ItemConfig';
 
 const defaultValues = {
-  sortingData: {
-    sortBy: sortingTypes[0].name,
-    sortingTypes,
-    sortDirection: sortingTypes[0].directions[0],
-  },
-  filtersData: {
-    page: 1,
-    setPage: () => {},
-    perPage: perPageValues[0],
-    setPerPage: () => {},
-    itemsLength: 0,
-    totalPages: 1,
-  },
-  itemsData: {
-    items: [],
-    itemsMounted: false,
-    itemsLength: 0,
-  },
+  items: [],
+  itemsMounted: false,
+  itemsLength: 0,
+  page: 1,
+  perPage: 24,
+  sortBy: sortingTypes[0].name,
+  sortDirection: sortingTypes[0].directions[0],
+  view: viewTypes[0],
+  mounted: false,
 };
+
+function reducer(state, action) {
+  const { type, ...restActions } = action;
+
+  switch (type) {
+    case 'RESET_PAGE':
+      UrlHelper.deleteParam('page');
+      return {
+        ...state,
+        ...restActions,
+      };
+    case 'SET_PER_PAGE':
+      UrlHelper.setParam('perPage', restActions.perPage);
+      UrlHelper.setParam('page', 1);
+      return {
+        ...state,
+        perPage: restActions.perPage,
+        page: 1,
+      };
+    case 'SET_SORT_BY':
+      UrlHelper.setParam('sortBy', restActions.sortBy);
+      UrlHelper.setParam('sortDirection', restActions.sortDirection);
+      return {
+        ...state,
+        sortBy: restActions.sortBy || state.sortBy,
+        sortDirection: restActions.sortDirection || state.sortDirection,
+      };
+    default:
+      return {
+        ...state,
+        ...restActions,
+      };
+  }
+}
 
 const ItemContext = createContext(defaultValues);
 
 const ItemContextProvider = ({ children }) => {
-  const [itemsData, setItemsData] = useState(defaultValues.itemsData);
-  const [mounted, setMounted] = useState(false);
-
-  const { itemsLength } = itemsData;
-  const filtersData = useFilters({ itemsLength });
-
-  const {
-    setPageData,
-    pageData,
-  } = filtersData;
+  const [itemsData, dispatchItemsData] = useReducer(reducer, defaultValues);
 
   const {
     page,
-    perPage,
     sortBy,
     sortDirection,
-  } = pageData;
+    mounted,
+  } = itemsData;
 
   useEffect(() => {
     const queryPage = UrlHelper.getIntParam('page', 1);
@@ -68,8 +86,7 @@ const ItemContextProvider = ({ children }) => {
       UrlHelper.deleteParam('sortBy');
       UrlHelper.deleteParam('sortDirection');
     }
-    const newPageData = {
-      ...pageData,
+    const newItemData = {
       perPage: queryPerPage,
       page: (queryPage !== page) ? queryPage : page,
       sortBy: (
@@ -80,10 +97,10 @@ const ItemContextProvider = ({ children }) => {
         querySortDirection &&
         querySortDirection !== sortDirection
       ) ? querySortDirection : sortDirection,
+      mounted: true,
     };
 
-    setPageData({ ...newPageData });
-    setMounted(true);
+    dispatchItemsData(newItemData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (!mounted) return <Loading />;
@@ -91,9 +108,8 @@ const ItemContextProvider = ({ children }) => {
   return (
     <ItemContext.Provider
       value={{
-        filtersData,
         itemsData,
-        setItemsData,
+        dispatchItemsData,
       }}
     >
       {children}

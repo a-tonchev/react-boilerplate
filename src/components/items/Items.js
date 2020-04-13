@@ -24,45 +24,41 @@ const Items = () => {
   const { loading, setLoading } = useLoading(true);
 
   const {
-    filtersData,
-    setItemsData,
+    itemsData,
+    dispatchItemsData,
   } = useContext(ItemContext);
-
-  const {
-    pageData,
-    resetPage,
-  } = filtersData;
 
   const {
     page,
     perPage,
     sortBy,
     sortDirection,
-  } = pageData;
-
-  const getNewItems = async () => {
-    setLoading(true);
-    const newItemsData = await Connections.getFakePagesData({
-      perPage,
-      page,
-      sortBy,
-      sortDirection,
-    });
-    const {
-      items,
-      itemsLength,
-      newPage,
-    } = newItemsData;
-    setItemsData({
-      itemsLength,
-      items,
-      itemsMounted: true,
-    });
-    if (newPage !== page) resetPage(newPage);
-    setLoading(false);
-  };
+  } = itemsData;
 
   useEffect(() => {
+    const getNewItems = async () => {
+      setLoading(true);
+      const newItemsData = await Connections.getFakePagesData({
+        perPage,
+        page,
+        sortBy,
+        sortDirection,
+      });
+      const {
+        items,
+        itemsLength,
+        newPage,
+      } = newItemsData;
+      dispatchItemsData({
+        items,
+        itemsLength,
+        itemsMounted: true,
+        type: newPage && newPage !== page ? 'RESET_PAGE' : '',
+        page: newPage && newPage !== page ? newPage : page,
+      });
+      setLoading(false);
+    };
+
     getNewItems().then();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, perPage, sortBy, sortDirection]);

@@ -73,7 +73,7 @@ export default function SignUp() {
     validations,
   });
 
-  const { loginUser } = useContext(UserContext);
+  const { dispatchUserData } = useContext(UserContext);
 
   const login = async () => {
     setCustomError(null);
@@ -83,7 +83,10 @@ export default function SignUp() {
       if (!user) {
         setCustomError({ email: 'user.notFound' });
       } else {
-        loginUser(user);
+        dispatchUserData({
+          ...user,
+          type: 'LOGIN_USER',
+        });
       }
     }
   };

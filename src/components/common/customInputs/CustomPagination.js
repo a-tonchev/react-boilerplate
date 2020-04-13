@@ -33,12 +33,14 @@ const CustomPagination = ({
   showOne,
 }) => {
   const [pPage, setPPage] = useState(1);
-  const { filtersData, itemsData } = useContext(ItemContext);
-  const { itemsMounted } = itemsData;
-  const { totalPages = 1, setPage = () => {}, pageData } = filtersData;
+  const { itemsData, dispatchItemsData } = useContext(ItemContext);
   const {
+    itemsMounted,
     page = 1,
-  } = pageData;
+    itemsLength,
+    perPage,
+  } = itemsData;
+  const totalPages = Math.ceil(itemsLength / perPage) || 1;
 
   const { isMobile } = theme;
   const classes = useStyles();
@@ -47,7 +49,9 @@ const CustomPagination = ({
 
   const handleChange = (event, value) => {
     setPPage(value);
-    setPage(value);
+    dispatchItemsData({
+      page: value,
+    });
     if (!showOne) {
       window.scrollTo({ top: 0, left: 0 });
     }
@@ -72,7 +76,11 @@ const CustomPagination = ({
           size={showOne ? 'small' : 'large'}
           siblingCount={isMobile ? 0 : 1}
           renderItem={item => {
-            const { page: itemPage, type, selected } = item;
+            const {
+              page: itemPage,
+              type,
+              selected,
+            } = item;
             query.set('page', itemPage);
             const newUrl = `${pathname}?${query.toString()}`;
             if (

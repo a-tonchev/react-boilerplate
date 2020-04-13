@@ -36,11 +36,14 @@ const useStyles = makeStyles(theme => ({
 
 const LanguagesPicker = () => {
   const classes = useStyles();
-  const { changeLanguage } = useContext(UserContext);
+  const { dispatchUserData } = useContext(UserContext);
   const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
   const handleChange = event => {
-    changeLanguage(event.target.value);
+    dispatchUserData({
+      language: event.target.value,
+      type: 'CHANGE_LANGUAGE',
+    });
     setLang(event.target.value);
   };
   const { language } = i18n;
