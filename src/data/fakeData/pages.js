@@ -1,9 +1,14 @@
-const users = [
+const pages = [
   {
     id: 1,
-    title: 'Lorem ipsum dolor sit amet',
+    title: 'Lorem ipsum dolor sit amet Description Lorem ipsum dolor sit amet Description Lorem ipsum ' +
+      'Description Lorem ipsum dolor sit amet Description Lorem ipsum Description Lorem ipsum dolor ' +
+      'sit amet Description Lorem ipsum Description Lorem ipsum dolor sit amet Description Lorem ipsum',
     image: 'page-1.jpg',
-    description: 'Description Lorem ipsum dolor sit amet',
+    description: 'Description Lorem ipsum dolor sit amet Description Lorem ipsum ' +
+      'dolor sit ametDescription Lorem ipsum dolor sit amet Description Lorem ipsum' +
+      ' dolor sit ametDescription Lorem ipsum dolor sit ametDescription Lorem ipsum dolor' +
+      ' sit ametDescription Lorem ipsum dolor sit ametDescription Lorem ipsum dolor sit amet',
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' +
       'incididunt ut labore et dolore magna aliqua. Porttitor eget dolor morbi non arcu ' +
       'risus quis varius quam. Tortor id aliquet lectus proin nibh nisl. Leo vel orci ' +
@@ -1280,4 +1285,4 @@ const users = [
     metaKeywords: 'enim, nec, dui, nunc, mattis',
   },
 ];
-export default users;
+export default pages;

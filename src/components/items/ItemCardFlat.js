@@ -35,11 +35,17 @@ const useStyles = makeStyles(() => ({
     fontSize: '150%',
   },
   text: {
-    whiteSpace: 'nowrap',
+    // whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     marginTop: 5,
     padding: 10,
+    minHeight: 21,
+    maxHeight: 50,
+    display: '-webkit-box',
+    '-webkit-line-clamp': '2',
+    '-webkit-box-orient': 'vertical',
+    maxWidth: 450,
   },
   cardActions: {
     padding: 0,
