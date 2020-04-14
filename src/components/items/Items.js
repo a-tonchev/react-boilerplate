@@ -36,6 +36,7 @@ const Items = () => {
   } = itemsData;
 
   useEffect(() => {
+    let isMounted = true;
     const getNewItems = async () => {
       setLoading(true);
       const newItemsData = await Connections.getFakePagesData({
@@ -44,22 +45,27 @@ const Items = () => {
         sortBy,
         sortDirection,
       });
-      const {
-        items,
-        itemsLength,
-        newPage,
-      } = newItemsData;
-      dispatchItemsData({
-        items,
-        itemsLength,
-        itemsMounted: true,
-        type: newPage && newPage !== page ? 'RESET_PAGE' : '',
-        page: newPage && newPage !== page ? newPage : page,
-      });
-      setLoading(false);
+      if (isMounted) {
+        const {
+          items,
+          itemsLength,
+          newPage,
+        } = newItemsData;
+        dispatchItemsData({
+          items,
+          itemsLength,
+          itemsMounted: true,
+          type: newPage && newPage !== page ? 'RESET_PAGE' : '',
+          page: newPage && newPage !== page ? newPage : page,
+        });
+        setLoading(false);
+      }
     };
 
     getNewItems().then();
+    return () => {
+      isMounted = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, perPage, sortBy, sortDirection]);
 

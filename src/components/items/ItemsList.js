@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import ItemCard from './ItemCard';
 import LoadingItem from '../common/loading/LoadingItem';
 import { ItemContext } from '../../contexts/ItemContext';
+import ItemCardFlat from './ItemCardFlat';
 
 const useStyles = makeStyles({
   root: {
@@ -49,18 +50,10 @@ const ItemsList = ({
   const {
     itemsData,
   } = useContext(ItemContext);
-  const { perPage, items, itemsMounted } = itemsData;
-  const itemsList = items.map(
-    ({ title, id, image }) => (
-      <ItemCard
-        plain
-        title={title}
-        id={id}
-        key={id}
-        image={image}
-      />
-    ),
-  );
+  const {
+    perPage, items, itemsMounted, view,
+  } = itemsData;
+
   if (loading || !itemsMounted) {
     return (
       <Grid item xs={12}>
@@ -71,10 +64,21 @@ const ItemsList = ({
     );
   }
 
+  const ItemWrapToUse = view === 'tiles' ? ItemCard : ItemCardFlat;
+
   return (
     <Grid item xs={12}>
       <Grid container spacing={2}>
-        {itemsList}
+        {items.map(
+          ({ title, id, image }) => (
+            <ItemWrapToUse
+              title={title}
+              id={id}
+              key={id}
+              image={image}
+            />
+          ),
+        )}
       </Grid>
     </Grid>
   );

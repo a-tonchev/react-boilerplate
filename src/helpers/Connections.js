@@ -20,11 +20,6 @@ export default {
       resolve(users.find(u => u.email === email));
     }, 0);
   }),
-  getFakePages: () => new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(pages);
-    }, 0);
-  }),
   getFakePage: pageId => new Promise((resolve) => {
     setTimeout(() => {
       resolve(pages.find(u => u.id === pageId));
@@ -33,12 +28,20 @@ export default {
   getFakePagesData: ({
     perPage,
     page,
+    sortBy,
+    sortDirection,
   }) => new Promise((resolve) => {
     setTimeout(() => {
       const {
         newPage,
         newPageItems,
-      } = filterItems(pages, perPage, page);
+      } = filterItems(
+        pages,
+        perPage,
+        page,
+        sortBy,
+        sortDirection,
+      );
       resolve({
         items: newPageItems,
         itemsLength: pages.length,

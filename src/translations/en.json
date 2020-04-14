@@ -39,5 +39,7 @@
   "sorting.bestMatch": "Best Match",
   "sorting.date": "Newest",
   "sorting.price": "Price",
-  "sortBy": "Sort by"
+  "sortBy": "Sort by",
+  "view.tiles": "Tiles view",
+  "view.list": "List view"
 }

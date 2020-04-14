@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
@@ -53,6 +53,14 @@ const useStyles = makeStyles(() => ({
   rating: {
     fontSize: '80%',
   },
+  card: {
+    boxShadow: 'none',
+    '&:hover': {
+      boxShadow: '0px 3px 3px -2px rgba(0,0,0,0.2), ' +
+        '0px 3px 4px 0px rgba(0,0,0,0.14), ' +
+        '0px 1px 8px 0px rgba(0,0,0,0.12);',
+    },
+  },
 }));
 
 export default function ItemCard({
@@ -61,7 +69,6 @@ export default function ItemCard({
   image,
 }) {
   const classes = useStyles();
-  const [raised, setRaised] = useState(false);
   const { t } = useTranslation();
   return (
     <Grid
@@ -76,11 +83,7 @@ export default function ItemCard({
         component="div"
       >
         <Card
-          onMouseOver={() => setRaised(true)}
-          onFocus={() => setRaised(true)}
-          onMouseOut={() => setRaised(false)}
-          onBlur={() => setRaised(false)}
-          elevation={raised ? 3 : 0}
+          className={classes.card}
         >
           <CustomLink
             to={`/page/${id}/${StringHelper.slugify(title)}`}

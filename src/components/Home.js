@@ -39,7 +39,7 @@ const Home = () => {
         <CardActionArea>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              Hello {firstName || 'React Home' }!
+              Hello {firstName || 'React - Home' }!
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               {t('welcome.text')}

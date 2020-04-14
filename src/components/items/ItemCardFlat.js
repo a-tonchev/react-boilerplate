@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { makeStyles, withTheme } from '@material-ui/core/styles';
 import {
-  Card,
   CardActionArea,
   Icon,
   IconButton,
@@ -21,6 +20,7 @@ const useStyles = makeStyles(() => ({
   root: {
     boxSizing: 'border-box',
     height: 'auto',
+    borderBottom: '1px solid #ddd',
   },
   media: {
     height: 0,
@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
   },
   cardContent: {
-    padding: 4,
+    padding: 10,
   },
   price: {
     fontWeight: 'bold',
@@ -39,6 +39,7 @@ const useStyles = makeStyles(() => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     marginTop: 5,
+    padding: 10,
   },
   cardActions: {
     padding: 0,
@@ -46,92 +47,136 @@ const useStyles = makeStyles(() => ({
   ratingText: {
     marginLeft: 2,
   },
-  ratingBox: {
-    marginLeft: 'auto',
-    marginRight: 4,
-  },
   rating: {
     fontSize: '80%',
   },
+  card: {
+    boxShadow: 'none',
+  },
+  contentMain: {
+
+  },
 }));
 
-export default function ItemCard({
+const WrapInCardActionLink = ({ children, title, id }) => (
+  <CardActionArea
+    component="div"
+  >
+    <CustomLink
+      to={`/page/${id}/${StringHelper.slugify(title)}`}
+      plain
+    >
+      {children}
+    </CustomLink>
+  </CardActionArea>
+);
+
+const ItemCard = ({
   id,
   title,
   image,
-}) {
+  theme,
+}) => {
   const classes = useStyles();
-  const [raised, setRaised] = useState(false);
   const { t } = useTranslation();
-  return (
-    <Grid
-      item
-      xs={6}
-      md={3}
-      lg={2}
-      key={id}
-      className={classes.root}
-    >
-      <CardActionArea
-        component="div"
-      >
-        <Card
-          onMouseOver={() => setRaised(true)}
-          onFocus={() => setRaised(true)}
-          onMouseOut={() => setRaised(false)}
-          onBlur={() => setRaised(false)}
-          elevation={raised ? 3 : 0}
-        >
+  const { isMobile } = theme;
+  const ItemBase = (
+    <Grid container>
+      <Grid item xs={5} sm={3} md={2}>
+        {isMobile ? (
+          <CardMedia
+            className={classes.media}
+            image={`/img/demo/${image}`}
+          />
+        ) : (
           <CustomLink
             to={`/page/${id}/${StringHelper.slugify(title)}`}
             plain
           >
-            <CardMedia
-              className={classes.media}
-              image={`/img/demo/${image}`}
-            />
+            <CardActionArea
+              component="div"
+            >
+              <CardMedia
+                className={classes.media}
+                image={`/img/demo/${image}`}
+              />
+            </CardActionArea>
+          </CustomLink>
+        )}
+      </Grid>
+      <Grid item xs={7} sm={9} md={10}>
+        <Grid container className={classes.contentMain}>
+          <Grid item xs={12} md={8}>
+            {isMobile ? (
+              <Typography variant="subtitle1" className={classes.text}>
+                {title}
+              </Typography>
+            ) : (
+              <CustomLink
+                to={`/page/${id}/${StringHelper.slugify(title)}`}
+                plain
+              >
+                <Typography variant="subtitle1" className={classes.text}>
+                  {title}
+                </Typography>
+              </CustomLink>
+            )}
+          </Grid>
+          <Grid item xs={12} md={4}>
             <CardContent
               className={classes.cardContent}
             >
-              <Typography className={classes.text}>
-                {title}
-              </Typography>
               <Typography className={classes.price}>
                 $ 50.15
               </Typography>
               <Typography variant="caption">{`${t('by')} ${t('app.name')}`}</Typography>
             </CardContent>
             <div />
-          </CustomLink>
-          <CardActions disableSpacing className={classes.cardActions}>
-            <IconButton aria-label="favourite">
-              <Icon fontSize="small" className={classes.favoriteEmptyIcon}>
-                favorite_border
-              </Icon>
-            </IconButton>
-            <CustomButton
-              variant="text"
-              className={classes.ratingBox}
-              aria-label="rating"
-            >
-              <Rating
-                name="read-only"
-                value={5}
-                size="small"
-                readOnly
-                color="primary"
-                className={classes.rating}
-              />
-              <Typography
-                className={classes.ratingText}
-                variant="caption"
+            <CardActions disableSpacing className={classes.cardActions}>
+              <CustomButton
+                variant="text"
+                aria-label="rating"
               >
-                5
-              </Typography>
-            </CustomButton>
-          </CardActions>
-        </Card>
-      </CardActionArea>
+                <Rating
+                  name="read-only"
+                  value={5}
+                  size="small"
+                  readOnly
+                  color="primary"
+                  className={classes.rating}
+                />
+                <Typography
+                  className={classes.ratingText}
+                  variant="caption"
+                >
+                  5
+                </Typography>
+              </CustomButton>
+              <IconButton aria-label="favourite">
+                <Icon fontSize="small" className={classes.favoriteEmptyIcon}>
+                  favorite_border
+                </Icon>
+              </IconButton>
+            </CardActions>
+          </Grid>
+        </Grid>
+      </Grid>
     </Grid>
   );
-}
+  return (
+    <Grid
+      item
+      xs={12}
+      key={id}
+      className={classes.root}
+    >
+      {isMobile ? (
+        <WrapInCardActionLink title={title} id={id}>
+          {ItemBase}
+        </WrapInCardActionLink>
+      ) : ItemBase}
+    </Grid>
+  );
+};
+
+export default withTheme(ItemCard);

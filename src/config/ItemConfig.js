@@ -22,8 +22,16 @@ const perPageValues = [
 ];
 
 const viewTypes = [
-  'tiles',
-  'list',
+  {
+    name: 'tiles',
+    icon: 'view_module',
+    translation: 'view.tiles',
+  },
+  {
+    name: 'list',
+    icon: 'view_list',
+    translation: 'view.list',
+  },
 ];
 
 export { sortingTypes, perPageValues, viewTypes };
