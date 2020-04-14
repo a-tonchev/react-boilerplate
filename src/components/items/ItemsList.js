@@ -6,6 +6,7 @@ import {
 import { withRouter } from 'react-router-dom';
 import ItemCard from './ItemCard';
 import LoadingItem from '../common/loading/LoadingItem';
+import LoadingItemFlat from '../common/loading/LoadingItemFlat';
 import { ItemContext } from '../../contexts/ItemContext';
 import ItemCardFlat from './ItemCardFlat';
 
@@ -26,19 +27,24 @@ const useStyles = makeStyles({
     height: 20,
     verticalAlign: 'middle',
   },
-  divider: {
-
-  },
 });
 
-const getLoadingCards = (perPage, classes) => {
+const getLoadingCards = (perPage, classes, view) => {
   const cards = [];
   for (let i = 0; i < perPage; i++) {
-    cards.push(<LoadingItem
-      key={`loadingCard-${i}`}
-      className={classes.root}
-      style={{ height: 'auto' }}
-    />);
+    cards.push(view === 'tiles' ? (
+      <LoadingItem
+        key={`loadingCard-${i}`}
+        className={classes.root}
+        style={{ height: 'auto' }}
+      />
+    ) : (
+      <LoadingItemFlat
+        key={`loadingCard-${i}`}
+        className={classes.root}
+        style={{ height: 'auto' }}
+      />
+    ));
   }
   return cards;
 };
@@ -58,7 +64,7 @@ const ItemsList = ({
     return (
       <Grid item xs={12}>
         <Grid container spacing={2}>
-          {getLoadingCards(perPage, classes)}
+          {getLoadingCards(perPage, classes, view)}
         </Grid>
       </Grid>
     );

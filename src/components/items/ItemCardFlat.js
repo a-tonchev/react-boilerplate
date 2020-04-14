@@ -38,7 +38,6 @@ const useStyles = makeStyles(() => ({
     // whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
-    marginTop: 5,
     padding: 10,
     minHeight: 21,
     maxHeight: 50,
@@ -58,9 +57,6 @@ const useStyles = makeStyles(() => ({
   },
   card: {
     boxShadow: 'none',
-  },
-  contentMain: {
-
   },
 }));
 
@@ -111,7 +107,7 @@ const ItemCard = ({
         )}
       </Grid>
       <Grid item xs={7} sm={9} md={10}>
-        <Grid container className={classes.contentMain}>
+        <Grid container>
           <Grid item xs={12} md={8}>
             {isMobile ? (
               <Typography variant="subtitle1" className={classes.text}>
@@ -159,7 +155,7 @@ const ItemCard = ({
                 </Typography>
               </CustomButton>
               <IconButton aria-label="favourite">
-                <Icon fontSize="small" className={classes.favoriteEmptyIcon}>
+                <Icon fontSize="small">
                   favorite_border
                 </Icon>
               </IconButton>
