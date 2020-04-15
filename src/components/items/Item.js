@@ -12,7 +12,6 @@ import ImageGallery from 'react-image-gallery';
 import useLoading from '../common/customHooks/loadingHook';
 import Connections from '../../helpers/Connections';
 import CustomLink from '../common/customInputs/CustomLink';
-import 'react-image-gallery/styles/css/image-gallery.css';
 import CustomButton from '../common/customInputs/CustomButton';
 
 const useStyles = makeStyles({
@@ -23,11 +22,10 @@ const useStyles = makeStyles({
     marginBottom: 10,
   },
   ratingText: {
-    marginRight: 2,
-    color: '#ff4747',
+    marginLeft: 2,
+    // color: '#ff4747',
     // color: '#d0011b',
     fontWeight: 'bold',
-    textDecoration: 'underline',
   },
   rating: {
     // color: '#d0011b',
@@ -39,6 +37,41 @@ const useStyles = makeStyles({
   },
   text: {
     padding: 20,
+  },
+  image: {
+    '& div': {
+      width: '100%',
+      paddingTop: '100%',
+      position: 'relative',
+    },
+    '& img': {
+      width: '100%',
+      height: '100%',
+      objectFit: 'fill !Important',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+    },
+  },
+  thumbnail: {
+    width: 90,
+    '& div': {
+      width: '100%',
+      paddingTop: '100%',
+      position: 'relative',
+    },
+    '& img': {
+      width: '100%',
+      height: '100%',
+      objectFit: 'fill !Important',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+    },
   },
 });
 
@@ -59,7 +92,6 @@ const Item = ({ match }) => {
   useEffect(() => {
     const getItem = async () => {
       const newItem = await Connections.getFakeItem(parseInt(itemId));
-      console.log(newItem);
       setItem(newItem);
       setLoading(false);
     };
@@ -85,60 +117,56 @@ const Item = ({ match }) => {
             <meta name="description" content={`${t('app.description')} | ITEM`} />
           </Helmet>
           <Breadcrumbs className={classes.breadcrumbs} aria-label="breadcrumb">
-            <CustomLink plain color="inherit" href="/">
-              Material-UI
+            <CustomLink plain color="inherit" to="/">
+              All Items
             </CustomLink>
-            <CustomLink plain color="inherit" href="/getting-started/installation/">
-              Core
+            <CustomLink plain color="inherit" to="/">
+              Category
             </CustomLink>
-            <Typography color="textPrimary">Breadcrumb</Typography>
+            <Typography color="textPrimary">{title}</Typography>
           </Breadcrumbs>
         </Grid>
       </Grid>
       <Grid container className={classes.root} spacing={3}>
         <Grid item xs={12} sm={6} md={5}>
           <ImageGallery
+            additionalClass="test-iMG"
             items={[
               {
                 original: `/img/demo/${image}`,
                 thumbnail: `/img/demo/${image}`,
-              },
-              {
-                original: '/img/demo/page-2.jpg',
-                thumbnail: '/img/demo/page-2.jpg',
-              },
-              {
-                original: '/img/demo/page-3.jpg',
-                thumbnail: '/img/demo/page-3.jpg',
-              },
-              {
-                original: '/img/demo/page-2.jpg',
-                thumbnail: '/img/demo/page-2.jpg',
+                originalClass: classes.image,
+                thumbnailClass: classes.thumbnail,
               },
               {
                 original: '/img/demo/page-3.jpg',
                 thumbnail: '/img/demo/page-3.jpg',
+                originalClass: classes.image,
+                thumbnailClass: classes.thumbnail,
               },
               {
-                original: '/img/demo/page-2.jpg',
-                thumbnail: '/img/demo/page-2.jpg',
+                original: '/img/demo/page-4.jpg',
+                thumbnail: '/img/demo/page-4.jpg',
+                originalClass: classes.image,
+                thumbnailClass: classes.thumbnail,
               },
               {
-                original: '/img/demo/page-3.jpg',
-                thumbnail: '/img/demo/page-3.jpg',
-              }, {
-                original: '/img/demo/page-2.jpg',
-                thumbnail: '/img/demo/page-2.jpg',
+                original: '/img/demo/page-5.jpg',
+                thumbnail: '/img/demo/page-5.jpg',
+                originalClass: classes.image,
+                thumbnailClass: classes.thumbnail,
               },
               {
-                original: '/img/demo/page-3.jpg',
-                thumbnail: '/img/demo/page-3.jpg',
+                original: '/img/demo/page-6.jpg',
+                thumbnail: '/img/demo/page-6.jpg',
+                originalClass: classes.image,
+                thumbnailClass: classes.thumbnail,
               },
-
             ]}
             showPlayButton={false}
             slideDuration={0}
             slideOnThumbnailOver
+            useBrowserFullscreen={false}
           />
         </Grid>
         <Grid item xs={12} sm={6} md={7}>
@@ -150,11 +178,6 @@ const Item = ({ match }) => {
             className={classes.ratingBox}
             aria-label="rating"
           >
-            <Typography
-              className={classes.ratingText}
-            >
-              5
-            </Typography>
             <Rating
               name="read-only"
               value={5}
@@ -163,6 +186,11 @@ const Item = ({ match }) => {
               color="primary"
               className={classes.rating}
             />
+            <Typography
+              className={classes.ratingText}
+            >
+              5
+            </Typography>
           </CustomButton>
           <Typography className={classes.price}>
             $ 50.15

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
+import 'react-image-gallery/styles/css/image-gallery.css';
 import './App.css';
 import { Helmet } from 'react-helmet/es/Helmet';
 import { useTranslation } from 'react-i18next';
