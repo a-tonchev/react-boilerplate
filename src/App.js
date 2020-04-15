@@ -11,7 +11,6 @@ import { ItemContextProvider } from './contexts/ItemContext';
 
 const App = () => {
   const { t } = useTranslation();
-
   return (
     <Router history={history}>
       <Helmet>

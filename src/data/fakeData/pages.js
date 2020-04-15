@@ -1,9 +1,7 @@
 const pages = [
   {
     id: 1,
-    title: 'Lorem ipsum dolor sit amet Description Lorem ipsum dolor sit amet Description Lorem ipsum ' +
-      'Description Lorem ipsum dolor sit amet Description Lorem ipsum Description Lorem ipsum dolor ' +
-      'sit amet Description Lorem ipsum Description Lorem ipsum dolor sit amet Description Lorem ipsum',
+    title: 'Lorem ipsum dolor sit amet Description Lorem ipsum dolor sit amet Description Lorem ipsum',
     image: 'page-1.jpg',
     description: 'Description Lorem ipsum dolor sit amet Description Lorem ipsum ' +
       'dolor sit ametDescription Lorem ipsum dolor sit amet Description Lorem ipsum' +
@@ -17,7 +15,14 @@ const pages = [
       'elementum eu facilisis sed. Massa enim nec dui nunc mattis enim ut. Fermentum ' +
       'iaculis eu non diam phasellus vestibulum lorem. Id porta nibh venenatis cras sed ' +
       'felis eget. Luctus accumsan tortor posuere ac ut consequat. Gravida dictum fusce ' +
-      'ut placerat orci nulla.',
+      'ut placerat orci nulla.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed ' +
+      'do eiusmod tempor incididunt ut labore et dolore magna aliqua. Porttitor eget dolor morbi' +
+      ' non arcu risus quis varius quam. Tortor id aliquet lectus proin nibh nisl. Leo vel orci' +
+      ' porta non pulvinar neque laoreet. Dictum non consectetur a erat nam at lectus. Arcu odio ' +
+      'ut sem nulla. Eu facilisis sed odio morbi quis commodo odio. Molestie at elementum eu ' +
+      'facilisis sed. Massa enim nec dui nunc mattis enim ut. Fermentum iaculis eu non diam ' +
+      'phasellus vestibulum lorem. Id porta nibh venenatis cras sed felis eget. Luctus accumsan ' +
+      'tortor posuere ac ut consequat. Gravida dictum fusce ut placerat orci nulla.',
     metaKeywords: 'labore, et, dolore, magna, aliqua',
   },
   {

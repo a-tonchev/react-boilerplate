@@ -33,4 +33,15 @@ export default class UrlHelper {
     const newUrl = `${pathname}?${query.toString()}`;
     History.push(newUrl);
   }
+
+  static setParams(params) {
+    const { location } = History;
+    const { pathname } = location;
+    const query = this.getQuery(location);
+    params.forEach(({ name, value }) => {
+      query.set(name, value);
+    });
+    const newUrl = `${pathname}?${query.toString()}`;
+    History.push(newUrl);
+  }
 }

@@ -20,12 +20,12 @@ export default {
       resolve(users.find(u => u.email === email));
     }, 0);
   }),
-  getFakePage: pageId => new Promise((resolve) => {
+  getFakeItem: pageId => new Promise((resolve) => {
     setTimeout(() => {
       resolve(pages.find(u => u.id === pageId));
     }, 0);
   }),
-  getFakePagesData: ({
+  getFakeItemsData: ({
     perPage,
     page,
     sortBy,

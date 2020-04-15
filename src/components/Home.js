@@ -28,7 +28,7 @@ const Home = () => {
   const { t } = useTranslation();
   const { userData = {} } = useContext(UserContext);
   const { firstName } = userData;
-
+  console.log('RE-render');
   return (
     <>
       <Helmet>

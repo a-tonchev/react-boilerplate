@@ -16,6 +16,7 @@ import Rating from '@material-ui/lab/Rating';
 import CustomLink from '../common/customInputs/CustomLink';
 import StringHelper from '../../helpers/StringHelper';
 import CustomButton from '../common/customInputs/CustomButton';
+import UrlEnums from '../../enums/UrlEnums';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -86,7 +87,7 @@ export default function ItemCard({
           className={classes.card}
         >
           <CustomLink
-            to={`/page/${id}/${StringHelper.slugify(title)}`}
+            to={`${UrlEnums.ITEM_BASE}/${id}/${StringHelper.slugify(title)}`}
             plain
           >
             <CardMedia
