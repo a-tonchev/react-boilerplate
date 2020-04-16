@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   IconButton,
@@ -10,7 +10,8 @@ import {
 } from '@material-ui/icons';
 
 import { menu } from './DesktopMenu';
-import Authorized from '../../components/auth/Authorized';
+import AuthHelper from '../../helpers/AuthHelper';
+import { UserContext } from '../../contexts/UserContext';
 
 const useStyles = makeStyles((theme) => ({
   sectionMobile: {
@@ -29,6 +30,7 @@ const MobileMenu = ({
   ...rest
 }) => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const { userData } = useContext(UserContext);
   return (
     <MuiMenu
       anchorEl={mobileMoreAnchorEl}
@@ -41,29 +43,28 @@ const MobileMenu = ({
     >
       {menu.map((el, ind) => {
         const {
-          component: Component, onClick, text, authorizations,
+          component: Component,
+          onClick,
+          text,
+          authorizations,
         } = el;
-        let WrappedComponent = onClick
-          ? (
+        if (authorizations && !AuthHelper.isAuthorized(userData, authorizations)) {
+          return null;
+        }
+        if (onClick) {
+          return (
             <MenuItem key={`${ind}_${1}`} onClick={rest[onClick]}>
               <Component />
               {text ? <p>{text}</p> : <></>}
             </MenuItem>
-          )
-          : (
-            <MenuItem key={`${ind}_${1}`}>
-              <Component />
-              {text ? <p>{text}</p> : <></>}
-            </MenuItem>
-          );
-        if (authorizations) {
-          WrappedComponent = (
-            <Authorized key={`${ind}_${0}`} {...authorizations}>
-              {WrappedComponent}
-            </Authorized>
           );
         }
-        return WrappedComponent;
+        return (
+          <MenuItem key={`${ind}_${1}`}>
+            <Component />
+            {text ? <p>{text}</p> : <></>}
+          </MenuItem>
+        );
       })}
     </MuiMenu>
   );

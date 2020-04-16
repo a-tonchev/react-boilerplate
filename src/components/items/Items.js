@@ -16,7 +16,7 @@ import Loading from '../common/loading/Loading';
 
 const useStyles = makeStyles({
   root: {
-    marginTop: 20,
+    marginTop: 40,
   },
   divider: {
     width: '100%',
@@ -96,8 +96,14 @@ const Items = () => {
     dispatchItemsData,
   } = useContext(ItemContext);
 
+  const queryPage = UrlHelper.getIntParam('page', 1);
+  const queryPerPage = UrlHelper.getIntParam('perPage', perPageValues[0]);
+  const querySortBy = UrlHelper.getParam('sortBy');
+  const querySortDirection = UrlHelper.getParam('sortDirection');
+
   const {
     page,
+    perPage,
     sortBy,
     sortDirection,
     mounted,
@@ -105,42 +111,51 @@ const Items = () => {
   } = itemsData;
 
   useEffect(() => {
-    const queryPage = UrlHelper.getIntParam('page', 1);
-    let queryPerPage = UrlHelper.getIntParam('perPage', perPageValues[0]);
-    let querySortBy = UrlHelper.getParam('sortBy');
+    let anyChange = false;
+    const newItemData = {};
+    if (!mounted) {
+      newItemData.mounted = true;
+      anyChange = true;
+    }
+
+    if (queryPage && queryPage !== page) {
+      newItemData.page = queryPage;
+      anyChange = true;
+    }
+
     const sortingType = sortingTypes.find(st => st.name === querySortBy);
-    let querySortDirection = UrlHelper.getParam('sortDirection');
+    if (querySortBy && querySortBy !== sortBy && sortingType) {
+      newItemData.sortBy = querySortBy;
+      anyChange = true;
+    }
+
+    if (
+      querySortDirection
+      && querySortDirection !== sortDirection
+      && sortingType.directions.includes(querySortDirection)
+    ) {
+      newItemData.sortDirection = querySortDirection;
+      anyChange = true;
+    }
+
     const storedView = LocalStorage.get('view');
-    if (!perPageValues.includes(queryPerPage)) {
-      [queryPerPage] = perPageValues;
+
+    if (storedView !== view) {
+      newItemData.view = storedView;
+      anyChange = true;
+    }
+    if (
+      queryPerPage
+      && queryPerPage !== perPage
+      && !perPageValues.includes(queryPerPage)
+    ) {
+      newItemData.perPage = queryPerPage;
+      anyChange = true;
     }
 
-    if (sortingType) {
-      querySortDirection = !sortingType.directions.includes(querySortDirection)
-        ? sortingType.directions[0]
-        : querySortDirection;
-    } else {
-      querySortBy = '';
-      querySortDirection = '';
-    }
-    const newItemData = {
-      perPage: queryPerPage,
-      page: (queryPage !== page) ? queryPage : page,
-      sortBy: (
-        querySortBy &&
-        querySortBy !== sortBy
-      ) ? querySortBy : sortBy,
-      sortDirection: (
-        querySortDirection &&
-        querySortDirection !== sortDirection
-      ) ? querySortDirection : sortDirection,
-      view: storedView || view,
-      mounted: true,
-    };
-
-    dispatchItemsData(newItemData);
+    if (anyChange) dispatchItemsData(newItemData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [queryPage, queryPerPage, querySortBy, querySortDirection]);
 
   if (!mounted) return <Loading />;
 
