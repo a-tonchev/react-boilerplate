@@ -8,7 +8,7 @@
     "@material-ui/lab": "^4.0.0-alpha.48",
     "history": "^4.10.1",
     "i18next": "^19.3.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
