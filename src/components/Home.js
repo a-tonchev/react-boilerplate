@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
@@ -11,8 +11,6 @@ import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet/es/Helmet';
 import Authorized from './auth/Authorized';
 import CustomLink from './common/customInputs/CustomLink';
-import Items from './items/Items';
-import { UserContext } from '../contexts/UserContext';
 
 const useStyles = makeStyles({
   root: {
@@ -26,9 +24,7 @@ const useStyles = makeStyles({
 const Home = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const { userData = {} } = useContext(UserContext);
-  const { firstName } = userData;
-  console.log('RE-render');
+
   return (
     <>
       <Helmet>
@@ -39,7 +35,7 @@ const Home = () => {
         <CardActionArea>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              Hello {firstName || 'React - Home' }!
+              Hello {'firstName' || 'React - Home' }!
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               {t('welcome.text')}
@@ -54,7 +50,6 @@ const Home = () => {
           </Authorized>
         </CardActions>
       </Card>
-      <Items />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { Box, Container, Typography } from '@material-ui/core';
 import React from 'react';
-import CustomLink from '../../components/common/customInputs/CustomLink';
+import CustomLink from '../../../components/common/customInputs/CustomLink';
 
 const Copyright = () => (
   <Typography variant="body2" color="textSecondary" align="center">

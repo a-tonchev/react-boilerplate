@@ -11,7 +11,7 @@ import {
 
 import { menu } from './DesktopMenu';
 import AuthHelper from '../../helpers/AuthHelper';
-import { UserContext } from '../../contexts/UserContext';
+import { UserContext } from '../../../contexts/UserContext';
 
 const useStyles = makeStyles((theme) => ({
   sectionMobile: {

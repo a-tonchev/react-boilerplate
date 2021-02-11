@@ -12,11 +12,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import CustomLink from '../common/customInputs/CustomLink';
 import CustomTextField from '../common/customInputs/CustomTextField';
-import Connections from '../../helpers/Connections';
+import Connections from '../../modules/connections/Connections';
 import { UserContext } from '../../contexts/UserContext';
 import CustomCheckBox from '../common/customInputs/CustomCheckBox';
 import useErrorCheck from '../common/customHooks/errorHook';
-import UrlEnums from '../../enums/UrlEnums';
+import UrlEnums from '../../modules/connections/UrlEnums';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

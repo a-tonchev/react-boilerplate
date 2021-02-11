@@ -1,5 +1,5 @@
-import users from '../data/fakeData/users';
-import pages from '../data/fakeData/pages';
+import users from '../../data/fakeData/users';
+import pages from '../../data/fakeData/pages';
 
 const filterItems = (items, perPage, page) => {
   const totalPages = Math.ceil(items.length / perPage) || 1;

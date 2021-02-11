@@ -13,9 +13,9 @@ import {
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import Authorized from '../../components/auth/Authorized';
-import CustomLink from '../../components/common/customInputs/CustomLink';
-import UrlEnums from '../../enums/UrlEnums';
+import Authorized from '../../../components/auth/Authorized';
+import CustomLink from '../../../components/common/customInputs/CustomLink';
+import UrlEnums from '../../connections/UrlEnums';
 
 const useStyles = makeStyles(theme => ({
   grow: {

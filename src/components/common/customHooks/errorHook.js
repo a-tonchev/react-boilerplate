@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Validation from '../../../helpers/Validation';
+import Validation from '../../../modules/helpers/Validation';
 
 const useErrorCheck = ({ values, validations, active = false }) => {
   const [error, setError] = useState(null);

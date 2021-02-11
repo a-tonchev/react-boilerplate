@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import UrlEnums from '../enums/UrlEnums';
-import { UserContext } from '../contexts/UserContext';
+import UrlEnums from '../connections/UrlEnums';
+import { UserContext } from '../../contexts/UserContext';
 
 const Public = ({
   component: Component, ...rest

@@ -4,10 +4,10 @@ import 'react-image-gallery/styles/css/image-gallery.css';
 import './App.css';
 import { Helmet } from 'react-helmet/es/Helmet';
 import { useTranslation } from 'react-i18next';
-import history from './helpers/History';
+import history from './modules/helpers/History';
 import { UserContextProvider } from './contexts/UserContext';
-import MainRoutes from './routes/MainRoutes';
-import DesignProvider from './layout/DesignProvider';
+import MainRoutes from './modules/routes/MainRoutes';
+import DesignProvider from './modules/layout/DesignProvider';
 import { ItemContextProvider } from './contexts/ItemContext';
 
 const App = () => {
