@@ -1,38 +1,22 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext';
+import React from 'react';
+import AuthHelper from './AuthHelper';
+import { useIsAdmin, useLoggedIn, useUserData } from '../users/hooks/userDataHooks';
 
 const Authorized = ({
-  children, authenticated, adminOnly, publicOnly, allowedRoles, allowedPermissions,
+  children, ...rest
 }) => {
-  const { userData } = useContext(UserContext);
-  const {
-    loggedIn,
+  const userData = useUserData();
+  const isAdmin = useIsAdmin();
+  const loggedIn = useLoggedIn();
+
+  const authorized = AuthHelper.isAuthorized({
+    ...userData,
     isAdmin,
-    roles,
-    permissions,
-  } = userData;
-
-  // Check for public only
-  if (publicOnly && (loggedIn || isAdmin)) return <div />;
-
-  // Check for roles
-  if (allowedRoles
-    && allowedRoles.length
-    && !allowedRoles.some(r => roles.includes(r))) { return <div />; }
-
-  // Check for permissions
-  if (allowedPermissions
-    && allowedPermissions.length
-    && !allowedPermissions.some(r => permissions.includes(r))) { return <div />; }
-
-  // Check if admin
-  if (adminOnly && !isAdmin) return <div />;
-
-  // Check for registered only
-  if (authenticated && !loggedIn) return <div />;
+    loggedIn,
+  }, rest);
 
   // Return component if all check passed
-  return children ? <>{children}</> : <div />;
+  return children && authorized ? <>{children}</> : <div />;
 };
 
 export default Authorized;

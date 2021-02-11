@@ -1,22 +1,22 @@
+import { LockOutlined } from '@material-ui/icons';
 import React, { useState } from 'react';
 import {
   Avatar,
   Button,
-  CssBaseline,
   Grid,
   Typography,
-  Icon,
   Container,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import CustomLink from '../common/customInputs/CustomLink';
-import CustomTextField from '../common/customInputs/CustomTextField';
-import Connections from '../../helpers/Connections';
-import CustomCheckBox from '../common/customInputs/CustomCheckBox';
-import useErrorCheck from '../common/customHooks/errorHook';
-import useLoading from '../common/customHooks/loadingHook';
-import SuccessBox from '../common/SuccessBox';
+import CustomLink from '../../modules/inputs/CustomLink';
+import CustomTextField from '../../modules/inputs/CustomTextField';
+import Connections, { ApiEndpoints } from '../../modules/connections/Connections';
+import CustomCheckBox from '../../modules/inputs/CustomCheckBox';
+import useError from '../../modules/validations/hooks/useError';
+import useLoading from '../../modules/loading/hooks/useLoading';
+import SuccessBox from '../../modules/validations/SuccessBox';
+import UrlEnums from '../../modules/connections/enums/UrlEnums';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -56,23 +56,15 @@ export default function SignUp() {
   const validations = {
     email: {
       type: 'isEmail',
-      text: 'email.notValid',
+      text: 'errorDescription.email',
     },
     password: {
       type: 'isEmpty',
-      text: 'field.required',
+      text: 'errorDescription.password',
     },
     repeatPassword: {
-      customValidation: () => values.password !== values.repeatPassword,
+      customValidation: () => values.password === values.repeatPassword,
       text: 'password.shouldMatch',
-    },
-    firstName: {
-      type: 'isName',
-      text: 'name.invalid',
-    },
-    lastName: {
-      type: 'isName',
-      text: 'name.invalid',
     },
     terms: {
       type: 'isTrue',
@@ -84,7 +76,8 @@ export default function SignUp() {
     setCustomError,
     isError,
     getActivateError,
-  } = useErrorCheck({
+    convertErrorArray,
+  } = useError({
     values,
     validations,
   });
@@ -102,11 +95,17 @@ export default function SignUp() {
     setLoading(true);
     const err = getActivateError();
     if (!err) {
-      const user = await Connections.getFakeLogin(values.email);
-      if (!user) {
+      const res = await Connections.postRequest(ApiEndpoints.signUp, {
+        email: values.email,
+        password: values.password,
+      });
+
+      if (res.ok) {
         setSignUpCompleted(true);
-      } else {
+      } else if (res.errorCode === 'USER_ALREADY_EXISTS') {
         setCustomError({ email: 'user.alreadyExists' });
+      } else if (res.errorData && res.errorData.errors) {
+        setCustomError(convertErrorArray(res.errorData.errors));
       }
       setLoading(false);
     } else {
@@ -121,17 +120,17 @@ export default function SignUp() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Container maxWidth="xs">
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <Icon>lock_outlined</Icon>
+          <LockOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {t('login')}
+          {t('onBoarding')}
         </Typography>
         <form className={classes.form} noValidate>
           <CustomTextField
+            id="email"
             name="email"
             label="email.address"
             autoComplete="email"
@@ -144,6 +143,7 @@ export default function SignUp() {
             error={isError('email')}
           />
           <CustomTextField
+            id="password"
             name="password"
             label="password"
             autoComplete="current-password"
@@ -155,6 +155,7 @@ export default function SignUp() {
             error={isError('password')}
           />
           <CustomTextField
+            id="repeatPassword"
             name="repeatPassword"
             label="repeatPassword"
             value={values.repeatPassword}
@@ -164,26 +165,8 @@ export default function SignUp() {
             required
             error={isError('repeatPassword')}
           />
-          <CustomTextField
-            name="firstName"
-            label="firstName"
-            value={values.firstName}
-            onChange={handleChange}
-            fullWidth
-            required
-            error={isError('firstName')}
-          />
-          <CustomTextField
-            name="lastName"
-            label="lastName"
-            value={values.lastName}
-            onChange={handleChange}
-            fullWidth
-            required
-            error={isError('lastName')}
-          />
           <CustomCheckBox
-            label="terms.agree"
+            label="Terms and service"
             name="terms"
             onChange={handleChange}
             error={isError('terms')}
@@ -195,12 +178,30 @@ export default function SignUp() {
             className={classes.submit}
             onClick={signUp}
           >
-            {t('login')}
+            {t('signUp')}
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <CustomLink to="/login" variant="body2">
+          <Grid
+            container
+            justify="center"
+            alignContent="center"
+            alignItems="center"
+            className={classes.signUp}
+          >
+            <Grid item xs={12}>
+              <Typography>
                 {t('login.alreadyAccount')}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <CustomLink
+                to={UrlEnums.LOGIN}
+                button
+                buttonProps={{
+                  fullWidth: true,
+                  variant: 'outlined',
+                }}
+              >
+                {t('login')}
               </CustomLink>
             </Grid>
           </Grid>
