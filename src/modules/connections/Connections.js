@@ -1,52 +1,149 @@
-import users from '../../data/fakeData/users';
-import pages from '../../data/fakeData/pages';
+import axios from 'axios';
+import i18n from '../translations/i18n';
+import history from './History';
+import LocalStorage from '../storage/LocalStorage';
+import StorageEnums from '../storage/enums/StorageEnums';
+import UrlEnums from './enums/UrlEnums';
+import BasicConfig from '../config/BasicConfig';
+import tokenStore from './stores/tokenStore';
 
-const filterItems = (items, perPage, page) => {
-  const totalPages = Math.ceil(items.length / perPage) || 1;
-  const newPage = (page > totalPages) ? 1 : page;
-  const newPageItems = items.filter(
-    (item, index) => index >= (perPage * newPage - perPage)
-      && index < perPage * newPage,
-  );
+const baseURL = `${BasicConfig.SERVER_URL}/${BasicConfig.API_VERSION}`;
+
+export const ApiEndpoints = {
+  login: '/users/login',
+  logout: '/users/logout',
+  signUp: '/users/signUp',
+  passwordResetRequest: '/users/resetRequest',
+  resetPassword: '/users/resetPassword',
+  sendUserVerificationEmail: '/users/sendVerification',
+  verifyAccount: '/users/verify',
+};
+
+const getUrl = (endpointPath) => {
+  if (endpointPath) return `${baseURL}${endpointPath}`;
+  console.error('Url does not exist!', endpointPath);
+  throw new Error('Url does not exist!');
+};
+
+const encodeQueryData = data => {
+  const ret = [];
+  for (const d in data) ret.push(`${encodeURIComponent(d)}=${encodeURIComponent(data[d])}`);
+  return ret.join('&');
+};
+
+const getLoginHeader = async () => {
+  const token = tokenStore.get();
+  const headers = {};
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
   return {
-    newPageItems,
-    newPage,
+    headers,
+  };
+};
+
+const connectionSuccessResponse = (response) => {
+  if (BasicConfig.system?.debug) {
+    console.log('---success---');
+    console.log(response);
+  }
+  if (!response || !response.data?.ok) {
+    return { ok: false };
+  }
+
+  return {
+    ok: true,
+    data: response.data.data,
+  };
+};
+
+const connectionErrorResponse = (error) => {
+  let errorMessage = i18n.t('error.unknown');
+  if (BasicConfig.system?.debug) {
+    console.log('---error---');
+    console.log(error);
+  }
+  let errorData = null;
+  let errorCode = null;
+
+  if (error && error.response && error.response.data) {
+    const responseError = error.response.data;
+
+    if (responseError.code) {
+      if (
+        responseError.code
+        && i18n.exists(`error.${responseError.code}`)
+      ) {
+        errorMessage = i18n.t(`error.${responseError.code}`);
+      }
+      errorCode = responseError.code;
+    }
+
+    if (responseError.data) {
+      errorData = responseError.data;
+    }
+    if (error.response.status === 401) {
+      LocalStorage.getObject(StorageEnums.token).then(
+        tokenStored => {
+          LocalStorage.remove(StorageEnums.token).then();
+          LocalStorage.remove(StorageEnums.userData).then();
+          if (tokenStored) {
+            window.location.reload();
+          } else {
+            history.push(UrlEnums.LOGIN);
+          }
+        },
+      );
+    } else if (error.response.status === 403) {
+      history.push(UrlEnums.MAIN);
+    }
+  }
+  return {
+    ok: false,
+    errorCode,
+    errorMessage,
+    errorData,
+    online: !!error.response,
   };
 };
 
 export default {
-  getFakeLogin: (email) => new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(users.find(u => u.email === email));
-    }, 0);
-  }),
-  getFakeItem: pageId => new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(pages.find(u => u.id === pageId));
-    }, 0);
-  }),
-  getFakeItemsData: ({
-    perPage,
-    page,
-    sortBy,
-    sortDirection,
-  }) => new Promise((resolve) => {
-    setTimeout(() => {
-      const {
-        newPage,
-        newPageItems,
-      } = filterItems(
-        pages,
-        perPage,
-        page,
-        sortBy,
-        sortDirection,
-      );
-      resolve({
-        items: newPageItems,
-        itemsLength: pages.length,
-        newPage: newPage,
-      });
-    }, 0);
-  }),
+  async post({
+    url, params, path = '',
+  }) {
+    try {
+      const loginHeader = await getLoginHeader();
+      const result = await axios.post(getUrl(url) + path, params, loginHeader);
+      return connectionSuccessResponse(result);
+    } catch (error) {
+      return connectionErrorResponse(error);
+    }
+  },
+  async get({
+    url, params, suppressError,
+  }) {
+    try {
+      const loginHeader = await getLoginHeader();
+      const result = await axios.get(`${getUrl(url)}${params ? '?' : ''}${encodeQueryData(params)}`, loginHeader);
+      return connectionSuccessResponse(result);
+    } catch (error) {
+      if (!suppressError) return connectionErrorResponse(error);
+    }
+  },
+  async getRequest(url, params) {
+    return this.get({
+      url,
+      params,
+    });
+  },
+  async postRequest(url, params) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(this.post({
+          url,
+          params,
+        }));
+      }, 0);
+    });
+  },
 };

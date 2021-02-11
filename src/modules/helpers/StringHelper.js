@@ -1,4 +1,35 @@
+const cipher = salt => {
+  const textToChars = text => text.split('').map(c => c.charCodeAt(0));
+  const byteHex = n => (`0${Number(n).toString(16)}`).substr(-2);
+  // eslint-disable-next-line no-bitwise
+  const applySaltToChar = code => textToChars(salt).reduce((a, b) => a ^ b, code);
+
+  return text => text.split('')
+    .map(textToChars)
+    .map(applySaltToChar)
+    .map(byteHex)
+    .join('');
+};
+
+const decipher = salt => {
+  const textToChars = text => text.split('').map(c => c.charCodeAt(0));
+  // eslint-disable-next-line no-bitwise
+  const applySaltToChar = code => textToChars(salt).reduce((a, b) => a ^ b, code);
+  return encoded => encoded.match(/.{1,2}/g)
+    .map(hex => parseInt(hex, 16))
+    .map(applySaltToChar)
+    .map(charCode => String.fromCharCode(charCode))
+    .join('');
+};
+
+const customEncode = cipher('GeneralConfig.DOMAIN_KEY');
+const customDecode = decipher('GeneralConfig.DOMAIN_KEY');
+
 export default class StringHelper {
+  static encode = string => customEncode(string)
+
+  static decode = string => customDecode(string)
+
   static slugify(string, separator) {
     let text = string.toString().toLowerCase().trim();
 
@@ -47,5 +78,22 @@ export default class StringHelper {
     }
 
     return text;
+  }
+
+  static generateToken(length, lowCase = true, highCase = true, numbers = true) {
+    let result = '';
+    let characters = lowCase ? 'abcdefghijklmnopqrstuvwxyz' : '';
+    characters = highCase ? `${characters}ABCDEFGHIJKLMNOPQRSTUVWXYZ` : characters;
+    characters = numbers ? `${characters}0123456789` : characters;
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  static replace(fullText, stringToReplace, replacement) {
+    const re = new RegExp(stringToReplace, 'g');
+    return fullText.replace(re, replacement);
   }
 }

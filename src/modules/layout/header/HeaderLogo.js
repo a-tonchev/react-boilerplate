@@ -4,7 +4,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import CustomLink from '../../../components/common/customInputs/CustomLink';
+import CustomLink from '../../inputs/CustomLink';
 
 const useStyles = makeStyles((theme) => ({
   title: {

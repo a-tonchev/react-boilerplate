@@ -3,10 +3,9 @@ import { initReactI18next } from 'react-i18next';
 import en from './en.json';
 import de from './de.json';
 
-
 i18n.use(initReactI18next).init(
   {
-    lng: 'en',
+    lng: 'de',
     fallbackLng: 'en',
     keySeparator: false, // we do not use keys in form messages.welcome
     resources: {

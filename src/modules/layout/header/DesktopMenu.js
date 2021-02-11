@@ -11,11 +11,11 @@ import {
   Mail as MailIcon,
   Notifications as NotificationsIcon,
 } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
 import Authorized from '../../../components/auth/Authorized';
-import CustomLink from '../../../components/common/customInputs/CustomLink';
-import LanguagesPicker from '../../../components/common/LanguagesPicker';
+import CustomLink from '../../inputs/CustomLink';
+import LanguagesPicker from '../../translations/LanguagesPicker';
 import i18n from '../../translations/i18n';
-import {useTranslation} from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   sectionDesktop: {

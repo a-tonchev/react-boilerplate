@@ -1,22 +1,23 @@
-import React, { useContext, useState } from 'react';
+import { LockOutlined } from '@material-ui/icons';
+import React, { useState, useEffect } from 'react';
 import {
   Avatar,
-  Button,
-  CssBaseline,
   Grid,
   Typography,
-  Icon,
   Container,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import CustomLink from '../common/customInputs/CustomLink';
-import CustomTextField from '../common/customInputs/CustomTextField';
-import Connections from '../../modules/connections/Connections';
-import { UserContext } from '../../contexts/UserContext';
-import CustomCheckBox from '../common/customInputs/CustomCheckBox';
-import useErrorCheck from '../common/customHooks/errorHook';
-import UrlEnums from '../../modules/connections/UrlEnums';
+import { useLoginUser } from '../users/hooks/userDataHooks';
+import CustomLink from '../../modules/inputs/CustomLink';
+import CustomTextField from '../../modules/inputs/CustomTextField';
+import Connections, { ApiEndpoints } from '../../modules/connections/Connections';
+import useErrorCheck from '../../modules/validations/hooks/useError';
+import UrlEnums from '../../modules/connections/enums/UrlEnums';
+import useLoading from '../../modules/loading/hooks/useLoading';
+import History from '../../modules/connections/History';
+import CustomButton from '../../modules/inputs/CustomButton';
+import SendVerificationMail from './SendVerificationMail';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -35,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  signUp: {
+    textAlign: 'center',
+    marginTop: 20,
   },
 }));
 
@@ -45,24 +50,35 @@ const validations = {
   },
   password: [{
     type: 'isEmpty',
-    text: 'field.required',
+    text: 'errorDescription.password',
   }],
-  terms: {
-    type: 'isTrue',
-    text: 'field.required',
-  },
 };
 
-
-export default function SignUp() {
+export default function Login() {
   const classes = useStyles();
-
+  const [redirection, setRedirection] = useState('');
+  const [showVerification, setShowVerification] = useState(false);
   const { t } = useTranslation();
+  const loginUser = useLoginUser();
+
+  const {
+    loading,
+    Loading,
+    setLoading,
+  } = useLoading();
+
   const [values, setValues] = useState({
     email: '',
     password: '',
-    terms: false,
   });
+
+  useEffect(() => {
+    const { state } = History.location;
+    const { redirectFrom } = state || {};
+    if (redirectFrom) {
+      setRedirection(redirectFrom);
+    }
+  }, []);
 
   const {
     setCustomError,
@@ -73,19 +89,36 @@ export default function SignUp() {
     validations,
   });
 
-  const { dispatchUserData } = useContext(UserContext);
-
   const login = async () => {
     setCustomError(null);
     const err = getActivateError();
     if (!err) {
-      const user = await Connections.getFakeLogin(values.email);
-      if (!user) {
-        setCustomError({ email: 'user.notFound' });
+      setLoading(true);
+      const response = await Connections.postRequest(
+        ApiEndpoints.login,
+        {
+          email: values.email,
+          password: values.password,
+        },
+      );
+      if (!response.ok) {
+        if (response && response.errorCode && response.errorCode === 'USER_NOT_VERIFIED') {
+          setShowVerification(true);
+        }
+        setCustomError({ email: response.errorMessage });
+        setLoading(false);
       } else {
-        dispatchUserData({
-          ...user,
-          type: 'LOGIN_USER',
+        let redirectedFrom = null;
+        if (
+          redirection
+          && !redirection.includes(UrlEnums.LOGOUT)
+          && !redirection.includes(UrlEnums.SIGN_UP)
+        ) {
+          redirectedFrom = redirection;
+        }
+        loginUser({
+          redirectedFrom,
+          ...response.data,
         });
       }
     }
@@ -100,12 +133,13 @@ export default function SignUp() {
     setValues({ ...values, [name]: value });
   };
 
+  if (loading) return <Loading />;
+
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Container maxWidth="xs">
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <Icon>lock_outlined</Icon>
+          <LockOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
           {t('login')}
@@ -114,6 +148,8 @@ export default function SignUp() {
           <CustomTextField
             name="email"
             label="email.address"
+            id="email"
+            aria-label={t('email')}
             autoComplete="email"
             value={values.email}
             onChange={handleChange}
@@ -127,6 +163,8 @@ export default function SignUp() {
           <CustomTextField
             name="password"
             label="password"
+            id="password"
+            aria-label={t('password')}
             autoComplete="current-password"
             value={values.password}
             onChange={handleChange}
@@ -136,30 +174,50 @@ export default function SignUp() {
             required
             error={isError('password')}
           />
-          <CustomCheckBox
-            label="terms.agree"
-            name="terms"
-            onChange={handleChange}
-            error={isError('terms')}
-          />
-          <Button
+          <CustomButton
             fullWidth
-            variant="contained"
-            color="primary"
             className={classes.submit}
             onClick={login}
           >
             {t('login')}
-          </Button>
+          </CustomButton>
           <Grid container>
-            <Grid item xs>
-              <CustomLink to="/forgot" variant="body2">
+            <Grid item xs={12}>
+              <CustomLink to={UrlEnums.PASSWORD_FORGET} variant="body2">
                 {t('password.forgot')}
               </CustomLink>
             </Grid>
-            <Grid item>
-              <CustomLink to={UrlEnums.SIGN_UP} variant="body2">
+            <Grid item xs={12}>
+              {showVerification && (
+                <SendVerificationMail
+                  email={values.email}
+                  fullWidth
+                />
+              )}
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            justify="center"
+            alignContent="center"
+            alignItems="center"
+            className={classes.signUp}
+          >
+            <Grid item xs={12}>
+              <Typography>
                 {t('signUp.noAccount')}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <CustomLink
+                to={UrlEnums.SIGN_UP}
+                button
+                buttonProps={{
+                  fullWidth: true,
+                  variant: 'outlined',
+                }}
+              >
+                {t('signUp')}
               </CustomLink>
             </Grid>
           </Grid>

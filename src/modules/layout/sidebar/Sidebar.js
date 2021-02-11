@@ -5,17 +5,22 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Icon,
   IconButton,
 } from '@material-ui/core';
 import {
   ChevronLeft as ChevronLeftIcon,
+  LockOutlined,
+  Home,
+  AccountCircle,
+  WebAsset,
+  SupervisorAccount,
+  Web,
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Authorized from '../../../components/auth/Authorized';
-import CustomLink from '../../../components/common/customInputs/CustomLink';
-import UrlEnums from '../../connections/UrlEnums';
+import CustomLink from '../../inputs/CustomLink';
+import UrlEnums from '../../connections/enums/UrlEnums';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -54,7 +59,7 @@ const Sidebar = () => {
         <CustomLink plain to={UrlEnums.MAIN}>
           <ListItem button key="home">
             <ListItemIcon>
-              <Icon>home</Icon>
+              <Home />
             </ListItemIcon>
             <ListItemText primary={t('home')} />
           </ListItem>
@@ -63,7 +68,7 @@ const Sidebar = () => {
           <CustomLink plain to={UrlEnums.LOGIN}>
             <ListItem button key="login">
               <ListItemIcon>
-                <Icon>lock_outlined</Icon>
+                <LockOutlined />
               </ListItemIcon>
               <ListItemText primary={t('login')} />
             </ListItem>
@@ -73,14 +78,14 @@ const Sidebar = () => {
           <CustomLink plain to={UrlEnums.PROFILE}>
             <ListItem button key="profile">
               <ListItemIcon>
-                <Icon>account_circle</Icon>
+                <AccountCircle />
               </ListItemIcon>
               <ListItemText primary={t('profile')} />
             </ListItem>
           </CustomLink>
           <ListItem button key="myPages">
             <ListItemIcon>
-              <Icon>web_asset</Icon>
+              <WebAsset />
             </ListItemIcon>
             <ListItemText primary={t('pages.my')} />
           </ListItem>
@@ -90,7 +95,7 @@ const Sidebar = () => {
           <CustomLink plain to={UrlEnums.ALL_USERS}>
             <ListItem button key="allUsers">
               <ListItemIcon>
-                <Icon>supervisor_account</Icon>
+                <SupervisorAccount />
               </ListItemIcon>
               <ListItemText primary={t('users.all')} />
             </ListItem>
@@ -98,7 +103,7 @@ const Sidebar = () => {
           <CustomLink plain to={UrlEnums.MAIN}>
             <ListItem button key="allPages">
               <ListItemIcon>
-                <Icon>web</Icon>
+                <Web />
               </ListItemIcon>
               <ListItemText primary={t('pages.all')} />
             </ListItem>

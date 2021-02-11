@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   IconButton,
@@ -8,10 +8,10 @@ import {
 import {
   MoreVert as MoreIcon,
 } from '@material-ui/icons';
+import { useIsAdmin, useLoggedIn, useUserData } from '../../../components/users/hooks/userDataHooks';
 
 import { menu } from './DesktopMenu';
-import AuthHelper from '../../helpers/AuthHelper';
-import { UserContext } from '../../../contexts/UserContext';
+import AuthHelper from '../../../components/auth/AuthHelper';
 
 const useStyles = makeStyles((theme) => ({
   sectionMobile: {
@@ -30,14 +30,22 @@ const MobileMenu = ({
   ...rest
 }) => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const { userData } = useContext(UserContext);
+  const userData = useUserData();
+  const loggedIn = useLoggedIn();
+  const isAdmin = useIsAdmin();
   return (
     <MuiMenu
       anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
       id={mobileMenuId}
       keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
@@ -48,7 +56,7 @@ const MobileMenu = ({
           text,
           authorizations,
         } = el;
-        if (authorizations && !AuthHelper.isAuthorized(userData, authorizations)) {
+        if (authorizations && !AuthHelper.isAuthorized({ ...userData, isAdmin, loggedIn }, authorizations)) {
           return null;
         }
         if (onClick) {

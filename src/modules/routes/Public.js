@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import UrlEnums from '../connections/UrlEnums';
-import { UserContext } from '../../contexts/UserContext';
+import UrlEnums from '../connections/enums/UrlEnums';
+import { useLoggedIn, useRedirected } from '../../components/users/hooks/userDataHooks';
 
 const Public = ({
   component: Component, ...rest
 }) => {
-  const { userData } = useContext(UserContext);
-  const { loggedIn } = userData;
+  const loggedIn = useLoggedIn();
+  const redirectedFrom = useRedirected();
 
   return (
     <Route
@@ -15,7 +15,7 @@ const Public = ({
       render={props => (!loggedIn ? (
         <Component {...props} loggedIn={loggedIn} />
       ) : (
-        <Redirect to={UrlEnums.MAIN} />
+        <Redirect to={redirectedFrom || UrlEnums.MAIN} />
       ))}
     />
   );

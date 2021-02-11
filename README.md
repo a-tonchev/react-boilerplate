@@ -1,7 +1,7 @@
 # React boilerplate with basic functionalities, based on CRA:
 
 - Login field
-- Store login data at localStorage (can be easily changed with cookies)
+- Store login data at localForage (can be easily changed with cookies)
 - Material UI Template + Mobile view
 - Handling of authentications and authorizations: Public, LoggedIn, Admin, permissions, roles
 - Basic routes that use the Authorizations
@@ -82,7 +82,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ### Handling User Login and Authorization
 
-The whole user registration is handled in the UserContext file (/contexts/UserContext.js) using the  local storage of the browser to store the userData and the language variables. After login the user data is stored in the localstorage. When the app starts the context loads automatically the user data from the local storage. You can store also the login token in local storage or in cookies, depending on the way you want to handle your system. 
+The whole user registration is handled in the user recoil store file (/users/stores/userStore.js) using the  localForage to store the userData and the language variables. After login the user data is stored in the localForage. When the app starts the recoil loads automatically the user data from the localForage. You can store also the login token in localForage or in cookies, depending on the way you want to handle your system. 
 
 #### userData:
 
@@ -96,17 +96,6 @@ The whole user registration is handled in the UserContext file (/contexts/UserCo
 The system checks after login if the user has role 'admin' in roles, but can be easily changed according any demand.
 
 The language field is of type string uses the ISO 639 language codes.
-
-userData can be checked via hooks:
-
-```import { UserContext } from '../../contexts/UserContext';
-const { userData } = useContext(UserContext);
-
-...
-<Authorized>
- <SomeOtherComponents />
-</Authorized>
-```
 
 but I recommend to use the <Authorized /> Component. 
 
