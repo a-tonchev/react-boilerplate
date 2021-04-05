@@ -1,5 +1,5 @@
-export default class AuthHelper {
-  static isAuthorized(userData, authorizations) {
+const AuthHelper = {
+  isAuthorized(userData, authorizations) {
     const {
       authenticated,
       adminOnly,
@@ -33,5 +33,7 @@ export default class AuthHelper {
 
     // Check for registered only
     return !(authenticated && !loggedIn);
-  }
-}
+  },
+};
+
+export default AuthHelper;

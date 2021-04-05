@@ -4,29 +4,29 @@ import StringHelper from '../../helpers/StringHelper';
 
 let token = '';
 
-class tokenStore {
-  static set(newToken) {
+const tokenStore = {
+  set(newToken) {
     token = newToken;
     LocalStorage.save(
       StorageEnums.token,
       StringHelper.encode(newToken),
     ).then();
-  }
+  },
 
-  static get() {
+  get() {
     return token;
-  }
+  },
 
-  static remove() {
+  remove() {
     token = '';
     LocalStorage.remove(StorageEnums.token).then();
-  }
+  },
 
-  static async restoreFromSession() {
+  async restoreFromSession() {
     const storedToken = await LocalStorage.get(StorageEnums.token) || '';
     token = storedToken ? StringHelper.decode(storedToken) : '';
     return token;
-  }
-}
+  },
+};
 
 export default tokenStore;

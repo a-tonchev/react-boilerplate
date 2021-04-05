@@ -25,12 +25,12 @@ const decipher = salt => {
 const customEncode = cipher('GeneralConfig.DOMAIN_KEY');
 const customDecode = decipher('GeneralConfig.DOMAIN_KEY');
 
-export default class StringHelper {
-  static encode = string => customEncode(string)
+const StringHelper = {
+  encode: string => customEncode(string),
 
-  static decode = string => customDecode(string)
+  decode: string => customDecode(string),
 
-  static slugify(string, separator) {
+  slugify(string, separator) {
     let text = string.toString().toLowerCase().trim();
 
     const sets = [
@@ -78,9 +78,9 @@ export default class StringHelper {
     }
 
     return text;
-  }
+  },
 
-  static generateToken(length, lowCase = true, highCase = true, numbers = true) {
+  generateToken(length, lowCase = true, highCase = true, numbers = true) {
     let result = '';
     let characters = lowCase ? 'abcdefghijklmnopqrstuvwxyz' : '';
     characters = highCase ? `${characters}ABCDEFGHIJKLMNOPQRSTUVWXYZ` : characters;
@@ -90,10 +90,12 @@ export default class StringHelper {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
-  }
+  },
 
-  static replace(fullText, stringToReplace, replacement) {
+  replace(fullText, stringToReplace, replacement) {
     const re = new RegExp(stringToReplace, 'g');
     return fullText.replace(re, replacement);
-  }
-}
+  },
+};
+
+export default StringHelper;
