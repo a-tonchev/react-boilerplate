@@ -9,14 +9,14 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { useLoginUser } from '../users/hooks/userDataHooks';
-import CustomLink from '../../modules/inputs/CustomLink';
-import CustomTextField from '../../modules/inputs/CustomTextField';
-import Connections, { ApiEndpoints } from '../../modules/connections/Connections';
-import useErrorCheck from '../../modules/validations/hooks/useError';
-import UrlEnums from '../../modules/connections/enums/UrlEnums';
-import useLoading from '../../modules/loading/hooks/useLoading';
-import History from '../../modules/connections/History';
-import CustomButton from '../../modules/inputs/CustomButton';
+import CustomLink from '../../components/inputs/CustomLink';
+import CustomTextField from '../../components/inputs/CustomTextField';
+import Connections, { ApiEndpoints } from '../../components/connections/Connections';
+import useErrorCheck from '../../components/validations/hooks/useError';
+import UrlEnums from '../../components/connections/enums/UrlEnums';
+import useLoading from '../../components/loading/hooks/useLoading';
+import History from '../../components/connections/History';
+import CustomButton from '../../components/inputs/CustomButton';
 import SendVerificationMail from './SendVerificationMail';
 
 const useStyles = makeStyles((theme) => ({

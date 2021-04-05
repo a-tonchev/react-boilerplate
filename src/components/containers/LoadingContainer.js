@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilCallback, waitForAll } from 'recoil';
-import { isLoggedInStore, languageStore, userDataStore } from '../../components/users/stores/userStore';
+import { isLoggedInStore, languageStore, userDataStore } from '../../screens/users/stores/userStore';
 
 const LoadingContainer = ({ children }) => {
   useRecoilCallback(({ snapshot }) => async () => {

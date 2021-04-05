@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import UrlEnums from '../connections/enums/UrlEnums';
-import { useLoggedIn } from '../../components/users/hooks/userDataHooks';
+import { useLoggedIn } from '../../screens/users/hooks/userDataHooks';
 
 const Authenticated = ({
   removeLoginData, userLogin, component: Component, ...rest

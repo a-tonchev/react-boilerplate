@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import Connections, { ApiEndpoints } from '../../modules/connections/Connections';
-import useLoading from '../../modules/loading/hooks/useLoading';
-import CustomButton from '../../modules/inputs/CustomButton';
+import Connections, { ApiEndpoints } from '../../components/connections/Connections';
+import useLoading from '../../components/loading/hooks/useLoading';
+import CustomButton from '../../components/inputs/CustomButton';
 
-import useAlert from '../../modules/dialogs/hooks/useAlert';
+import useAlert from '../../components/dialogs/hooks/useAlert';
 
 const SendVerificationMail = ({
   email,

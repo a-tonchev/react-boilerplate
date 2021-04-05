@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import Connections, { ApiEndpoints } from '../../modules/connections/Connections';
-import tokenStore from '../../modules/connections/stores/tokenStore';
+import Connections, { ApiEndpoints } from '../../components/connections/Connections';
+import tokenStore from '../../components/connections/stores/tokenStore';
 import { useLogoutUser } from '../users/hooks/userDataHooks';
 
 const Logout = () => {

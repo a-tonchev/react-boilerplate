@@ -4,7 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { useTranslation } from 'react-i18next';
-import { useSetLanguage } from '../../components/users/hooks/languageHook';
+import { useSetLanguage } from '../../screens/users/hooks/languageHook';
 
 const useStyles = makeStyles(theme => ({
   formControl: {

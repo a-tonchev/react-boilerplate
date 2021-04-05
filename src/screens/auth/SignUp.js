@@ -2,20 +2,21 @@ import { LockOutlined } from '@material-ui/icons';
 import React, { useState } from 'react';
 import {
   Avatar,
-  FormHelperText,
+  Button,
+  Grid,
   Typography,
   Container,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import CustomLink from '../../modules/inputs/CustomLink';
-import CustomTextField from '../../modules/inputs/CustomTextField';
-import Connections, { ApiEndpoints } from '../../modules/connections/Connections';
-import useError from '../../modules/validations/hooks/useError';
-import useLoading from '../../modules/loading/hooks/useLoading';
-import SuccessBox from '../../modules/validations/SuccessBox';
-import UrlEnums from '../../modules/connections/enums/UrlEnums';
-import CustomButton from '../../modules/inputs/CustomButton';
+import CustomLink from '../../components/inputs/CustomLink';
+import CustomTextField from '../../components/inputs/CustomTextField';
+import Connections, { ApiEndpoints } from '../../components/connections/Connections';
+import CustomCheckBox from '../../components/inputs/CustomCheckBox';
+import useError from '../../components/validations/hooks/useError';
+import useLoading from '../../components/loading/hooks/useLoading';
+import SuccessBox from '../../components/validations/SuccessBox';
+import UrlEnums from '../../components/connections/enums/UrlEnums';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,20 +38,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ResetPassword({
-  match,
-}) {
+export default function SignUp() {
   const classes = useStyles();
 
   const { t } = useTranslation();
   const [values, setValues] = useState({
+    email: '',
     password: '',
     repeatPassword: '',
+    firstName: '',
+    lastName: '',
+    terms: false,
   });
 
-  const [passwordResetSuccess, setPasswordResetSuccess] = useState(false);
+  const [signUpCompleted, setSignUpCompleted] = useState(false);
   const { loading, Loading, setLoading } = useLoading();
   const validations = {
+    email: {
+      type: 'isEmail',
+      text: 'errorDescription.email',
+    },
     password: {
       type: 'isEmpty',
       text: 'errorDescription.password',
@@ -58,6 +65,10 @@ export default function ResetPassword({
     repeatPassword: {
       customValidation: () => values.password === values.repeatPassword,
       text: 'password.shouldMatch',
+    },
+    terms: {
+      type: 'isTrue',
+      text: 'field.required',
     },
   };
 
@@ -71,33 +82,30 @@ export default function ResetPassword({
     validations,
   });
 
-  if (passwordResetSuccess) {
+  if (signUpCompleted) {
     return (
       <SuccessBox
-        text={t('password.resetSuccessful')}
-        button={<CustomLink to={UrlEnums.LOGIN}>{t('login')}</CustomLink>}
+        text="signUp.successfulRegistration"
       />
     );
   }
 
-  const resetPassword = async () => {
+  const signUp = async () => {
     setCustomError(null);
     setLoading(true);
     const err = getActivateError();
     if (!err) {
-      const { resetToken } = match.params;
-      const res = await Connections.postRequest(ApiEndpoints.resetPassword, {
+      const res = await Connections.postRequest(ApiEndpoints.signUp, {
+        email: values.email,
         password: values.password,
-        resetToken,
       });
+
       if (res.ok) {
-        setPasswordResetSuccess(true);
+        setSignUpCompleted(true);
+      } else if (res.errorCode === 'USER_ALREADY_EXISTS') {
+        setCustomError({ email: 'user.alreadyExists' });
       } else if (res.errorData && res.errorData.errors) {
         setCustomError(convertErrorArray(res.errorData.errors));
-      } else {
-        setCustomError({
-          password: res.errorMessage,
-        });
       }
       setLoading(false);
     } else {
@@ -118,16 +126,26 @@ export default function ResetPassword({
           <LockOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {t('resetPassword')}
+          {t('onBoarding')}
         </Typography>
         <form className={classes.form} noValidate>
-          <FormHelperText>
-            {t('typeNewPassword')}:
-          </FormHelperText>
+          <CustomTextField
+            id="email"
+            name="email"
+            label="email.address"
+            autoComplete="email"
+            value={values.email}
+            onChange={handleChange}
+            type="email"
+            autoFocus
+            fullWidth
+            required
+            error={isError('email')}
+          />
           <CustomTextField
             id="password"
             name="password"
-            label={t('newPassword')}
+            label="password"
             autoComplete="current-password"
             value={values.password}
             onChange={handleChange}
@@ -139,7 +157,7 @@ export default function ResetPassword({
           <CustomTextField
             id="repeatPassword"
             name="repeatPassword"
-            label={t('repeatNewPassword')}
+            label="repeatPassword"
             value={values.repeatPassword}
             onChange={handleChange}
             type="password"
@@ -147,13 +165,46 @@ export default function ResetPassword({
             required
             error={isError('repeatPassword')}
           />
-          <CustomButton
+          <CustomCheckBox
+            label="Terms and service"
+            name="terms"
+            onChange={handleChange}
+            error={isError('terms')}
+          />
+          <Button
             fullWidth
+            variant="contained"
+            color="primary"
             className={classes.submit}
-            onClick={resetPassword}
+            onClick={signUp}
           >
-            {t('setNewPassword')}
-          </CustomButton>
+            {t('signUp')}
+          </Button>
+          <Grid
+            container
+            justify="center"
+            alignContent="center"
+            alignItems="center"
+            className={classes.signUp}
+          >
+            <Grid item xs={12}>
+              <Typography>
+                {t('login.alreadyAccount')}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <CustomLink
+                to={UrlEnums.LOGIN}
+                button
+                buttonProps={{
+                  fullWidth: true,
+                  variant: 'outlined',
+                }}
+              >
+                {t('login')}
+              </CustomLink>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </Container>

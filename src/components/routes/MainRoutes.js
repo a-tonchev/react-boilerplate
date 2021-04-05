@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import UrlEnums from '../connections/enums/UrlEnums';
-import Home from '../../components/Home';
+import Home from '../../screens/Home';
 import Public from './Public';
-import Login from '../../components/auth/Login';
-import NotFoundPage from '../../components/NotFoundPage';
-import Logout from '../../components/auth/Logout';
-import SignUp from '../../components/auth/SignUp';
+import Login from '../../screens/auth/Login';
+import NotFoundPage from '../../screens/NotFoundPage';
+import Logout from '../../screens/auth/Logout';
+import SignUp from '../../screens/auth/SignUp';
 import Authenticated from './Authenticated';
 
 const MainRoutes = () => (

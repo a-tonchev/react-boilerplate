@@ -10,6 +10,8 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
+import SWHelper from './components/helpers/SWHelper';
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -19,6 +21,12 @@ const isLocalhost = Boolean(
       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/,
     ),
 );
+
+window.addEventListener('beforeunload', async () => {
+  if (window.swNeedUpdate) {
+    await SWHelper.skipWaiting();
+  }
+});
 
 export function register(config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
@@ -60,10 +68,14 @@ function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
+      if (registration.waiting && registration.active) {
+        SWHelper.callNewServiceWorkerEvent();
+      }
       // eslint-disable-next-line no-param-reassign
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
+          SWHelper.callInstallingEvent();
           return;
         }
         installingWorker.onstatechange = () => {
@@ -72,6 +84,8 @@ function registerValidSW(swUrl, config) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
+              SWHelper.callNewServiceWorkerEvent();
+              SWHelper.prepareCachesForUpdate().then();
               console.log(
                 'New content is available and will be used when all ' +
                   'tabs for this page are closed. See https://bit.ly/CRA-PWA.',
@@ -135,7 +149,7 @@ export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready
       .then(registration => {
-        registration.unregister();
+        registration.unregister().then();
       })
       .catch(error => {
         console.error(error.message);

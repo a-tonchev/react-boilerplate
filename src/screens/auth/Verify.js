@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import Connections, { ApiEndpoints } from '../../modules/connections/Connections';
-import useLoading from '../../modules/loading/hooks/useLoading';
-import SuccessBox from '../../modules/validations/SuccessBox';
-import ErrorBox from '../../modules/validations/ErrorBox';
-import CustomLink from '../../modules/inputs/CustomLink';
-import UrlEnums from '../../modules/connections/enums/UrlEnums';
+import Connections, { ApiEndpoints } from '../../components/connections/Connections';
+import useLoading from '../../components/loading/hooks/useLoading';
+import SuccessBox from '../../components/validations/SuccessBox';
+import ErrorBox from '../../components/validations/ErrorBox';
+import CustomLink from '../../components/inputs/CustomLink';
+import UrlEnums from '../../components/connections/enums/UrlEnums';
 
 export default function Verify({
   match,

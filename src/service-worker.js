@@ -2,16 +2,25 @@
 
 // This service worker can be customized!
 // See https://developers.google.com/web/tools/workbox/modules
-// for the list of available Workbox modules, or add any other
+// for the list of available Workbox components, or add any other
 // code you'd like.
 // You can also remove this file if you'd prefer not to use a
 // service worker, and the Workbox build step will be skipped.
 
-import { clientsClaim } from 'workbox-core';
+import { clientsClaim, setCacheNameDetails } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+
+/* Custom Logic */
+const CACHE_VARIABLE = process.env.REACT_APP_VERSION_UNIQUE_STRING;
+
+setCacheNameDetails({
+  prefix: 'boilerplate',
+  suffix: CACHE_VARIABLE,
+});
+/* End of Custom Logic */
 
 clientsClaim();
 
@@ -62,12 +71,85 @@ registerRoute(
   }),
 );
 
+/* Custom Logic */
+const getCacheStorageNames = async () => {
+  const cacheNames = await caches.keys() || [];
+  let latestCacheName;
+  const outdatedCacheNames = [];
+  for (const cacheName of cacheNames) {
+    if (cacheName.includes(CACHE_VARIABLE)) {
+      latestCacheName = cacheName;
+    } else {
+      outdatedCacheNames.push(cacheName);
+    }
+  }
+  return { latestCacheName, outdatedCacheNames };
+};
+
+const prepareCachesForUpdate = async () => {
+  const { latestCacheName, outdatedCacheNames } = await getCacheStorageNames();
+  if (!latestCacheName || !outdatedCacheNames?.length) return null;
+
+  const latestCache = await caches?.open(latestCacheName);
+  const latestCacheKeys = (await latestCache?.keys())?.map(c => c.url) || [];
+  const latestCacheMainKey = latestCacheKeys?.find(url => url.includes('/index.html'));
+  const latestCacheMainKeyResponse = latestCacheMainKey ? await latestCache.match(latestCacheMainKey) : null;
+
+  const latestCacheOtherKeys = latestCacheKeys.filter(url => url !== latestCacheMainKey) || [];
+
+  const cachePromises = outdatedCacheNames.map(cacheName => {
+    const getCacheDone = async () => {
+      const cache = await caches?.open(cacheName);
+      const cacheKeys = (await cache?.keys())?.map(c => c.url) || [];
+      const cacheMainKey = cacheKeys?.find(url => url.includes('/index.html'));
+      if (cacheMainKey && latestCacheMainKeyResponse) {
+        await cache.put(cacheMainKey, latestCacheMainKeyResponse.clone());
+      }
+
+      return Promise.all(
+        latestCacheOtherKeys
+          .filter(key => !cacheKeys.includes(key))
+          .map(url => cache.add(url).catch(r => console.error(r))),
+      );
+    };
+    return getCacheDone();
+  });
+
+  return Promise.all(cachePromises);
+};
+/* End of Custom Logic */
+
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
+
+  /* Custom Logic */
+  if (event.data && event.data.type === 'SKIP_WAITING_WHEN_SOLO') {
+    self.clients.matchAll({
+      includeUncontrolled: true,
+    }).then(clients => {
+      if (clients.length < 2) {
+        self.skipWaiting();
+      }
+    });
+  }
+
+  if (event.data && event.data.type === 'PREPARE_CACHES_FOR_UPDATE') {
+    prepareCachesForUpdate().then(() => console.log('DONE!'));
+  }
+  /* End of Custom Logic */
 });
 
 // Any other custom service worker logic can go here.
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    getCacheStorageNames()
+      .then(
+        ({ outdatedCacheNames }) => outdatedCacheNames.map(cacheName => caches.delete(cacheName)),
+      ),
+  );
+});

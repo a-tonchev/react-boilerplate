@@ -8,10 +8,10 @@ import {
 import {
   MoreVert as MoreIcon,
 } from '@material-ui/icons';
-import { useIsAdmin, useLoggedIn, useUserData } from '../../../components/users/hooks/userDataHooks';
+import { useIsAdmin, useLoggedIn, useUserData } from '../../../screens/users/hooks/userDataHooks';
 
 import { menu } from './DesktopMenu';
-import AuthHelper from '../../../components/auth/AuthHelper';
+import AuthHelper from '../../../screens/auth/AuthHelper';
 
 const useStyles = makeStyles((theme) => ({
   sectionMobile: {

@@ -12,7 +12,7 @@ import {
   Notifications as NotificationsIcon,
 } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import Authorized from '../../../components/auth/Authorized';
+import Authorized from '../../../screens/auth/Authorized';
 import CustomLink from '../../inputs/CustomLink';
 import LanguagesPicker from '../../translations/LanguagesPicker';
 import i18n from '../../translations/i18n';

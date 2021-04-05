@@ -9,12 +9,12 @@ import {
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import CustomTextField from '../../modules/inputs/CustomTextField';
-import Connections, { ApiEndpoints } from '../../modules/connections/Connections';
-import useError from '../../modules/validations/hooks/useError';
-import useLoading from '../../modules/loading/hooks/useLoading';
-import SuccessBox from '../../modules/validations/SuccessBox';
-import CustomButton from '../../modules/inputs/CustomButton';
+import CustomTextField from '../../components/inputs/CustomTextField';
+import Connections, { ApiEndpoints } from '../../components/connections/Connections';
+import useError from '../../components/validations/hooks/useError';
+import useLoading from '../../components/loading/hooks/useLoading';
+import SuccessBox from '../../components/validations/SuccessBox';
+import CustomButton from '../../components/inputs/CustomButton';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

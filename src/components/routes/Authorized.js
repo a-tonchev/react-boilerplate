@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import UrlEnums from '../connections/enums/UrlEnums';
-import AuthHelper from '../../components/auth/AuthHelper';
-import { useIsAdmin, useLoggedIn, useUserData } from '../../components/users/hooks/userDataHooks';
+import AuthHelper from '../../screens/auth/AuthHelper';
+import { useIsAdmin, useLoggedIn, useUserData } from '../../screens/users/hooks/userDataHooks';
 
 const Authorized = ({
   component: Component,

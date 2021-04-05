@@ -18,7 +18,7 @@ import {
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import Authorized from '../../../components/auth/Authorized';
+import Authorized from '../../../screens/auth/Authorized';
 import CustomLink from '../../inputs/CustomLink';
 import UrlEnums from '../../connections/enums/UrlEnums';
 
