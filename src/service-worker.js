@@ -79,7 +79,7 @@ const getCacheStorageNames = async () => {
   for (const cacheName of cacheNames) {
     if (cacheName.includes(CACHE_VARIABLE)) {
       latestCacheName = cacheName;
-    } else {
+    } else if (cacheName !== 'images') {
       outdatedCacheNames.push(cacheName);
     }
   }
@@ -138,7 +138,7 @@ self.addEventListener('message', (event) => {
   }
 
   if (event.data && event.data.type === 'PREPARE_CACHES_FOR_UPDATE') {
-    prepareCachesForUpdate().then(() => console.log('DONE!'));
+    prepareCachesForUpdate().then();
   }
   /* End of Custom Logic */
 });

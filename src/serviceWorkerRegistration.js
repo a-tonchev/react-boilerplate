@@ -69,13 +69,12 @@ function registerValidSW(swUrl, config) {
     .register(swUrl)
     .then(registration => {
       if (registration.waiting && registration.active) {
-        SWHelper.callNewServiceWorkerEvent();
+        window.swNeedUpdate = true;
       }
       // eslint-disable-next-line no-param-reassign
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
-          SWHelper.callInstallingEvent();
           return;
         }
         installingWorker.onstatechange = () => {
@@ -84,7 +83,7 @@ function registerValidSW(swUrl, config) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
-              SWHelper.callNewServiceWorkerEvent();
+              window.swNeedUpdate = true;
               SWHelper.prepareCachesForUpdate().then();
               console.log(
                 'New content is available and will be used when all ' +

@@ -13,19 +13,7 @@ const SWHelper = {
   },
 
   async prepareCachesForUpdate() {
-    const newSw = localStorage.getItem('swInstalling');
-    if (newSw) {
-      localStorage.removeItem('swInstalling');
-      return (await SWHelper.getWaitingWorker())?.postMessage({ type: 'PREPARE_CACHES_FOR_UPDATE' });
-    }
-  },
-
-  callInstallingEvent() {
-    localStorage.setItem('swInstalling', 'true');
-  },
-
-  callNewServiceWorkerEvent() {
-    window.swNeedUpdate = true;
+    return (await SWHelper.getWaitingWorker())?.postMessage({ type: 'PREPARE_CACHES_FOR_UPDATE' });
   },
 };
 
