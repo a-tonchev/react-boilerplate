@@ -17,7 +17,7 @@ import { StaleWhileRevalidate } from 'workbox-strategies';
 const CACHE_VARIABLE = process.env.REACT_APP_VERSION_UNIQUE_STRING;
 
 setCacheNameDetails({
-  prefix: 'boilerplate',
+  prefix: 'my-project',
   suffix: CACHE_VARIABLE,
 });
 /* End of Custom Logic */
