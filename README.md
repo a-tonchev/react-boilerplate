@@ -6,8 +6,8 @@
 - Handling of authentications and authorizations: Public, LoggedIn, Admin, permissions, roles
 - Basic routes that use the Authorizations
 - Helpers to support connection and other functionalities
-- SEO Optimized meta tags (With react helmet)
-- Basic translation using i18n with two translation files - english and german
+- SEO Optimized meta tags (react helmet)
+- Translation using i18n with two translation files - english and german
 
 ## Installation
 
@@ -17,17 +17,18 @@ yarn install
 
 ## Start
 
+You can adjust the `.env` in the Root-Directory for your needs (e.g. the Port where the Server will run). 
 In the project directory, you can run:
 
 ```
 yarn start
 ```
 
-Runs the app in the development mode.<br />
+Runs the app in the development mode.  
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> If you change the Port in .env, use the port you entered there. 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The page will reload if you make edits. You will also see any lint errors in the console.
 
 ### Make a build
 
@@ -35,11 +36,12 @@ You will also see any lint errors in the console.
 yarn build
 ```
 
-Builds the app for production to the `build` folder.<br />
+Builds the app for production to the `build` folder.  
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+The build is minified and the filenames include the hashes.  
+
+**Your app is ready to be deployed!**
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
@@ -82,7 +84,10 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ### Handling User Login and Authorization
 
-The whole user registration is handled in the user recoil store file (/users/stores/userStore.js) using the  localForage to store the userData and the language variables. After login the user data is stored in the localForage. When the app starts the recoil loads automatically the user data from the localForage. You can store also the login token in localForage or in cookies, depending on the way you want to handle your system. 
+The whole user registration is handled in the user recoil store file `/users/stores/userStore.js`.
+After login the user data is stored in `localForage` which is an build-in asynchronous data storage.
+When the app starts, recoil (state management) automatically loads the user data from the localForage. 
+You can decide between storing the login token into this data storage, or in a cookie.
 
 #### userData:
 
@@ -93,11 +98,7 @@ The whole user registration is handled in the user recoil store file (/users/sto
 | roles  | Array  |
 | permissions  | Array  |
 
-The system checks after login if the user has role 'admin' in roles, but can be easily changed according any demand.
-
-The language field is of type string uses the ISO 639 language codes.
-
-but I recommend to use the <Authorized /> Component. 
+After login, the system checks if the user is member of an `admin`-role. It also can be easily changed according any demand, but I recommend to use the <Authorized /> Component.
 
 | Authorized props  | Type | Description |
 | ------------- | ------------- | ------------- |
@@ -107,11 +108,11 @@ but I recommend to use the <Authorized /> Component.
 | allowedRoles  | Array  | Children will be rendered only if user has some of the roles in the array |
 | allowedPermissions  | Array  | Children will be rendered only if user has permission that is included in the array |
 
-For Authorization of Routes check Routing
+For authorization of routes check following section `Routing`
 
 ### Routing
 
-I use react-router-dom for the basic routing, in the boilerplate you can find all routing components in the /routes directory.
+`react-router-dom` is used to handle the basic routing. You'll find all routing components in the `/routes` directory.
 
 Following routing components are available:
 
@@ -123,46 +124,51 @@ Following routing components are available:
 
 ### Custom input fields and validation
 
-All custom inputs are in components/common/customInputs
+All custom inputs are in `components/common/customInputs`
 
 #### Custom fields
 
-Custom fields have been prepared for usage with the material ui components. The main differences are:
+Custom fields have been prepared for usage with the material ui components. 
+The main differences are:
 
-1. On change delivers directli name and value (no need to destruct always the event.target), each component delivers standard output, even checkbox
+1. On change returns name and value (no need to destruct the `event.target`), 
+   each component return standard output, even checkboxes.
 2. It contains error FormHelperText - if error available, the error just appears in the input field.
 
-For error handling I use 
+For error handling I use  (need to be added) ???
 
 
 #### Validation and errors
 
-For the textfield validations there is the errorHook, to validate error the methods are used in helpers/Validators
+For the validation of textfields you can use the `errorHook`. Methods are used in helpers/Validators
 
 Inputs:
 
 | Attributes  | Type | Description |
 | ------------- | ------------- | ------------- | 
-| values  | Object |  The object with fields that need to be validates e.g. { email, password }  |
+| values  | Object |  The object with fields that need to be validates e.g. `{ email, password }`  |
 | validations  | Object | Validation object that has fields like bellow and help to check the values  |
-| active  | Boolean | Per default fields are not validated immediately, because we want to validate after clicking on send button  |
+| active  | Boolean | Per default fields are not validated immediately (to be able to validate after submit the form)  |
 
 Outputs:
 
 | Attributes  | Type | Description |
 | ------------- | ------------- | ------------- | 
-| error  | Object |  Object with all errors { email: 'error text for email' }, null or { general: false } if there is no error  |
-| setCustomError  | Function | Parameter custom error, to replace error with custom error, when e.g. server respond with some error regarding field, e.g. user does not exist |
-| isError  | Function | Check if errors available or if field has error - isError() show if errors at all, else isError('email') checks if field email contains any errors |
+| error  | Object |  Object with all errors `{ email: 'error text for email' }`, `null` or `{ general: false }` if there is no error  |
+| setCustomError  | Function | Parameter custom error, to replace error with custom error, when e.g. server respond with some error regarding field, e.g. `user does not exist` |
+| isError  | Function | Check if errors appears or if field has an error - `isError()` show if errors at all, else `isError('email')` checks if field email contains any errors |
 
-How to use:
+##### How to use:
 
 ```
-import useErrorCheck from '../common/customHooks/errorHook';
+import useError from '../../components/validations/hooks/useError';
 
 /* 
  Add validations existing in the helpers/Validators, or you can add custom validator with field 'customValidation'
- Important THIS VALIDATOR SHOULD BE OUTSIDE THE COMPONENT, else eternal re-rendering will happen. If you want to use it inside component, then you should exclude it from the errorHook useEffect depts array!
+ Important: 
+   THIS VALIDATOR SHOULD BE OUTSIDE THE COMPONENT, 
+   otherwise eternal re-rendering will happen. 
+   If you want to use it inside component, then you should exclude it from the errorHook useEffect depts array!
  */
 const validations = {
   email: {
@@ -180,11 +186,17 @@ const validations = {
 };
 
 export default function Login() {
+   const [values, setValues] = useState({
+    email: '',
+    password: '',
+   });
+
+
    const {
     setCustomError,
     isError,
     getActivateError,
-  } = useErrorCheck({
+  } = useError({
     values,
     validations,
   });
