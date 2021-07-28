@@ -1,6 +1,6 @@
-import LocalStorage from '../../storage/LocalStorage';
-import StorageEnums from '../../storage/enums/StorageEnums';
-import StringHelper from '../../helpers/StringHelper';
+import LocalStorage from '@/components/storage/LocalStorage';
+import StorageEnums from '@/components/storage/enums/StorageEnums';
+import StringHelper from '@/components/helpers/StringHelper';
 
 let token = '';
 

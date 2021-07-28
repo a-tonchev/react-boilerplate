@@ -1,4 +1,4 @@
-import UrlHelper from '../connections/UrlHelper';
+import UrlHelper from '@/components/connections/UrlHelper';
 
 export default {
   isEmail(email) {

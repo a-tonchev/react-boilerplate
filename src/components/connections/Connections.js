@@ -1,10 +1,12 @@
 import axios from 'axios';
-import i18n from '../translations/i18n';
+
+import BasicConfig from '@/components/config/BasicConfig';
+import LocalStorage from '@/components/storage/LocalStorage';
+import StorageEnums from '@/components/storage/enums/StorageEnums';
+import i18n from '@/components/translations/i18n';
+
 import history from './History';
-import LocalStorage from '../storage/LocalStorage';
-import StorageEnums from '../storage/enums/StorageEnums';
 import UrlEnums from './enums/UrlEnums';
-import BasicConfig from '../config/BasicConfig';
 import tokenStore from './stores/tokenStore';
 
 const baseURL = `${BasicConfig.SERVER_URL}/${BasicConfig.API_VERSION}`;
@@ -19,7 +21,7 @@ export const ApiEndpoints = {
   verifyAccount: '/users/verify',
 };
 
-const getUrl = (endpointPath) => {
+const getUrl = endpointPath => {
   if (endpointPath) return `${baseURL}${endpointPath}`;
   console.error('Url does not exist!', endpointPath);
   throw new Error('Url does not exist!');
@@ -42,7 +44,7 @@ const getLoginHeader = async () => {
   };
 };
 
-const connectionSuccessResponse = (response) => {
+const connectionSuccessResponse = response => {
   if (BasicConfig.system?.debug) {
     console.log('---success---');
     console.log(response);
@@ -57,7 +59,7 @@ const connectionSuccessResponse = (response) => {
   };
 };
 
-const connectionErrorResponse = (error) => {
+const connectionErrorResponse = error => {
   let errorMessage = i18n.t('error.unknown');
   if (BasicConfig.system?.debug) {
     console.log('---error---');
@@ -137,7 +139,7 @@ export default {
     });
   },
   async postRequest(url, params) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       setTimeout(() => {
         resolve(this.post({
           url,
