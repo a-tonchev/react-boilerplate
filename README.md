@@ -66,7 +66,7 @@ The system checks after login if the user has role 'admin' in roles, but can be 
 
 The language field is of type string uses the ISO 639 language codes.
 
-but I recommend to use the <Authorized /> Component. 
+For Authorization I recommend to use the <Authorized /> Component. 
 
 | Authorized props  | Type | Description |
 | ------------- | ------------- | ------------- |
@@ -126,7 +126,7 @@ Outputs:
 
 How to use:
 
-```
+```JS
 import useErrorCheck from '../common/customHooks/errorHook';
 
 /* 
@@ -172,7 +172,7 @@ export default function Login() {
      }
    };
 
-  .....
+  // .....
       // To display directly the error, just pass the isError(fieldName) to the custom component, this will return the error message.
       <CustomTextField
          name="password"
@@ -187,6 +187,6 @@ export default function Login() {
          margin="normal"
          error={isError('password')}
        />
- ......
+ // ......
 }
 ```
