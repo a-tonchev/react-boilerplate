@@ -51,6 +51,7 @@ export const setLanguageSelector = selector({
   get: ({ get }) => get(languageStore),
   set: ({ get, set }, language) => {
     const oldLanguage = get(languageStore);
+
     if (
       language
       && BasicConfig.localizations.availableLanguages.includes(language)
