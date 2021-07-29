@@ -1,7 +1,7 @@
 import localForage from 'localforage';
 
 localForage.config({
-  name: 'just-sell',
+  name: 'project-storage-name',
 });
 
 const LocalStorage = {
