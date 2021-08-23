@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import ConfirmDialog from '../ConfirmDialog';
-import ConfirmSnackBar from '../../snackbars/ConfirmSnackBar';
+import ConfirmSnackBar from '../snackbars/ConfirmSnackBar';
 
 const useConfirm = (type = 'modal') => {
   const [dialog, setDialog] = useState({

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import AlertDialog from '../AlertDialog';
-import AlertSnackBar from '../../snackbars/AlertSnackBar';
+import AlertSnackBar from '../snackbars/AlertSnackBar';
 
 const useAlert = (type = 'modal') => {
   const [dialog, setDialog] = useState({

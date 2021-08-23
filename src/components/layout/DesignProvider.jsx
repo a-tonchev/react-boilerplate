@@ -3,8 +3,8 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import SuccessSnackBar from '@/components/snackbars/SuccessSnackBar';
-import ErrorSnackBar from '@/components/snackbars/ErrorSnackBar';
+import SuccessSnackBar from '@/components/dialogs/snackbars/SuccessSnackBar';
+import ErrorSnackBar from '@/components/dialogs/snackbars/ErrorSnackBar';
 import useWidth from '@/components/theme/hooks/useWidth';
 
 import muiTheme from './theme';
