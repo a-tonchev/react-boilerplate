@@ -2,7 +2,7 @@ import UrlHelper from '@/components/connections/UrlHelper';
 
 export default {
   isEmail(email) {
-    return email && !!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email));
+    return email && !!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,30})+$/.test(email));
   },
   isEmpty(field) {
     return field && field.length;
