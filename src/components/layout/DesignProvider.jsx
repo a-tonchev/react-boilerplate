@@ -1,28 +1,27 @@
 import React from 'react';
-import { ThemeProvider } from '@material-ui/core/styles';
-import withWidth from '@material-ui/core/withWidth';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { ThemeProvider as MuiThemeProvider, StylesProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@emotion/react';
 
 import SuccessSnackBar from '@/components/dialogs/snackbars/SuccessSnackBar';
 import ErrorSnackBar from '@/components/dialogs/snackbars/ErrorSnackBar';
-import useWidth from '@/components/theme/hooks/useWidth';
 
 import muiTheme from './theme';
 import BasicLayout from './BasicLayout';
 
-const DesignProvider = ({ currentTheme = 1, children }) => {
-  const myTheme = muiTheme[currentTheme];
-  myTheme.isMobile = !useMediaQuery(myTheme.breakpoints.up('md'));
-  myTheme.currentWidth = useWidth(myTheme);
-  return (
-    <ThemeProvider theme={myTheme}>
-      <BasicLayout>
-        {children}
-      </BasicLayout>
-      <SuccessSnackBar />
-      <ErrorSnackBar />
-    </ThemeProvider>
-  );
-};
+const myTheme = muiTheme[1];
 
-export default withWidth()(DesignProvider);
+const DesignProvider = ({ children }) => (
+  <StylesProvider injectFirst>
+    <MuiThemeProvider theme={myTheme}>
+      <ThemeProvider theme={myTheme}>
+        <BasicLayout>
+          {children}
+        </BasicLayout>
+        <SuccessSnackBar />
+        <ErrorSnackBar />
+      </ThemeProvider>
+    </MuiThemeProvider>
+  </StylesProvider>
+);
+
+export default DesignProvider;
