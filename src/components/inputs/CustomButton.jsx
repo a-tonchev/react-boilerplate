@@ -7,7 +7,7 @@ import useClasses from '@/components/layout/hooks/useClasses';
 const styles = theme => ({
   green: {
     backgroundColor: mGreen[700],
-    color: theme.palette.primary.contrastText,
+    color: 'var(--theme.palette.primary.contrastText)',
     '&:hover': {
       backgroundColor: mGreen[600],
     },

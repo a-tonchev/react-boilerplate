@@ -9,11 +9,11 @@ import useClasses from '@/components/layout/hooks/useClasses';
 
 const styles = theme => ({
   formControl: {
-    margin: theme.spacing(1),
+    margin: 'var(--theme-spacing-1)',
     minWidth: 120,
   },
   selectEmpty: {
-    marginTop: theme.spacing(2),
+    marginTop: 'var(--theme-spacing-2)',
   },
   select: {
     color: 'white',

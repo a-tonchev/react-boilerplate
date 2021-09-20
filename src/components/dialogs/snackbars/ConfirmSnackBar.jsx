@@ -13,12 +13,12 @@ import {
 
 import useClasses from '@/components/layout/hooks/useClasses';
 
-const styles = theme => ({
+const styles = {
   root: {
     bottom: 64,
     opacity: 0.95,
     width: 'calc(100% - 16px)',
-    maxWidth: theme.breakpoints.values.sm,
+    maxWidth: 'var(--theme-breakpoints-values-sm)',
     boxSizing: 'border-box',
   },
   snackBar: {
@@ -37,7 +37,7 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
   },
-});
+};
 
 const ConfirmSnackBar = ({
   open,

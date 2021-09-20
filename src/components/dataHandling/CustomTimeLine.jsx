@@ -12,14 +12,14 @@ import Typography from '@material-ui/core/Typography';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 
-const styles = theme => ({
+const styles = {
   paper: {
     padding: '6px 16px',
   },
   secondaryTail: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: 'var(--theme-palette-secondary-main)',
   },
-});
+};
 
 export default function CustomTimeLine({ items }) {
   const classes = useClasses(styles);

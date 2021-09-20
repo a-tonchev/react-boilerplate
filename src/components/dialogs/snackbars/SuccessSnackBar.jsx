@@ -11,23 +11,23 @@ import useClasses from '@/components/layout/hooks/useClasses';
 
 import { useSetSuccessSnackbar, useSuccessSnackbar } from './hooks/snackBarHooks';
 
-const styles = theme => ({
+const styles = {
   root: {
     bottom: 64,
     opacity: 0.95,
     width: 'calc(100% - 16px)',
-    maxWidth: theme.breakpoints.values.sm,
+    maxWidth: 'var(--theme-breakpoints-values-sm)',
     boxSizing: 'border-box',
   },
   snackBar: {
-    backgroundColor: theme.palette.success.main,
-    border: `1px solid ${theme.palette.success.contrastText}`,
-    color: theme.palette.success.contrastText,
+    backgroundColor: 'var(--theme-palette-success-main)',
+    border: '1px solid var(--theme-palette-success-contrastText)',
+    color: 'var(--theme-palette-success-contrastText)',
     width: '100%',
     fontWeight: 'bold',
   },
   closeButton: {
-    color: theme.palette.success.contrastText,
+    color: 'var(--theme-palette-success-contrastText)',
   },
   message: {
     display: 'inline-block',
@@ -38,7 +38,7 @@ const styles = theme => ({
     alignItems: 'center',
     maxWidth: '85%',
   },
-});
+};
 
 const SuccessSnackBar = () => {
   const classes = useClasses(styles);

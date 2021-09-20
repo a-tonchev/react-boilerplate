@@ -1,5 +1,4 @@
 import React from 'react';
-import { alpha } from '@material-ui/core/styles';
 import {
   InputBase,
 } from '@material-ui/core';
@@ -11,21 +10,21 @@ import useClasses from '@/components/layout/hooks/useClasses';
 const styles = theme => ({
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.8),
+    borderRadius: 'var(--theme-shape-borderRadius)',
+    backgroundColor: 'var(--alpha-theme-palette-common-white-0-8)',
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 1),
+      backgroundColor: 'var(--alpha-theme-palette-common-white-1)',
     },
-    marginRight: theme.spacing(2),
+    marginRight: 'var(--theme-spacing-2)',
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
+      marginLeft: 'var(--theme-spacing-3)',
       width: 'auto',
     },
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
+    padding: 'var(--theme-spacing-0_2)',
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -39,10 +38,10 @@ const styles = theme => ({
     color: 'black',
   },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: 'var(--theme-spacing-1_1_1_0)',
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
+    paddingLeft: 'var(--searchInput-paddingLeft)',
+    transition: 'var(--theme-transitions-create-width)',
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: '20ch',

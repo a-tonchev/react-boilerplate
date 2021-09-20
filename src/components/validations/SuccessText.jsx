@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 
-const styles = theme => ({
+const styles = {
   successText: {
-    color: theme.palette.success.main,
+    color: 'var(--theme-palette-success-main)',
   },
-});
+};
 
 const SuccessText = ({ text, center, ...rest }) => {
   const { t } = useTranslation();

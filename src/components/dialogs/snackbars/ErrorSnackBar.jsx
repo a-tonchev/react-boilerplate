@@ -14,23 +14,23 @@ import {
   useSetErrorSnackbar,
 } from './hooks/snackBarHooks';
 
-const styles = theme => ({
+const styles = {
   root: {
     bottom: 64,
     opacity: 0.95,
     width: 'calc(100% - 16px)',
-    maxWidth: theme.breakpoints.values.sm,
+    maxWidth: 'var(--theme-breakpoints-values-sm)',
     boxSizing: 'border-box',
   },
   snackBar: {
-    backgroundColor: theme.palette.error.main,
-    border: `1px solid ${theme.palette.error.contrastText}`,
-    color: theme.palette.error.contrastText,
+    backgroundColor: 'var(--theme-palette-error-main)',
+    border: '1px solid var(--theme-palette-error-contrastText)',
+    color: 'var(--theme-palette-error-contrastText)',
     width: '100%',
     fontWeight: 'bold',
   },
   closeButton: {
-    color: theme.palette.error.contrastText,
+    color: 'var(--theme-palette-error-contrastText)',
   },
   message: {
     display: 'inline-block',
@@ -41,7 +41,7 @@ const styles = theme => ({
     alignItems: 'center',
     maxWidth: '85%',
   },
-});
+};
 
 const ErrorSnackBar = () => {
   const classes = useClasses(styles);

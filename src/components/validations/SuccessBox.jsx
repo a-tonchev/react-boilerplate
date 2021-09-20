@@ -5,19 +5,19 @@ import { useTranslation } from 'react-i18next';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 
-const styles = theme => ({
+const styles = {
   icon: {
     color: 'green',
     margin: 15,
     fontSize: '4rem',
   },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: 'var(--theme-spacing-8)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
-});
+};
 
 const SuccessBox = ({ text, button }) => {
   const classes = useClasses(styles);

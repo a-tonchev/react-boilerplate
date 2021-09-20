@@ -21,29 +21,29 @@ import useClasses from '@/components/layout/hooks/useClasses';
 
 import SendVerificationMail from './SendVerificationMail';
 
-const styles = theme => ({
+const styles = {
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: 'var(--theme-spacing-8)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
+    margin: 'var(--theme-spacing-1)',
+    backgroundColor: 'var(--theme-palette-primary-main)',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: 'var(--theme-spacing-1)',
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: 'var(--theme-spacing-3_0_2)',
   },
   signUp: {
     textAlign: 'center',
     marginTop: 20,
   },
-});
+};
 
 const validations = {
   email: {
