@@ -2,23 +2,25 @@ import {
   IconButton, List,
   ListItem,
   ListItemSecondaryAction,
-  ListItemText, makeStyles,
+  ListItemText,
 } from '@material-ui/core';
 import {
   Delete, Edit, KeyboardArrowDown, KeyboardArrowUp,
 } from '@material-ui/icons';
 import React from 'react';
 
-const useStyles = makeStyles(() => ({
+import useClasses from '@/components/layout/hooks/useClasses';
+
+const styles = {
   item: {
     maxWidth: '60%',
   },
-}));
+};
 
 const ListItemsWithActions = ({
   items, handleSwitch, handleRemove, handleEdit,
 }) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
 
   return (
     <>

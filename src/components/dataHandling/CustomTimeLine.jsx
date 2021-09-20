@@ -1,6 +1,5 @@
 import { Ballot } from '@material-ui/icons';
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -11,17 +10,19 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles(theme => ({
+import useClasses from '@/components/layout/hooks/useClasses';
+
+const styles = theme => ({
   paper: {
     padding: '6px 16px',
   },
   secondaryTail: {
     backgroundColor: theme.palette.secondary.main,
   },
-}));
+});
 
 export default function CustomTimeLine({ items }) {
-  const classes = useStyles();
+  const classes = useClasses(styles);
 
   return (
     <Timeline align="left">

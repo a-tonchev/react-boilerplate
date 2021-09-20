@@ -2,19 +2,19 @@ import React from 'react';
 import {
   Dialog, DialogActions, DialogContent, DialogTitle, Typography,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
 import CustomButton from '@/components/inputs/CustomButton';
+import useClasses from '@/components/layout/hooks/useClasses';
 
-const useStyles = makeStyles(() => ({
+const styles = {
   button: {
     width: '100%',
   },
   text: {
     textAlign: 'center',
   },
-}));
+};
 
 const ConfirmDialog = ({
   title,
@@ -23,7 +23,7 @@ const ConfirmDialog = ({
   onClose,
   onConfirm,
 }) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const { t } = useTranslation();
 
   return (

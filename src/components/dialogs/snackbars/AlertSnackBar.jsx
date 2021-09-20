@@ -9,9 +9,10 @@ import {
   Info,
   Check,
 } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+import useClasses from '@/components/layout/hooks/useClasses';
+
+const styles = theme => ({
   root: {
     bottom: 64,
     opacity: 0.95,
@@ -35,14 +36,14 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
-}));
+});
 
 const AlertSnackBar = ({
   open,
   text,
   onClose,
 }) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
 
   const closeSnackBar = (event, reason) => {
     if (reason === 'clickaway') {

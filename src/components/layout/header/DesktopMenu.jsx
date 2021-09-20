@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   IconButton,
   Badge,
@@ -17,15 +16,16 @@ import Authorized from '@/screens/auth/Authorized';
 import CustomLink from '@/components/inputs/CustomLink';
 import LanguagesPicker from '@/components/translations/LanguagesPicker';
 import i18n from '@/components/translations/i18n';
+import useClasses from '@/components/layout/hooks/useClasses';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   sectionDesktop: {
     display: 'none',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
     },
   },
-}));
+});
 
 const menuId = 'primary-search-account-menu';
 
@@ -105,7 +105,7 @@ const ProfileMenu = ({
 };
 
 const DesktopMenuSection = props => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   return (
     <div className={classes.sectionDesktop}>
       {menu.map((el, ind) => {

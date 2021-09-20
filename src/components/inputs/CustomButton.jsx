@@ -1,9 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { green as mGreen } from '@material-ui/core/colors';
 
-const useStyles = makeStyles(theme => ({
+import useClasses from '@/components/layout/hooks/useClasses';
+
+const styles = theme => ({
   green: {
     backgroundColor: mGreen[700],
     color: theme.palette.primary.contrastText,
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
       width: '100%',
     },
   },
-}));
+});
 
 const CustomButton = ({
   children,
@@ -33,7 +34,7 @@ const CustomButton = ({
   let { className: buttonClassName = '' } = buttonProps;
 
   if (buttonTheme === 'primary') buttonProps.color = 'primary';
-  const classes = useStyles();
+  const classes = useClasses(styles);
   if (buttonTheme === 'green') buttonClassName += ` ${classes.green}`;
   if (fullMobile) buttonClassName += ` ${classes.fullMobile}`;
 

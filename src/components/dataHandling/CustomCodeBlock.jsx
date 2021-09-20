@@ -1,10 +1,12 @@
 import React from 'react';
 import {
-  makeStyles, Typography,
+  Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-const stylesToUse = makeStyles(() => ({
+import useClasses from '@/components/layout/hooks/useClasses';
+
+const styles = {
   pre: {
     display: 'block',
     padding: '9.5px',
@@ -18,7 +20,7 @@ const stylesToUse = makeStyles(() => ({
     borderRadius: '4px',
     whiteSpace: 'pre-wrap',
   },
-}));
+};
 
 const CustomCodeBlock = (
   {
@@ -28,7 +30,7 @@ const CustomCodeBlock = (
 ) => {
   const { t } = useTranslation();
 
-  const classes = stylesToUse();
+  const classes = useClasses(styles);
   return (
     <>
       <br />

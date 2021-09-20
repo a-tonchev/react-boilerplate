@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   IconButton,
   MenuItem,
@@ -11,17 +10,18 @@ import {
 
 import { useIsAdmin, useLoggedIn, useUserData } from '@/screens/users/hooks/userDataHooks';
 import AuthHelper from '@/screens/auth/AuthHelper';
+import useClasses from '@/components/layout/hooks/useClasses';
 
 import { menu } from './DesktopMenu';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   sectionMobile: {
     display: 'flex',
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
-}));
+});
 
 const mobileMenuId = 'primary-search-account-menu-mobile';
 
@@ -80,7 +80,7 @@ const MobileMenu = ({
 };
 
 const MobileMenuSection = ({ handleMobileMenuOpen }) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   return (
     <div className={classes.sectionMobile}>
       <IconButton

@@ -6,11 +6,12 @@ import {
   SnackbarContent,
   Typography,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+
+import useClasses from '@/components/layout/hooks/useClasses';
 
 import { useSetSuccessSnackbar, useSuccessSnackbar } from './hooks/snackBarHooks';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     bottom: 64,
     opacity: 0.95,
@@ -37,10 +38,10 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     maxWidth: '85%',
   },
-}));
+});
 
 const SuccessSnackBar = () => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
 
   const successSnackBar = useSuccessSnackbar();
   const setSuccessSnackBar = useSetSuccessSnackbar();

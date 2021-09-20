@@ -1,9 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
   Toolbar,
 } from '@material-ui/core';
+
+import useClasses from '@/components/layout/hooks/useClasses';
 
 import Drawer from '../sidebar/Drawer';
 import { MobileMenu, MobileMenuSection } from './MobileMenu';
@@ -11,14 +12,14 @@ import { ProfileMenu, DesktopMenuSection } from './DesktopMenu';
 import HeaderLogo from './HeaderLogo';
 import HeaderSearch from './HeaderSearch';
 
-const useStyles = makeStyles(() => ({
+const styles = {
   grow: {
     flexGrow: 1,
   },
-}));
+};
 
 export default function Header() {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 

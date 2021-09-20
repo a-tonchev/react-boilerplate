@@ -1,12 +1,14 @@
 import React from 'react';
-import { alpha, makeStyles } from '@material-ui/core/styles';
+import { alpha } from '@material-ui/core/styles';
 import {
   InputBase,
 } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
-const useStyles = makeStyles(theme => ({
+import useClasses from '@/components/layout/hooks/useClasses';
+
+const styles = theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -46,10 +48,10 @@ const useStyles = makeStyles(theme => ({
       width: '20ch',
     },
   },
-}));
+});
 
 const HeaderSearch = () => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const { t } = useTranslation();
   return (
     <div className={classes.search}>

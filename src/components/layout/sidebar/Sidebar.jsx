@@ -16,14 +16,14 @@ import {
   SupervisorAccount,
   Web,
 } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
 import Authorized from '@/screens/auth/Authorized';
 import CustomLink from '@/components/inputs/CustomLink';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
+import useClasses from '@/components/layout/hooks/useClasses';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   grow: {
     flexGrow: 1,
   },
@@ -40,10 +40,10 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     left: '20px',
   },
-}));
+});
 
 const Sidebar = () => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const { t } = useTranslation();
   return (
     <>

@@ -1,16 +1,18 @@
 import React from 'react';
 import {
-  FormHelperText, InputAdornment, makeStyles, TextField,
+  FormHelperText, InputAdornment, TextField,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-const stylesToUse = makeStyles(() => ({
+import useClasses from '@/components/layout/hooks/useClasses';
+
+const styles = {
   success: {
     '& input:valid + fieldset': {
       borderColor: 'green',
     },
   },
-}));
+};
 
 const CustomTextField = (
   {
@@ -39,7 +41,7 @@ const CustomTextField = (
       value: val,
     });
   };
-  const classes = stylesToUse();
+  const classes = useClasses(styles);
   return (
     <>
       <TextField

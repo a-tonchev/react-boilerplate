@@ -1,10 +1,11 @@
 import { Close } from '@material-ui/icons';
 import React from 'react';
 import { Container, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
-const useStyles = makeStyles(theme => ({
+import useClasses from '@/components/layout/hooks/useClasses';
+
+const styles = theme => ({
   icon: {
     color: '#f44336',
     margin: 15,
@@ -16,10 +17,10 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-}));
+});
 
 const ErrorBox = ({ text, button }) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const { t } = useTranslation();
   return (
     <Container maxWidth="md">

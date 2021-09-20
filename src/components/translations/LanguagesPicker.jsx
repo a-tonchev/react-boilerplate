@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { useTranslation } from 'react-i18next';
 
 import { useSetLanguage } from '@/screens/users/hooks/languageHook';
+import useClasses from '@/components/layout/hooks/useClasses';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
@@ -33,10 +33,10 @@ const useStyles = makeStyles(theme => ({
       color: 'black',
     },
   },
-}));
+});
 
 const LanguagesPicker = () => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const changeLanguage = useSetLanguage();
   const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);

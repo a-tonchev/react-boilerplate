@@ -1,11 +1,12 @@
 import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import { Button, Link as MuiLink } from '@material-ui/core';
+
+import useClasses from '@/components/layout/hooks/useClasses';
 
 import CustomButton from './CustomButton';
 
-const useStyles = makeStyles(() => ({
+const styles = {
   link: {
     textDecoration: 'none',
     '&:hover': {
@@ -16,7 +17,7 @@ const useStyles = makeStyles(() => ({
   text: {
     marginLeft: 3,
   },
-}));
+};
 
 const PureLink = forwardRef((props, ref) => {
   const { href, children, ...rest } = props;
@@ -24,7 +25,7 @@ const PureLink = forwardRef((props, ref) => {
 });
 
 const CustomLink = forwardRef((props, ref) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const {
     button,
     buttonProps = {},

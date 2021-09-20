@@ -6,7 +6,6 @@ import {
   Typography,
   Container,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
 import CustomLink from '@/components/inputs/CustomLink';
@@ -18,10 +17,11 @@ import useLoading from '@/components/loading/hooks/useLoading';
 import History from '@/components/connections/History';
 import CustomButton from '@/components/inputs/CustomButton';
 import { useLoginUser } from '@/screens/users/hooks/userDataHooks';
+import useClasses from '@/components/layout/hooks/useClasses';
 
 import SendVerificationMail from './SendVerificationMail';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     marginTop: 20,
   },
-}));
+});
 
 const validations = {
   email: {
@@ -57,7 +57,7 @@ const validations = {
 };
 
 export default function Login() {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const [redirection, setRedirection] = useState('');
   const [showVerification, setShowVerification] = useState(false);
   const { t } = useTranslation();

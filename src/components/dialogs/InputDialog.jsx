@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import {
   Dialog, DialogActions, DialogContent, DialogTitle, Typography,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
 import CustomButton from '@/components/inputs/CustomButton';
 import CustomTextField from '@/components/inputs/CustomTextField';
+import useClasses from '@/components/layout/hooks/useClasses';
 
-const useStyles = makeStyles(() => ({
+const styles = {
   button: {
     width: '100%',
   },
   text: {
     textAlign: 'center',
   },
-}));
+};
 
 const InputDialog = ({
   title,
@@ -27,7 +27,7 @@ const InputDialog = ({
   onClose,
   onSave,
 }) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const { t } = useTranslation();
   const [value, setValue] = useState('');
   return (

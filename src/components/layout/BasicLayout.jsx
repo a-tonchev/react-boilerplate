@@ -1,21 +1,22 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+
+import useClasses from '@/components/layout/hooks/useClasses';
 
 import Header from './header/Header';
 import Footer from './footer/Footer';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   container: {
     marginTop: 64,
     [theme.breakpoints.down('xs')]: {
       marginTop: 56,
     },
   },
-}));
+});
 
 const BasicLayout = ({ children }) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   return (
     <>
       <Header />

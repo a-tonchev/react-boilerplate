@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -7,7 +6,9 @@ import { useTranslation } from 'react-i18next';
 import InputLabel from '@material-ui/core/InputLabel';
 import { FormHelperText } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
+import useClasses from '@/components/layout/hooks/useClasses';
+
+const styles = {
   formControl: {
     minWidth: 50,
     verticalAlign: 'middle',
@@ -16,7 +17,7 @@ const useStyles = makeStyles(() => ({
   nativeInput: {
     boxSizing: 'border-box',
   },
-}));
+};
 
 const CustomSelect = ({
   label,
@@ -29,7 +30,7 @@ const CustomSelect = ({
   options = [],
   ...rest
 }) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const { t } = useTranslation();
 
   const handleChange = e => {

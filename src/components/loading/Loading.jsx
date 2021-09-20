@@ -1,14 +1,16 @@
 import React from 'react';
-import { makeStyles, LinearProgress, CircularProgress } from '@material-ui/core';
+import { LinearProgress, CircularProgress } from '@material-ui/core';
 
-const useStyles = makeStyles({
+import useClasses from '@/components/layout/hooks/useClasses';
+
+const styles = {
   root: {
     flexGrow: 1,
   },
-});
+};
 
 const Loading = ({ type, ...rest }) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
 
   return (
     <span className={classes.root}>

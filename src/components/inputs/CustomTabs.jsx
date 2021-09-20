@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+
+import useClasses from '@/components/layout/hooks/useClasses';
 
 const StyledTabs = withStyles(theme => ({
   indicator: {
@@ -48,14 +50,14 @@ const StyledTab = withStyles(theme => ({
   />
 ));
 
-const useStyles = makeStyles(() => ({
+const styles = {
   root: {
     flexGrow: 1,
   },
-}));
+};
 
 export default function CustomTabs({ tabs, onChange, activeTab = 0 }) {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const [value, setValue] = React.useState(0);
 
   useEffect(() => {

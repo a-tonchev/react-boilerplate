@@ -7,7 +7,6 @@ import {
   Typography,
   Container,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
 import CustomLink from '@/components/inputs/CustomLink';
@@ -18,8 +17,9 @@ import useError from '@/components/validations/hooks/useError';
 import useLoading from '@/components/loading/hooks/useLoading';
 import SuccessBox from '@/components/validations/SuccessBox';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
+import useClasses from '@/components/layout/hooks/useClasses';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -37,10 +37,10 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+});
 
 export default function SignUp() {
-  const classes = useStyles();
+  const classes = useClasses(styles);
 
   const { t } = useTranslation();
   const [values, setValues] = useState({

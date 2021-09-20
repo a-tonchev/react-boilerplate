@@ -4,9 +4,10 @@ import {
   Zoom,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+import useClasses from '@/components/layout/hooks/useClasses';
+
+const styles = {
   alert: {
     fontSize: '100%',
     display: 'flex',
@@ -20,10 +21,10 @@ const useStyles = makeStyles(() => ({
   alertIcon: {
     fontSize: '100px',
   },
-}));
+};
 
 const Error = ({ children }) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   return (
     <Grid
       container

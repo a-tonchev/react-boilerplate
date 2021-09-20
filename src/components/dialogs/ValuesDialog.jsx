@@ -2,22 +2,22 @@ import React, { useEffect } from 'react';
 import {
   Dialog, DialogActions, DialogContent, DialogTitle, Typography, Grid,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
 import useValues from '@/components/dataHandling/hooks/useValues';
 import CustomButton from '@/components/inputs/CustomButton';
 import CustomSelect from '@/components/inputs/CustomSelect';
 import CustomTextField from '@/components/inputs/CustomTextField';
+import useClasses from '@/components/layout/hooks/useClasses';
 
-const useStyles = makeStyles(() => ({
+const styles = {
   button: {
     width: '100%',
   },
   text: {
     textAlign: 'center',
   },
-}));
+};
 
 const ValuesDialog = ({
   title,
@@ -28,7 +28,7 @@ const ValuesDialog = ({
   onClose,
   onSave,
 }) => {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const { t } = useTranslation();
   const { values, handleChange, resetValues } = useValues({ defaultValues });
 

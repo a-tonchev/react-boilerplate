@@ -1,21 +1,22 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Drawer as MuiDrawer,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 
+import useClasses from '@/components/layout/hooks/useClasses';
+
 import Sidebar from './Sidebar';
 
-const useStyles = makeStyles({
+const styles = {
   list: {
     width: 250,
   },
-});
+};
 
 export default function Drawer() {
-  const classes = useStyles();
+  const classes = useClasses(styles);
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = openDrawer => event => {
