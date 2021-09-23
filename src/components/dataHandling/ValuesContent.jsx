@@ -2,13 +2,13 @@ import React from 'react';
 import get from 'lodash-es/get';
 import {
   Grid,
-} from '@material-ui/core';
+} from '@mui/material';
+
+import CustomCodeBlock from './CustomCodeBlock';
 
 import CustomSelect from '@/components/inputs/CustomSelect';
 import CustomTextField from '@/components/inputs/CustomTextField';
 import CustomCheckBox from '@/components/inputs/CustomCheckBox';
-
-import CustomCodeBlock from './CustomCodeBlock';
 
 const getComponentByType = type => {
   switch (type) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Dialog, DialogActions, DialogContent, DialogTitle, Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import CustomButton from '@/components/inputs/CustomButton';

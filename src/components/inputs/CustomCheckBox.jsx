@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Checkbox, FormControlLabel,
   FormHelperText,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const CustomCheckBox = (

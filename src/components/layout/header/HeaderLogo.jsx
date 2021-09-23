@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import CustomLink from '@/components/inputs/CustomLink';

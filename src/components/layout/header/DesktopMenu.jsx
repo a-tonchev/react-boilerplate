@@ -4,12 +4,12 @@ import {
   Badge,
   MenuItem,
   Menu,
-} from '@material-ui/core';
+} from '@mui/material';
 import {
   AccountCircle,
   Mail as MailIcon,
   Notifications as NotificationsIcon,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 import Authorized from '@/screens/auth/Authorized';
@@ -36,7 +36,7 @@ const menu = [
   {
     authorizations: { authenticated: true },
     component: () => (
-      <IconButton aria-label="show 4 new mails" color="inherit">
+      <IconButton aria-label="show 4 new mails" color="inherit" size="large">
         <Badge badgeContent={4} color="secondary">
           <MailIcon />
         </Badge>
@@ -48,7 +48,7 @@ const menu = [
     authorizations: { authenticated: true },
     component:
       () => (
-        <IconButton aria-label="show 17 new notifications" color="inherit">
+        <IconButton aria-label="show 17 new notifications" color="inherit" size="large">
           <Badge badgeContent={17} color="secondary">
             <NotificationsIcon />
           </Badge>
@@ -65,6 +65,7 @@ const menu = [
           aria-haspopup="true"
           color="inherit"
           onClick={onClick}
+          size="large"
         >
           <AccountCircle />
         </IconButton>

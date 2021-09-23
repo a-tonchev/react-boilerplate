@@ -1,10 +1,10 @@
 import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Link as MuiLink } from '@material-ui/core';
-
-import useClasses from '@/components/layout/hooks/useClasses';
+import { Button, Link as MuiLink } from '@mui/material';
 
 import CustomButton from './CustomButton';
+
+import useClasses from '@/components/layout/hooks/useClasses';
 
 const styles = {
   link: {

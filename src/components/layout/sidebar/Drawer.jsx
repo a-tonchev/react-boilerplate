@@ -1,13 +1,13 @@
 import React from 'react';
 import {
   Drawer as MuiDrawer,
-} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import IconButton from '@material-ui/core/IconButton';
-
-import useClasses from '@/components/layout/hooks/useClasses';
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import IconButton from '@mui/material/IconButton';
 
 import Sidebar from './Sidebar';
+
+import useClasses from '@/components/layout/hooks/useClasses';
 
 const styles = {
   list: {
@@ -44,6 +44,7 @@ export default function Drawer() {
         color="inherit"
         aria-label="open drawer"
         onClick={toggleDrawer(true)}
+        size="large"
       >
         <MenuIcon />
       </IconButton>

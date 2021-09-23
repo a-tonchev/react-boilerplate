@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   FormHelperText, InputAdornment, TextField,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import useClasses from '@/components/layout/hooks/useClasses';

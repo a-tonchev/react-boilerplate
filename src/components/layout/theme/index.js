@@ -1,17 +1,14 @@
-import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core/styles';
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@mui/material/styles';
 
 import variants from './variants';
 import typography from './typography';
-import overrides from './overrides';
+import components from './components';
 
-const theme = variant => createMuiTheme(
-  {
-    overrides: overrides,
-    typography: typography,
-    palette: variant.palette,
-  },
-  variant.name,
-);
+const theme = variant => createMuiTheme({
+  components,
+  typography,
+  palette: variant.palette,
+});
 
 const themes = variants.map(variant => theme(variant));
 

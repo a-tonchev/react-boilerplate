@@ -6,7 +6,7 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
-} from '@material-ui/core';
+} from '@mui/material';
 import {
   ChevronLeft as ChevronLeftIcon,
   LockOutlined,
@@ -15,7 +15,7 @@ import {
   WebAsset,
   SupervisorAccount,
   Web,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 import Authorized from '@/screens/auth/Authorized';
@@ -51,7 +51,7 @@ const Sidebar = () => {
         <div className={classes.sidebarLogo}>
           {t('app.title')}
         </div>
-        <IconButton>
+        <IconButton size="large">
           <ChevronLeftIcon />
         </IconButton>
       </div>

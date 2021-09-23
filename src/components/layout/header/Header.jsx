@@ -2,15 +2,15 @@ import React from 'react';
 import {
   AppBar,
   Toolbar,
-} from '@material-ui/core';
-
-import useClasses from '@/components/layout/hooks/useClasses';
+} from '@mui/material';
 
 import Drawer from '../sidebar/Drawer';
 import { MobileMenu, MobileMenuSection } from './MobileMenu';
 import { ProfileMenu, DesktopMenuSection } from './DesktopMenu';
 import HeaderLogo from './HeaderLogo';
 import HeaderSearch from './HeaderSearch';
+
+import useClasses from '@/components/layout/hooks/useClasses';
 
 const styles = {
   grow: {

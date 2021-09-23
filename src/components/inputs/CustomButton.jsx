@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
-import { green as mGreen } from '@material-ui/core/colors';
+import { Button } from '@mui/material';
+import { green as mGreen } from '@mui/material/colors';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 
@@ -16,7 +16,7 @@ const styles = theme => ({
     },
   },
   fullMobile: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: '100%',
     },
   },

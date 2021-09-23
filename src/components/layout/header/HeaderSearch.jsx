@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   InputBase,
-} from '@material-ui/core';
-import { Search as SearchIcon } from '@material-ui/icons';
+} from '@mui/material';
+import { Search as SearchIcon } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 import useClasses from '@/components/layout/hooks/useClasses';

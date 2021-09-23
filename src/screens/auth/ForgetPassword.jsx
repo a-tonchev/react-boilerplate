@@ -3,10 +3,10 @@ import {
   Avatar,
   Typography,
   Container,
-} from '@material-ui/core';
+} from '@mui/material';
 import {
   LockOutlined,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 import CustomTextField from '@/components/inputs/CustomTextField';

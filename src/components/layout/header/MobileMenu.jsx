@@ -3,16 +3,16 @@ import {
   IconButton,
   MenuItem,
   Menu as MuiMenu,
-} from '@material-ui/core';
+} from '@mui/material';
 import {
   MoreVert as MoreIcon,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
+
+import { menu } from './DesktopMenu';
 
 import { useIsAdmin, useLoggedIn, useUserData } from '@/screens/users/hooks/userDataHooks';
 import AuthHelper from '@/screens/auth/AuthHelper';
 import useClasses from '@/components/layout/hooks/useClasses';
-
-import { menu } from './DesktopMenu';
 
 const styles = theme => ({
   sectionMobile: {
@@ -89,6 +89,7 @@ const MobileMenuSection = ({ handleMobileMenuOpen }) => {
         aria-haspopup="true"
         onClick={handleMobileMenuOpen}
         color="inherit"
+        size="large"
       >
         <MoreIcon />
       </IconButton>

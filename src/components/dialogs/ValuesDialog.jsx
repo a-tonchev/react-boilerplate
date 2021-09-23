@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import {
   Dialog, DialogActions, DialogContent, DialogTitle, Typography, Grid,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import useValues from '@/components/dataHandling/hooks/useValues';

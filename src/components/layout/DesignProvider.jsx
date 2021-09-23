@@ -1,13 +1,20 @@
 import React, { useMemo } from 'react';
-import { ThemeProvider as MuiThemeProvider, StylesProvider, alpha } from '@material-ui/core/styles';
+import {
+  ThemeProvider as MuiThemeProvider,
+  StylesProvider,
+} from '@mui/styles';
+import {
+  StyledEngineProvider,
+  alpha,
+  useTheme,
+} from '@mui/material';
 import { ThemeProvider, Global, css } from '@emotion/react';
-import { useTheme } from '@material-ui/core';
-
-import SuccessSnackBar from '@/components/dialogs/snackbars/SuccessSnackBar';
-import ErrorSnackBar from '@/components/dialogs/snackbars/ErrorSnackBar';
 
 import muiTheme from './theme';
 import BasicLayout from './BasicLayout';
+
+import SuccessSnackBar from '@/components/dialogs/snackbars/SuccessSnackBar';
+import ErrorSnackBar from '@/components/dialogs/snackbars/ErrorSnackBar';
 
 const GlobalStyles = () => {
   const theme = useTheme();
@@ -22,11 +29,11 @@ const GlobalStyles = () => {
       '--theme-palette-error-main': theme.palette.error.main,
       '--theme-palette-error-contrastText': theme.palette.error.contrastText,
       '--theme-palette-primary-contrastText': theme.palette.primary.contrastText,
-      '--theme-spacing-8': `${theme.spacing(8)}px`,
-      '--searchInput-paddingLeft': `calc(1em + ${theme.spacing(4)}px)`,
-      '--theme-spacing-3': `${theme.spacing(3)}px`,
-      '--theme-spacing-2': `${theme.spacing(2)}px`,
-      '--theme-spacing-1': `${theme.spacing(1)}px`,
+      '--theme-spacing-8': theme.spacing(8),
+      '--searchInput-paddingLeft': `calc(1em + ${theme.spacing(4)})`,
+      '--theme-spacing-3': theme.spacing(3),
+      '--theme-spacing-2': theme.spacing(2),
+      '--theme-spacing-1': theme.spacing(1),
       '--theme-spacing-0_1': theme.spacing(0, 1),
       '--theme-spacing-0_2': theme.spacing(0, 2),
       '--theme-spacing-3_0_2': theme.spacing(3, 0, 2),
@@ -45,16 +52,18 @@ const myTheme = muiTheme[1];
 
 const DesignProvider = ({ children }) => (
   <StylesProvider injectFirst>
-    <MuiThemeProvider theme={myTheme}>
-      <ThemeProvider theme={myTheme}>
-        <GlobalStyles />
-        <BasicLayout>
-          {children}
-        </BasicLayout>
-        <SuccessSnackBar />
-        <ErrorSnackBar />
-      </ThemeProvider>
-    </MuiThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <MuiThemeProvider theme={myTheme}>
+        <ThemeProvider theme={myTheme}>
+          <GlobalStyles />
+          <BasicLayout>
+            {children}
+          </BasicLayout>
+          <SuccessSnackBar />
+          <ErrorSnackBar />
+        </ThemeProvider>
+      </MuiThemeProvider>
+    </StyledEngineProvider>
   </StylesProvider>
 );
 

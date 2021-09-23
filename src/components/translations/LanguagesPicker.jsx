@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import { useTranslation } from 'react-i18next';
 
 import { useSetLanguage } from '@/screens/users/hooks/languageHook';
@@ -20,7 +20,7 @@ const styles = theme => ({
     '&:before': {
       borderBottomColor: 'white !Important',
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       color: 'black',
       '&:before': {
         borderBottomColor: 'black !Important',
@@ -29,7 +29,7 @@ const styles = theme => ({
   },
   selectIcon: {
     color: 'white',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       color: 'black',
     },
   },

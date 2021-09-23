@@ -1,6 +1,6 @@
-import { Close } from '@material-ui/icons';
+import { Close } from '@mui/icons-material';
 import React from 'react';
-import { Container, Typography } from '@material-ui/core';
+import { Container, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import useClasses from '@/components/layout/hooks/useClasses';

@@ -4,11 +4,11 @@ import {
   Snackbar,
   SnackbarContent,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import {
   Info,
   Check,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 
@@ -54,10 +54,7 @@ const AlertSnackBar = ({
 
   const action = (
     <>
-      <IconButton
-        className={classes.okButton}
-        onClick={onClose}
-      >
+      <IconButton className={classes.okButton} onClick={onClose} size="large">
         <Check />
       </IconButton>
     </>

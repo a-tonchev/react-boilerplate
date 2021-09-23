@@ -23,7 +23,7 @@ const tokenStore = {
   },
 
   async restoreFromSession() {
-    const storedToken = await LocalStorage.get(StorageEnums.token) || '';
+    const storedToken = (await LocalStorage.get(StorageEnums.token)) || '';
     token = storedToken ? StringHelper.decode(storedToken) : '';
     return token;
   },

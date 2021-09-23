@@ -1,13 +1,13 @@
 import axios from 'axios';
 
+import history from './History';
+import UrlEnums from './enums/UrlEnums';
+import tokenStore from './stores/tokenStore';
+
 import BasicConfig from '@/components/config/BasicConfig';
 import LocalStorage from '@/components/storage/LocalStorage';
 import StorageEnums from '@/components/storage/enums/StorageEnums';
 import i18n from '@/components/translations/i18n';
-
-import history from './History';
-import UrlEnums from './enums/UrlEnums';
-import tokenStore from './stores/tokenStore';
 
 const baseURL = `${BasicConfig.SERVER_URL}/${BasicConfig.API_VERSION}`;
 

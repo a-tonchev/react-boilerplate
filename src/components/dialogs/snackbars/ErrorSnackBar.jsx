@@ -1,18 +1,18 @@
-import { Close, Error } from '@material-ui/icons';
+import { Close, Error } from '@mui/icons-material';
 import React from 'react';
 import {
   IconButton,
   Snackbar,
   SnackbarContent,
   Typography,
-} from '@material-ui/core';
-
-import useClasses from '@/components/layout/hooks/useClasses';
+} from '@mui/material';
 
 import {
   useErrorSnackbar,
   useSetErrorSnackbar,
 } from './hooks/snackBarHooks';
+
+import useClasses from '@/components/layout/hooks/useClasses';
 
 const styles = {
   root: {
@@ -61,7 +61,7 @@ const ErrorSnackBar = () => {
   };
 
   const action = (
-    <IconButton onClick={onClose}>
+    <IconButton onClick={onClose} size="large">
       <Close className={classes.closeButton} />
     </IconButton>
   );

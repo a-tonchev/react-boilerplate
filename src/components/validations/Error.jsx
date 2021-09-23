@@ -2,8 +2,8 @@ import React from 'react';
 import {
   Grid,
   Zoom,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+  Alert,
+} from '@mui/material';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 

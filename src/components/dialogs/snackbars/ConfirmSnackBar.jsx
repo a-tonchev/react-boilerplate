@@ -4,12 +4,12 @@ import {
   Snackbar,
   SnackbarContent,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import {
   Info,
   Check,
   Close,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 
@@ -62,10 +62,11 @@ const ConfirmSnackBar = ({
           onClose();
           onConfirm();
         }}
+        size="large"
       >
         <Check />
       </IconButton>
-      <IconButton className={classes.closeButton} onClick={onClose}>
+      <IconButton className={classes.closeButton} onClick={onClose} size="large">
         <Close />
       </IconButton>
     </>

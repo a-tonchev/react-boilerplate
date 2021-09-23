@@ -1,16 +1,17 @@
 import React from 'react';
-import { Container } from '@material-ui/core';
-
-import useClasses from '@/components/layout/hooks/useClasses';
+import { Container } from '@mui/material';
 
 import Header from './header/Header';
 import Footer from './footer/Footer';
 
+import useClasses from '@/components/layout/hooks/useClasses';
+
 const styles = theme => ({
-  container: {
-    marginTop: 64,
-    [theme.breakpoints.down('xs')]: {
-      marginTop: 56,
+  topBox: {
+    height: 1,
+    marginTop: 74,
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 66,
     },
   },
 });
@@ -20,7 +21,8 @@ const BasicLayout = ({ children }) => {
   return (
     <>
       <Header />
-      <Container className={classes.container} maxWidth="lg">
+      <div className={classes.topBox} />
+      <Container maxWidth="lg">
         {children}
       </Container>
       <Footer />

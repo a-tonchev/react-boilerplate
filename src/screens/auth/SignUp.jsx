@@ -1,4 +1,4 @@
-import { LockOutlined } from '@material-ui/icons';
+import { LockOutlined } from '@mui/icons-material';
 import React, { useState } from 'react';
 import {
   Avatar,
@@ -6,7 +6,7 @@ import {
   Grid,
   Typography,
   Container,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import CustomLink from '@/components/inputs/CustomLink';
@@ -21,7 +21,7 @@ import useClasses from '@/components/layout/hooks/useClasses';
 
 const styles = {
   paper: {
-    marginTop: 'var(--theme-spacing-8)',
+    marginTop: 'var(--theme-spacing-3)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

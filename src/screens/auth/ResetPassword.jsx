@@ -1,11 +1,11 @@
-import { LockOutlined } from '@material-ui/icons';
+import { LockOutlined } from '@mui/icons-material';
 import React, { useState } from 'react';
 import {
   Avatar,
   FormHelperText,
   Typography,
   Container,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import CustomLink from '@/components/inputs/CustomLink';

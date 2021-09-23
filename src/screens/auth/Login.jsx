@@ -1,12 +1,14 @@
-import { LockOutlined } from '@material-ui/icons';
+import { LockOutlined } from '@mui/icons-material';
 import React, { useState, useEffect } from 'react';
 import {
   Avatar,
   Grid,
   Typography,
   Container,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
+
+import SendVerificationMail from './SendVerificationMail';
 
 import CustomLink from '@/components/inputs/CustomLink';
 import CustomTextField from '@/components/inputs/CustomTextField';
@@ -19,11 +21,9 @@ import CustomButton from '@/components/inputs/CustomButton';
 import { useLoginUser } from '@/screens/users/hooks/userDataHooks';
 import useClasses from '@/components/layout/hooks/useClasses';
 
-import SendVerificationMail from './SendVerificationMail';
-
 const styles = {
   paper: {
-    marginTop: 'var(--theme-spacing-8)',
+    marginTop: 'var(--theme-spacing-3)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

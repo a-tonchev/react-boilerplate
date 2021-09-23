@@ -1,10 +1,10 @@
 import React from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import { useTranslation } from 'react-i18next';
-import InputLabel from '@material-ui/core/InputLabel';
-import { FormHelperText } from '@material-ui/core';
+import InputLabel from '@mui/material/InputLabel';
+import { FormHelperText } from '@mui/material';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 

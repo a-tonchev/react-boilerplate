@@ -3,7 +3,7 @@ import {
   FormControlLabel,
   FormHelperText,
   Radio,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const CustomRadio = (

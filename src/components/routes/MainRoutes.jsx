@@ -1,6 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import Public from './Public';
+import Authenticated from './Authenticated';
+
 import Logout from '@/screens/auth/Logout';
 import Home from '@/screens/Home';
 import Login from '@/screens/auth/Login';
@@ -8,9 +11,6 @@ import NotFoundPage from '@/screens/NotFoundPage';
 import SignUp from '@/screens/auth/SignUp';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
 import ForgotPassword from '@/screens/auth/ForgetPassword';
-
-import Public from './Public';
-import Authenticated from './Authenticated';
 
 const MainRoutes = () => (
   <Switch>
