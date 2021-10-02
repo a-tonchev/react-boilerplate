@@ -7,9 +7,9 @@ import {
   Typography,
 } from '@mui/material';
 
-import { useSetSuccessSnackbar, useSuccessSnackbar } from './hooks/snackBarHooks';
-
 import useClasses from '@/components/layout/hooks/useClasses';
+
+import { useSetSuccessSnackbar, useSuccessSnackbar } from './hooks/snackBarHooks';
 
 const styles = {
   root: {

@@ -5,9 +5,9 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 
-import Sidebar from './Sidebar';
-
 import useClasses from '@/components/layout/hooks/useClasses';
+
+import Sidebar from './Sidebar';
 
 const styles = {
   list: {

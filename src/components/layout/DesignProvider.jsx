@@ -10,11 +10,11 @@ import {
 } from '@mui/material';
 import { ThemeProvider, Global, css } from '@emotion/react';
 
-import muiTheme from './theme';
-import BasicLayout from './BasicLayout';
-
 import SuccessSnackBar from '@/components/dialogs/snackbars/SuccessSnackBar';
 import ErrorSnackBar from '@/components/dialogs/snackbars/ErrorSnackBar';
+
+import muiTheme from './theme';
+import BasicLayout from './BasicLayout';
 
 const GlobalStyles = () => {
   const theme = useTheme();

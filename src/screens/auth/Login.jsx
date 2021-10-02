@@ -8,8 +8,6 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import SendVerificationMail from './SendVerificationMail';
-
 import CustomLink from '@/components/inputs/CustomLink';
 import CustomTextField from '@/components/inputs/CustomTextField';
 import Connections, { ApiEndpoints } from '@/components/connections/Connections';
@@ -20,6 +18,8 @@ import History from '@/components/connections/History';
 import CustomButton from '@/components/inputs/CustomButton';
 import { useLoginUser } from '@/screens/users/hooks/userDataHooks';
 import useClasses from '@/components/layout/hooks/useClasses';
+
+import SendVerificationMail from './SendVerificationMail';
 
 const styles = {
   paper: {

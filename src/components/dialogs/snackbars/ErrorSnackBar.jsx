@@ -7,12 +7,12 @@ import {
   Typography,
 } from '@mui/material';
 
+import useClasses from '@/components/layout/hooks/useClasses';
+
 import {
   useErrorSnackbar,
   useSetErrorSnackbar,
 } from './hooks/snackBarHooks';
-
-import useClasses from '@/components/layout/hooks/useClasses';
 
 const styles = {
   root: {

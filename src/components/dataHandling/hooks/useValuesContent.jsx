@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 
+import useError from '@/components/validations/hooks/useError';
+
 import useValues from './useValues';
 import ValuesContent from '../ValuesContent';
-
-import useError from '@/components/validations/hooks/useError';
 
 const useValuesContent = ({
   defaultValues,

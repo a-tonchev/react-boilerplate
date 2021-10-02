@@ -75,7 +75,7 @@
         {
           "pattern": "@/",
           "group": "internal",
-          "position": "after"
+          "position": "before"
         }
       ]
     }]

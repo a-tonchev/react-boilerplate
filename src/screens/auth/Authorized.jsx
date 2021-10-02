@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AuthHelper from './AuthHelper';
-
 import { useIsAdmin, useLoggedIn, useUserData } from '@/screens/users/hooks/userDataHooks';
+
+import AuthHelper from './AuthHelper';
 
 const Authorized = ({
   children, ...rest

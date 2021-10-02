@@ -4,9 +4,9 @@ import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
 import _isEmpty from 'lodash-es/isEmpty';
 
-import Validation from '../Validation';
-
 import i18n from '@/components/translations/i18n';
+
+import Validation from '../Validation';
 
 const convertErrorArray = (errors, validations) => {
   const newError = {};

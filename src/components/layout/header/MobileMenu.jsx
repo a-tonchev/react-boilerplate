@@ -8,11 +8,11 @@ import {
   MoreVert as MoreIcon,
 } from '@mui/icons-material';
 
-import { menu } from './DesktopMenu';
-
 import { useIsAdmin, useLoggedIn, useUserData } from '@/screens/users/hooks/userDataHooks';
 import AuthHelper from '@/screens/auth/AuthHelper';
 import useClasses from '@/components/layout/hooks/useClasses';
+
+import { menu } from './DesktopMenu';
 
 const styles = theme => ({
   sectionMobile: {

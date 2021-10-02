@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container } from '@mui/material';
 
+import useClasses from '@/components/layout/hooks/useClasses';
+
 import Header from './header/Header';
 import Footer from './footer/Footer';
-
-import useClasses from '@/components/layout/hooks/useClasses';
 
 const styles = theme => ({
   topBox: {
