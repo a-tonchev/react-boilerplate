@@ -1,4 +1,4 @@
-# React boilerplate with basic functionalities, based on CRA:
+# React boilerplate with basic functionalities, based on Vite:
 
 - Login field
 - Store login data at localForage (can be easily changed with cookies)
@@ -8,6 +8,12 @@
 - Helpers to support connection and other functionalities
 - SEO Optimized meta tags (react helmet)
 - Translation using i18n with two translation files - english and german
+- Error handling and more
+- Using aliases for the main component directories `@/components` and `@/screens`
+
+## Requirements
+- NodeJS > 12
+- Yarn > 1.22
 
 ## Installation
 
@@ -45,37 +51,6 @@ The build is minified and the filenames include the hashes.
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Learn More about CRA
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-
 ## Short Documentation and Structure
 
 - [Handling User Login](###Handling-User-Login)
@@ -98,7 +73,9 @@ You can decide between storing the login token into this data storage, or in a c
 | roles  | Array  |
 | permissions  | Array  |
 
-After login, the system checks if the user is member of an `admin`-role. It also can be easily changed according any demand, but I recommend to use the <Authorized /> Component.
+
+After login, the system checks if the user is member of an `admin`-role. 
+It also can be easily changed according any demand, but I recommend to use the <Authorized /> Component.
 
 | Authorized props  | Type | Description |
 | ------------- | ------------- | ------------- |
@@ -109,6 +86,8 @@ After login, the system checks if the user is member of an `admin`-role. It also
 | allowedPermissions  | Array  | Children will be rendered only if user has permission that is included in the array |
 
 For authorization of routes check following section `Routing`
+
+The language field is of type string uses the ISO 639 language codes.
 
 ### Routing
 
@@ -160,7 +139,7 @@ Outputs:
 
 ##### How to use:
 
-```
+```JS
 import useError from '../../components/validations/hooks/useError';
 
 /* 
@@ -215,7 +194,7 @@ export default function Login() {
      }
    };
 
-  .....
+  // .....
       // To display directly the error, just pass the isError(fieldName) to the custom component, this will return the error message.
       <CustomTextField
          name="password"
@@ -230,6 +209,6 @@ export default function Login() {
          margin="normal"
          error={isError('password')}
        />
- ......
+ // ......
 }
 ```

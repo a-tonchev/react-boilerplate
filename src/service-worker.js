@@ -14,7 +14,7 @@ import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 
 /* Custom Logic */
-const CACHE_VARIABLE = process.env.REACT_APP_VERSION_UNIQUE_STRING;
+const CACHE_VARIABLE = import.meta.env.VITE_VERSION_UNIQUE_STRING;
 
 setCacheNameDetails({
   prefix: 'my-project',
@@ -52,7 +52,7 @@ registerRoute(
 
     return true;
   },
-  createHandlerBoundToURL(`${process.env.PUBLIC_URL}/index.html`),
+  createHandlerBoundToURL('/index.html'),
 );
 
 // An example runtime caching route for requests that aren't handled by the
@@ -73,7 +73,7 @@ registerRoute(
 
 /* Custom Logic */
 const getCacheStorageNames = async () => {
-  const cacheNames = await caches.keys() || [];
+  const cacheNames = (await caches.keys()) || [];
   let latestCacheName;
   const outdatedCacheNames = [];
   for (const cacheName of cacheNames) {
@@ -121,7 +121,7 @@ const prepareCachesForUpdate = async () => {
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
-self.addEventListener('message', (event) => {
+self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }

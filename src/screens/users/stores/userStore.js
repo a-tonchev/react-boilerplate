@@ -2,11 +2,13 @@ import {
   atom,
   selector,
 } from 'recoil';
-import BasicConfig from '../../../components/config/BasicConfig';
-import tokenStore from '../../../components/connections/stores/tokenStore';
-import i18n from '../../../components/translations/i18n';
-import LocalStorage from '../../../components/storage/LocalStorage';
-import StorageEnums from '../../../components/storage/enums/StorageEnums';
+
+import BasicConfig from '@/components/config/BasicConfig';
+import tokenStore from '@/components/connections/stores/tokenStore';
+import i18n from '@/components/translations/i18n';
+import LocalStorage from '@/components/storage/LocalStorage';
+import StorageEnums from '@/components/storage/enums/StorageEnums';
+
 import { UserRoles } from '../enums/UserEnums';
 
 const defaultUserData = {
@@ -49,6 +51,7 @@ export const setLanguageSelector = selector({
   get: ({ get }) => get(languageStore),
   set: ({ get, set }, language) => {
     const oldLanguage = get(languageStore);
+
     if (
       language
       && BasicConfig.localizations.availableLanguages.includes(language)

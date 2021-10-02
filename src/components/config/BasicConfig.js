@@ -1,8 +1,8 @@
 const BasicConfig = {
-  SERVER_URL: process.env.REACT_APP_SERVER_URL,
-  API_VERSION: process.env.REACT_APP_API_VERSION,
-  SOFTWARE_VERSION: process.env.REACT_APP_SOFTWARE_VERSION
-    ? parseFloat(process.env.REACT_APP_SOFTWARE_VERSION)
+  SERVER_URL: import.meta.env.VITE_SERVER_URL,
+  API_VERSION: import.meta.env.VITE_API_VERSION,
+  SOFTWARE_VERSION: import.meta.env.VITE_SOFTWARE_VERSION
+    ? parseFloat(import.meta.env.VITE_SOFTWARE_VERSION)
     : 0,
   localizations: {
     defaultLanguage: 'de',

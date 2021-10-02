@@ -3,7 +3,7 @@ window.swNeedUpdate = null;
 
 const SWHelper = {
   async getWaitingWorker() {
-    const registrations = await navigator?.serviceWorker?.getRegistrations() || [];
+    const registrations = (await navigator?.serviceWorker?.getRegistrations()) || [];
     const registrationWithWaiting = registrations.find(reg => reg.waiting);
     return registrationWithWaiting?.waiting;
   },

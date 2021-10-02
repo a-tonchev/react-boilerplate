@@ -1,7 +1,7 @@
 import localForage from 'localforage';
 
 localForage.config({
-  name: 'just-sell',
+  name: 'project-storage-name',
 });
 
 const LocalStorage = {
@@ -30,14 +30,14 @@ const LocalStorage = {
   },
 
   async getSessionItem(field) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const item = sessionStorage.getItem(field);
       resolve(item || '');
     });
   },
 
   async setSessionItem(field, value) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       sessionStorage.setItem(field, value);
       resolve(field);
     });
