@@ -8,6 +8,11 @@
 - Helpers to support connection and other functionalities
 - SEO Optimized meta tags (With react helmet)
 - Basic translation using i18n with two translation files - english and german
+- Error handling and more
+
+## Requirements
+- NodeJS > 12
+- Yarn > 1.22
 
 ## Installation
 
