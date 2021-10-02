@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 
-const Components = () => {
+const Showcase = () => {
   const { t } = useTranslation();
 
   return (
@@ -13,4 +13,4 @@ const Components = () => {
   );
 };
 
-export default Components;
+export default Showcase;
