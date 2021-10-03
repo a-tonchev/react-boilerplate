@@ -34,5 +34,5 @@ Thats it!
 - You should try to work dependency free, try not to install any new dependency, if you need some, please let's discuss it in the issue.
 - Please try to follow best practices and work honest, SPAM will not be tolerated
 
-Thanks for your contribution!
+Thanks for your contribution! And don't forget to *star* the repository ;) 
 
