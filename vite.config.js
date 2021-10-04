@@ -34,6 +34,12 @@ export default defineConfig({
           sourcemap: true,
         }),
       ],
+      output: {
+        manualChunks: {
+          // comment out fabric, and it will not be loaded again
+          fabric: ['fabric'],
+        },
+      },
     },
   },
   server: {
