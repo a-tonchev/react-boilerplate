@@ -75,7 +75,7 @@ You can decide between storing the login token into this data storage, or in a c
 
 
 After login, the system checks if the user is member of an `admin`-role.
-It also can be easily changed according any demand, but I recommend to use the <Authorized /> Component.
+It also can be easily changed according any demand, but I recommend to use the `<Authorized />` Component.
 
 | Authorized props  | Type | Description |
 | ------------- | ------------- | ------------- |
