@@ -3,7 +3,7 @@ window.languages = {};
 
 window.languages.en = {
   'users.all': 'All users',
-  'user.alreadyExists': 'User exist already!',
+  'user.alreadyExists': 'User exists already!',
   'user.notFound': 'User not found',
   clientNumber: 'Client Number',
   userUpdatedSuccessfully: 'User updated successfully!',
@@ -32,21 +32,21 @@ window.languages.en = {
   'country.notValid': 'Please choose a country!',
   stateProvince: 'State/Province',
   city: 'City',
-  'city.notValid': 'Please add valid city!',
+  'city.notValid': 'Please add a valid city!',
   zip: 'ZIP',
-  'zip.notValid': 'Please add valid ZIP code!',
+  'zip.notValid': 'Please add a valid ZIP code!',
   phone: 'Phone',
-  'phone.notValid': 'Please add valid Phone Number!',
+  'phone.notValid': 'Please add a valid phone number!',
   messages: 'Messages',
   notifications: 'Notifications',
   email: 'E-mail',
   'email.address': 'E-mail Address',
-  'email.notValid': 'E-mail not valid!',
+  'email.notValid': 'E-mail is not valid!',
   password: 'Password',
   resetPassword: 'Reset Password',
   'password.notValid': 'Password should be at least 8 characters!',
   'password.forgot': 'Forgot password?',
-  'password.shouldMatch': 'The password does not match!',
+  'password.shouldMatch': 'The passwords do not match!',
   repeatPassword: 'Repeat Password',
   'password.resetSuccessful': 'Password reset successfully!',
   'password.UpdatedSuccessfully': 'Password updated successfully!',
@@ -56,15 +56,18 @@ window.languages.en = {
   newPassword: 'New Password',
   repeatNewPassword: 'Repeat New Password',
   setNewPassword: 'Set new password',
-  needToAcceptAllTermsToContinue: 'You need to accept all required terms to continue!',
+  needToAcceptAllTermsToContinue:
+    'You need to accept all required terms to continue!',
   login: 'Login',
-  'login.alreadyAccount': 'Do you have already an account?',
+  'login.alreadyAccount': 'Do you already have an account?',
   logout: 'Logout',
   signUp: 'Sign Up',
   'signUp.noAccount': "Don't have an account? Join now!",
-  'signUp.successfulRegistration': 'Thanks! Your registration was successful. Please verify your E-Mail!',
-  'signUp.successfulVerification': 'E-Mail verified successfully!',
-  'signUp.verificationError': 'The verification Link is wrong or E-Mail already verified!',
+  'signUp.successfulRegistration':
+    'Thanks! Your registration was successful. Please verify your e-mail!',
+  'signUp.successfulVerification': 'E-mail verified successfully!',
+  'signUp.verificationError':
+    'The verification link is wrong or your e-mail is already verified!',
   EN: 'EN',
   DE: 'DE',
   home: 'Home',
@@ -73,11 +76,11 @@ window.languages.en = {
   clearSearch: 'Clear Search',
   'pages.my': 'My pages',
   'pages.all': 'All pages',
-  'field.required': 'The field is required!',
-  'field.notValidOrRequired': 'The field is not valid!',
+  'field.required': 'This field is required!',
+  'field.notValidOrRequired': 'This field is not valid!',
   'name.invalid': 'Name should be at least 2 letters!',
-  'ccNames.invalid': 'The requested full name is not Valid!',
-  'alphanumeric.invalid': 'Only Alphanumeric fields are allowed!',
+  'ccNames.invalid': 'The requested full name is not valid!',
+  'alphanumeric.invalid': 'Only alphanumeric fields are allowed!',
   by: 'by',
   or: 'or',
   and: 'and',
@@ -107,7 +110,8 @@ window.languages.en = {
   'orders.notFound': 'No orders found!',
   'orders.noteToCustomer': 'Notice for customer',
   'order.date': 'Order Date',
-  contactCustomerSupport: 'Payment could not be established, or already finished. Please try again later or contact our customer support!',
+  contactCustomerSupport:
+    'Payment could not be established, or is already finished. Please try again later or contact our customer support!',
 
   'orderStatus.placed': 'Order placed',
   'orderStatus.paid': 'Paid (Awaiting shipment)',
@@ -115,7 +119,7 @@ window.languages.en = {
   'orderStatus.processed': 'Order processed',
   'orderStatus.shipped': 'Shipped',
   'orderStatus.finished': 'Finished',
-  'orderStatus.canceled': 'Canceled',
+  'orderStatus.canceled': 'Cancelled',
   processingPayment: 'Processing payment...',
   usePayment: 'Use payment',
 
@@ -140,14 +144,16 @@ window.languages.en = {
   'cart.sureToDeleteItem': 'Do you want to remove this from your cart?',
   'cart.itemsTotal': 'Items Total',
   'cart.subTotal': 'Subtotal',
-  'cart.cashOnDeliverLocalOnlyWarning': 'Cash on delivery is not available for overseas products. Please remove the product from the cart or choose another payment method!',
+  'cart.cashOnDeliverLocalOnlyWarning':
+    'Cash on delivery is not available for overseas products. Please remove the product from the cart or choose another payment method!',
   'cart.preparingPayment': 'Preparing payment...',
   'cart.placeOrder': 'Place Order',
   'cart.orderTotal': 'Order Total',
   'cart.shipmentAndPayment': 'Shipment and Payment',
   'cart.itemsInCart': 'Items in Cart',
   needInternetToPlaceOrder: 'You need internet to place an order',
-  restartTheApp: 'If you are online please refresh the page or restart the app.',
+  restartTheApp:
+    'If you are online please refresh the page or restart the app.',
 
   individualNote: 'Notes and comments',
   net: 'Net',
@@ -169,11 +175,15 @@ window.languages.en = {
 
   payment: 'Payment',
   paymentMethod: 'Payment Method',
-  'payment.methodRejected': 'The item can not be paid with this payment method!',
-  pleaseSelectPaymentMethod: 'Please select payment method...',
-  placedOrderSuccessfully: 'THANK YOU! You placed your order successfully! \uD83D\uDE0A',
-  processOrderReceiveAdditionalInformation: 'Very soon we will process your order. You will receive additional information.',
-  receivePaymentRequest: 'Within 24 hours you will receive payment request via E-Mail or SMS',
+  'payment.methodRejected':
+    'This item can not be paid with this payment method!',
+  pleaseSelectPaymentMethod: 'Please select a payment method...',
+  placedOrderSuccessfully:
+    'THANK YOU! You placed your order successfully! \uD83D\uDE0A',
+  processOrderReceiveAdditionalInformation:
+    'We will process your order very soon. You will receive additional information.',
+  receivePaymentRequest:
+    'You will receive a payment request via e-mail or SMS within 24 hours.',
 
   item: 'Item',
   item_plural: 'Items',
@@ -239,12 +249,13 @@ window.languages.en = {
   availableImages: '{{count}} available image',
   availableImages_plural: '{{count}} available images',
   chooseImageFromProduct: 'Choose image from product',
-  sureToDeleteImage: 'Do you really want remove this image?',
+  sureToDeleteImage: 'Do you really want to remove this image?',
 
   loadImageByUrl: 'Load Image from Url',
   uploadImage: 'Upload Image',
   uploading: 'Uploading...',
-  isDirectUpload: 'Direct Upload. (Upload the picture in original size, without any editing)',
+  isDirectUpload:
+    'Direct Upload. (Upload the picture in original size without any editing)',
 
   loading: 'Loading...',
 
@@ -280,26 +291,29 @@ window.languages.en = {
   roles: 'Roles',
   role: 'Role',
 
-  emailSent: 'E-Mail sent!',
-  sendingEmailError: 'Error on sending E-Mail!',
-  sendingEmail: 'Sending E-Mail...',
-  sendAgainVerificationEmail: 'Send again verification E-Mail',
+  emailSent: 'E-mail sent!',
+  sendingEmailError: 'Error on sending e-mail!',
+  sendingEmail: 'Sending e-mail...',
+  sendAgainVerificationEmail: 'Send again verification e-mail',
 
   sortArrowUp: 'Sort arrow up',
   sortArrowDown: 'Sort arrow down',
 
   textInput: 'Text input',
 
-  errorPlacingOrder: 'We get error placing your order, please try again later or contact our support team!',
-  connectionErrorQuestionForLocalOrder: 'We could not establish connection, do you want to save the order in your local orders? You can then just send this order at any time when connection available.',
+  errorPlacingOrder:
+    'We got a error while placing your order. Please try again later or contact our support team!',
+  connectionErrorQuestionForLocalOrder:
+    'We could not establish a connection. Do you want to save the order in your local orders? You can then just send this order at any time when a connection available.',
 
-  aboveImageSizeAllowed: 'Image size is above allowed!',
-  addImageUrl: 'Use direct Image Url',
+  aboveImageSizeAllowed: 'Image size is above allowed size!',
+  addImageUrl: 'Use Direct Image Url',
   enterUrlFields: 'Please enter the url fields',
-  enterImageUrlToBeAddedIntoProductImages: 'Please enter the url of the image, to be added into your product images',
+  enterImageUrlToBeAddedIntoProductImages:
+    'Please enter the url of the image, to be added into your product images.',
   productAddedSuccessfully: 'Product added successfully',
 
-  requestLinkSent: 'Request link sent! Please check your E-Mail',
+  requestLinkSent: 'Request link sent! Please check your e-mail',
 
   sendVerificationLink: 'Send Verification Link',
 
@@ -316,8 +330,8 @@ window.languages.en = {
   selectedStore: 'Selected Store',
 
   editor: 'Editor',
-  enterOptionSetDetails: 'Enter Option Set Details',
-  optionSetEditor: 'Optionen Set Editor',
+  enterOptionSetDetails: 'Enter a Option and Set Details',
+  optionSetEditor: 'Option Set Editor',
   addonEditor: 'Add-On Editor',
   enterAddonDetails: 'Enter Add-On Details',
   addons: 'Add-Ons',
@@ -355,7 +369,8 @@ window.languages.en = {
   optionSets: 'Option Sets',
   chooseOptionSets: 'Choose Option Sets',
   selectAll: 'Select All',
-  sureToCreateNewOption: 'Do you want to create new option? This action will remove all current option sets!',
+  sureToCreateNewOption:
+    'Do you want to create new option? This action will remove all current option sets!',
   pricesSet: 'Prices set',
   addPrices: 'Add prices',
   removePrices: 'Remove prices',
@@ -366,13 +381,14 @@ window.languages.en = {
   enterTagDetails: 'Enter Tag Details',
   enterTagGroupDetails: 'Enter Tag Group Details',
   enterAttributeDetails: 'Enter Attribute Details',
-  sureToDeleteVariant: 'Are you sure to delete this variant?',
-  sureToDeleteTag: 'Are you sure to delete this tag?',
-  sureToDeleteTagGroup: 'Are you sure to delete this tag group?',
-  sureToDeleteAddon: 'Are you sure to delete this Add-On?',
-  sureToDeleteAttribute: 'Are you sure to delete this attribute?',
-  sureToDeleteOption: 'Are you sure to delete this option? This will remove also all option sets!',
-  sureToDeleteOptionSet: 'Are you sure to delete this option set?',
+  sureToDeleteVariant: 'Are you sure you want to delete this variant?',
+  sureToDeleteTag: 'Are you sure you want to delete this tag?',
+  sureToDeleteTagGroup: 'Are you sure you want to delete this tag group?',
+  sureToDeleteAddon: 'Are you sure you want to delete this Add-On?',
+  sureToDeleteAttribute: 'Are you sure you wantto delete this attribute?',
+  sureToDeleteOption:
+    'Are you sure you want to delete this option? This will remove also all option sets!',
+  sureToDeleteOptionSet: 'Are you sure you want to delete this option set?',
   pricesAndOptions: 'Prices and Options',
   options: 'Options',
   product: 'Product',
@@ -380,13 +396,14 @@ window.languages.en = {
   freeShipping: 'Free shipping',
   shippingMethods: 'Shipping methods',
   shippingName: 'Shipping name (e.g. DHL, UPS)',
-  letDelivered: 'let it delivered',
+  letDelivered: 'let it be delivered',
   pickUp: 'Pick up',
-  usePickUp: 'Use Pick up',
+  usePickUp: 'Use Pick Up',
   pickUpPrice: 'Pick up price',
   shippingAddress: 'Shipping address',
   shippingInformation: 'Shipping Information',
-  shippingAddressSameAsBillingAddress: 'Shipping address is same as billing address',
+  shippingAddressSameAsBillingAddress:
+    'Shipping address is the same as billing address',
   quantity: 'Quantity',
   addedToWishList: 'Item Added To Wish List',
   viewWishList: 'View Wish List',
@@ -408,7 +425,8 @@ window.languages.en = {
   addNewItem: 'Add new item',
   addNewProduct: 'Add new product',
   updateItem: 'Update item',
-  areYouSureToResetItem: 'Are you sure to reset all changes on this item?',
+  areYouSureToResetItem:
+    'Are you sure you want to reset all changes on this item?',
   title: 'Title',
   description: 'Description',
   metaKeywords: 'Meta Keywords',
@@ -417,18 +435,22 @@ window.languages.en = {
 
   paymentMethods: 'Payment Methods',
   addPaymentMethod: 'Add Payment Method',
-  areYouSureToRemovePaymentSettings: 'Are you sure to remove the settings of this payment method? This action is irreversible!',
-  settingsSuccessfullyRemovedFromServer: 'Settings successfully removed from server!',
+  areYouSureToRemovePaymentSettings:
+    'Are you sure you want to remove the settings of this payment method? This action is irreversible!',
+  settingsSuccessfullyRemovedFromServer:
+    'Settings successfully removed from the server!',
   settingsCouldNotBeRemoved: 'Settings could not be removed!',
   paymentSettings: 'Payment Settings',
   activeSettings: 'Settings are active',
   noActiveSettings: 'Settings are not active',
-  noPaymentWarning: 'You need to add payment method, else ordering is not possible.',
-  areYouSureToRemovePayment: 'Are you sure to remove this payment?',
+  noPaymentWarning:
+    'You need to add a payment method, else ordering is not possible.',
+  areYouSureToRemovePayment: 'Are you sure you want to remove this payment?',
   selectedPayment: 'Selected Payment',
   // Not used yet
   addPaymentProvider: 'Add Payment Provider',
-  choosePaymentProviderToAdd: 'Important! Some of the payment methods may need additional configuration to work. This additional configuration will be displayed above all payment methods.',
+  choosePaymentProviderToAdd:
+    'Important! Some of the payment methods may need additional configuration to work. This additional configuration will be displayed above all payment methods.',
   creditCard: 'Credit Card / Debit Card',
   stripe: 'Stripe',
   microPaymentCreditCard: 'Credit Card / Debit Card',
@@ -438,7 +460,8 @@ window.languages.en = {
   payOnPickup: 'Pay On Pickup',
   payOnPickupContent: 'Pay when you pick up the order',
   coinsPH: 'Coins.PH',
-  coinsPHContent: 'Pay at 7-Eleven, Cebuana Lhuillier, M Lhuillier or with Coins.ph',
+  coinsPHContent:
+    'Pay at 7-Eleven, Cebuana Lhuillier, M Lhuillier or with Coins.ph',
   localCashOnDelivery: 'Cash On Delivery',
   localCashOnDeliveryContent: 'Cash On Delivery / Local Products Only',
   localOnly: 'Local Only',
@@ -450,26 +473,32 @@ window.languages.en = {
   cashOnDelivery: 'Cash On Delivery',
   cashOnDeliveryContent: 'Pay comfortable when you receive the order',
 
-  stripeSettingsEditingText: 'The Stripe settings will be immediately stored into the server.',
+  stripeSettingsEditingText:
+    'The Stripe settings will be immediately stored into the server.',
   stripeSettings: 'Stripe settings',
   stripeSecretKey: 'Secret key',
   stripeEndpointSecret: 'Signing Secret',
   stripePushableKey: 'Publishable key',
-  webhookStripe: 'Add following URL as webhook to your stripe account',
-  settingsSuccessfullyUpdatedToServer: 'Settings were successfully updated to the server!',
+  webhookStripe: 'Add the following URL as webhook to your stripe account',
+  settingsSuccessfullyUpdatedToServer:
+    'Settings were successfully updated to the server!',
   micropaymentSettings: 'Micropayment Settings',
   testMode: 'Test mode',
-  micropaymentSettingsEditingText: 'The Micropayment settings will be immediately stored into the server.',
+  micropaymentSettingsEditingText:
+    'The micropayment settings will be immediately stored into the server.',
   'micropayment.projectId': 'Project Id / Kennung',
   accessKey: 'Access Key',
-  paypalSettings: 'Paypal Settings',
-  paypalSettingsEditingText: 'The Paypal settings will be immediately stored into the server.',
+  paypalSettings: 'PayPal Settings',
+  paypalSettingsEditingText:
+    'The PayPal settings will be immediately stored into the server.',
   clientId: 'Client Id',
   clientSecret: 'Client Secret',
   mode: 'Mode',
-  webhookMicropayment: 'Add following URL as Notification URL to your micropayment payments',
+  webhookMicropayment:
+    'Add the following URL as a Notification URL to your micropayment payments',
   vivaWalletSettings: 'Viva Wallet Settings',
-  vivaWalletEditingText: 'The Viva Wallet settings will be immediately stored into the server.',
+  vivaWalletEditingText:
+    'The Viva Wallet settings will be immediately stored into the server.',
 
   buyerGuarantee: 'Buyer Guarantee',
   addTrackingNumber: 'Add tracking number',
@@ -480,7 +509,7 @@ window.languages.en = {
   trackingNo: 'Tracking No.',
   saveChanges: 'Save changes',
   details: 'Details',
-  orderUpdateSuccessful: 'Order updated successful!',
+  orderUpdateSuccessful: 'Order updated successfully!',
   backToOrders: 'Back to orders',
   deleteLocalOrder: 'Are you sure you want delete this local order?',
   localOrder: 'Local Order',
@@ -490,7 +519,7 @@ window.languages.en = {
   contactSupportTeam: 'Please try again, or contact our customer support team!',
   contact: 'Contact',
   chooseConvenient: 'Please choose the most convenient way to contact us',
-  sendDm: 'Send us direct Message',
+  sendDm: 'Send us a direct message',
 
   keywords: 'Keywords',
 
@@ -514,7 +543,8 @@ window.languages.en = {
   itemsWeight: 'Items weight',
   itemsSum: 'Items sum',
   productOwnShipping: 'Product own shipping',
-  productOwnShippingDescription: 'For this shipping method will be calculated the product own shipping prices. See Edit Product ➡ Prices.',
+  productOwnShippingDescription:
+    "This shipping method will be calculated with the product's own shipping prices. See Edit Product ➡ Prices.",
 
   recommendedProducts: 'Recommended Products',
   similarProducts: 'Similar Products',
@@ -526,7 +556,8 @@ window.languages.en = {
   copyRight: 'Copyright ©',
   close: 'Close',
   shippingProfiles: 'Shipping profiles',
-  addPriceShippingAndAllTaxes: 'Add prices for shipping including all taxes (if taxes applicable)',
+  addPriceShippingAndAllTaxes:
+    'Add prices for shipping including all taxes (if taxes applicable)',
 
   categories: 'Categories',
   account: 'Account',
@@ -536,7 +567,8 @@ window.languages.en = {
   contactUs: 'Contact Us',
   onBoarding: 'Onboarding',
   addCategory: 'Add Category',
-  areYouSureToRemoveThisCategory: 'Are you sure you want to remove this category?',
+  areYouSureToRemoveThisCategory:
+    'Are you sure you want to remove this category?',
 
   shipping: 'Shipping',
   address: 'Address',
@@ -546,7 +578,8 @@ window.languages.en = {
   'shipping.shipTo': 'Ship To',
   'shipping.buyerAddress': 'Buyer Address',
   'shipping.buyerData': 'Buyer and Invoice Data',
-  areYouSureToDeleteAddress: 'Are you sure you want delete PERMANENTLY this address?',
+  areYouSureToDeleteAddress:
+    'Are you sure you want PERMANENTLY delete this address?',
   'address.new': 'New address',
   saveAddress: 'Save Address',
   billingAddress: 'Billing address',
@@ -556,12 +589,13 @@ window.languages.en = {
 
   willBeCalculated: 'Will be calculated',
   isLoading: '...is loading',
-  pleaseEnterAgainAddressData: 'Please enter again address data!',
+  pleaseEnterAgainAddressData: 'Please enter address data again!',
   enterShippingData: 'Enter Shipping Data',
   editShippingData: 'Edit Shipping Data',
   removeShippingData: 'Remove Shipping Data',
   confirm: 'Confirm',
-  needToBeOnlineForThisShippingMethod: 'You need to be online for this shipping method!',
+  needToBeOnlineForThisShippingMethod:
+    'You need to be online for this shipping method!',
   shippingOrderId: 'External Order Id',
   tracking: 'Tracking',
   billOfLoad: 'Bill Of Load',
@@ -597,29 +631,33 @@ window.languages.en = {
   storeName: 'Store Name',
   addStore: 'Add Store',
   editStore: 'Edit Store',
-  areYouSureToRemoveThisStore: 'Are you sure you want remove this store? Removing the store will cause removal of all item quantities!!!',
+  areYouSureToRemoveThisStore:
+    'Are you sure you want to remove this store? Removing the store will cause removal of all item quantities!!!',
 
   vat: 'VAT',
   displayedVatName: 'VAT Name (e.g. "VAT. 20%")',
   vatPercentage: 'VAT Percentage',
-  includingVAT: 'Incl. VAT',
-  pricesIncludingVAT: 'All prices incl. VAT',
+  includingVAT: 'Including VAT',
+  pricesIncludingVAT: 'All prices including VAT',
   vatProfiles: 'VAT Profiles',
   productVatProfile: 'Product VAT Profile',
   vatSettings: 'VAT Settings',
   vatInactive: 'VAT Deactivated',
   vatActive: 'VAT Active',
-  vatSettingsText: 'Configure the VAT Behavior of your shop. Use field active to enable/disable VAT for the shop.',
+  vatSettingsText:
+    'Configure the VAT Behavior of your shop. Use field active to enable/disable VAT for the shop.',
   includedInPrice: 'Included in price',
-  shippingTaxProfile: 'VAT used for the Shippings',
+  shippingTaxProfile: 'VAT used for shipping',
 
   useInventory: 'Use Inventory',
   inventorySettings: 'Inventory Settings',
-  inventoryActive: 'Inventory active',
+  inventoryActive: 'Inventory Active',
   inventoryInactive: 'Inventory Inactive',
-  inventorySettingsText: 'Configure the inventory system of your shop. Use the field "Use Inventory" to activate the Inventory.',
+  inventorySettingsText:
+    'Configure the inventory system of your shop. Use the field "Use Inventory" to activate the Inventory.',
 
-  permanentlyDeleteThisProfile: 'Are you sure you want delete PERMANENTLY this profile?',
+  permanentlyDeleteThisProfile:
+    'Are you sure you want to PERMANENTLY delete this profile?',
   then: 'THEN',
   defaultValue: 'Default value',
   offerValue: 'Offer value',
@@ -648,7 +686,8 @@ window.languages.en = {
 
   addDimensions: 'Add Dimensions',
   dimensions: 'Dimensions',
-  pleaseChooseDimensionsYouWantToAddToItem: 'Please choose the dimensions that you want to add to your item!',
+  pleaseChooseDimensionsYouWantToAddToItem:
+    'Please choose the desired dimensions to add to your item!',
 
   shopSettings: 'Shop Settings',
   adjustShop: 'Configure your shop',
@@ -657,14 +696,16 @@ window.languages.en = {
 
   privacy: 'Privacy',
   'gdprConsent.active': 'Use GDPR Consent',
-  'gdprConsent.inWidgets': 'The GDPR Consent can be edited in Widgets -> GDPR Consent.',
+  'gdprConsent.inWidgets':
+    'The GDPR Consent can be edited in Widgets -> GDPR Consent.',
 
   cache: 'Cache',
   caching: 'Caching',
   disableServiceWorker: 'Disable Service Worker',
-  disableServiceWorkerMessage: 'Disabling Service Worker means that your PWA (Progressive Web App) functionality will be fully disabled. No more efficient caching or offline functionality will be available.',
+  disableServiceWorkerMessage:
+    'Disabling Service Worker means that your PWA (Progressive Web App) functionality will be fully disabled. No more efficient caching or offline functionality will be available.',
 
-  css: 'Css',
+  css: 'CSS',
   customCss: 'Custom CSS',
   editCustomCss: 'CSS Editor',
   clickOutsideToView: 'Click outside editor to view changes!',
@@ -822,7 +863,7 @@ window.languages.en = {
   draftSavedSuccess: 'Draft saved successfully!',
   draftRemoveSuccess: 'Draft removed successfully!',
   draftFoundMessage: 'You have a draft!',
-  sureToDeleteDraft: 'Are you sure to delete this draft?',
+  sureToDeleteDraft: 'Are you sure you want to delete this draft?',
   settingsSuccessfullyLoaded: 'Settings successfully loaded!',
 
   seo: 'SEO',
@@ -845,9 +886,10 @@ window.languages.en = {
   bulkPercentagePricing: 'Bulk Percentage Pricing',
   percentage: 'Percentage',
   changePrices: 'Change Prices',
-  pricesUpdateSuccess: 'Prices successfully updated!',
-  pricesUpdateError: 'Error while update prices!',
-  areYouSureToUpdateAllPrices: 'Are you sure you want to update all prices? This action will have immediate effect!',
+  pricesUpdateSuccess: 'Prices updated successfully!',
+  pricesUpdateError: 'Error while updating prices!',
+  areYouSureToUpdateAllPrices:
+    'Are you sure you want to update all prices? This action will have immediate effect!',
   examplePriceChange: 'Example Price Change',
   chooseCategory: 'Choose Category',
 
@@ -895,7 +937,7 @@ window.languages.en = {
   fill: 'Fill',
   stroke: 'Stroke',
   stickers: 'Stickers',
-  fineTune: 'Finetune',
+  fineTune: 'Fine-tune',
   sureToResetImage: 'Are you sure you want to reset the image?',
   sureToLoadNewImage: 'Are you sure you want to load new image?',
   backgroundRemoval: 'AI Background Removal',
@@ -933,7 +975,8 @@ window.languages.en = {
   expertSettings: 'Expert Settings',
   simplifiedSettings: 'Simplified Settings',
   shopUpdatedSuccessfully: 'Shop System Updated Successfully!',
-  sureToUpdateShop: 'Are you sure to update all shop settings? This action will take immediate effect!',
+  sureToUpdateShop:
+    'Are you sure you want to update all shop settings? This action will take immediate effect!',
   textOnly: 'Primary Text',
   buttonOutlinedText: 'Button Outlined',
   areYouSure: 'Are you sure?',
@@ -945,14 +988,19 @@ window.languages.en = {
   last6Months: 'Last 6 Months',
   thisYear: 'This Year',
 
-  'newVersionDetected.refresh': 'A new version was detected, do you want to update now?',
-  newShopVersionAvailable: 'There is a new version available! Would you like to upgrade now?',
-  newAppVersionAvailable: 'The shop was updated! Update your local app version',
-  newAppVersionAvailableInfo: 'Close all other tabs and refresh the website few times to update your app!',
+  'newVersionDetected.refresh':
+    'A new version was detected. Do you want to update now?',
+  newShopVersionAvailable:
+    'There is a new version available! Would you like to upgrade now?',
+  newAppVersionAvailable:
+    'The shop was updated! Update your local app version.',
+  newAppVersionAvailableInfo:
+    'Close all other tabs and refresh the website a few times to update your app!',
   update: 'Update',
   generateAppFilesAnyway: 'Generate APP Files Anyway',
-  sureToGenerateApp: 'Are you sure to generate app files?',
-  shopUpdateTooOften: 'You are trying to generate new files too often! Please try again in few minutes!',
+  sureToGenerateApp: 'Are you sure you want to generate app files?',
+  shopUpdateTooOften:
+    'You are trying to generate new files too often! Please try again in few minutes.',
   updating: 'Updating',
   updateNow: 'Update Now',
   usedVersion: 'Used Version',
@@ -963,41 +1011,53 @@ window.languages.en = {
 
   importProducts: 'Import Products',
   initiateImport: 'Initiate Import',
-  sureToInitiateImport: 'Are you sure to initiate import?',
+  sureToInitiateImport: 'Are you sure you want to initiate import?',
   successfullyImportProducts: 'Successfully imported products',
   errorOnImport: 'Error while importing products!',
 
   errorMessage: 'Error message',
-  'errorDescription.url': 'The given url is not valid!',
-  'errorDescription.title': 'Title is required and should be max 250 characters!',
-  'errorDescription.description': 'Description is required and should be max 1500 characters!',
-  'errorDescription.prices': 'Prices are required and should be bigger or equal 0!',
-  'errorDescription.originalPrice': 'Prices should be a number (not empty field)!',
+  'errorDescription.url': 'The given URL is not valid!',
+  'errorDescription.title':
+    'Title is required and should be max 250 characters!',
+  'errorDescription.description':
+    'Description is required and should be max 1500 characters!',
+  'errorDescription.prices':
+    'Prices are required and should be bigger or equal 0!',
+  'errorDescription.originalPrice':
+    'Prices should be a number (not empty field)!',
   'errorDescription.images': 'At least 1 picture should be uploaded!',
   'errorDescription.password': 'Password should be at least 8 characters!',
   'errorDescription.email': 'E-mail not valid!',
   'errorDescription.optionSets': 'There is an error with your option sets!',
-  'errorDescription.options': 'There is an error with your options! There should be no empty fields!',
-  'errorDescription.variants': 'There is an error with your variants! There should be no empty fields!',
+  'errorDescription.options':
+    'There is an error with your options! There should be no empty fields.',
+  'errorDescription.variants':
+    'There is an error with your variants! There should be no empty fields.',
   'errorDescription.onChanges': 'There is an error on saving changes!',
-  'error.CATEGORY_ALREADY_EXISTS': 'Category already exist! Try another key.',
+  'error.CATEGORY_ALREADY_EXISTS': 'Category already exists! Try another key.',
   'error.CATEGORY_PARENT_SELF': 'Category can not be self-parent.',
 
   'error.unknown': 'Unknown error!',
   'error.IMAGE_ERROR': 'Error while trying to process image!',
-  'error.ACTION_DEACTIVATED': 'Action is at the moment Deactivated!',
+  'error.ACTION_DEACTIVATED': 'Action is deactivated at the moment!',
   'error.FTP_ERROR': 'Error during FTP Transfer! Files could not be uploaded!',
-  'error.ATTRIBUTE_IN_USE': 'The attribute is used by a product and can not be removed!',
+  'error.ATTRIBUTE_IN_USE':
+    'The attribute is used by a product and can not be removed!',
   'error.USER_WRONG_PASSWORD': 'The given password is wrong!',
   'error.USER_WRONG_LOGIN_CREDENTIALS': 'Wrong login credentials!',
-  'error.USER_NOT_VERIFIED': 'E-Mail not verified yet!',
+  'error.USER_NOT_VERIFIED': 'E-mail not verified yet!',
   'error.USER_NOT_ALLOWED': 'User account is not active or banned!',
-  'error.USER_LOGIN_ATTEMPT_EXCEEDED': 'Too many login attempts! Please try again after 15-30 Minutes, or contact us!',
-  'error.USER_REQUEST_TOO_OFTEN': 'We received too many requests! Please try again later!',
-  'error.ORDER_ITEMS_CHANGE': 'Items were updated meanwhile, please check the new price and confirm again!',
-  'error.INVALID_REQUEST': 'The request is not valid, or is expired!',
-  'error.EMAIL_CAN_NOT_BE_SEND': 'We experience error while sending E-Mail, please try again later!',
-  'error.STORAGE_LIMIT_EXCEEDED': 'The storage limit was exceeded, please remove some files or contact our support team!',
+  'error.USER_LOGIN_ATTEMPT_EXCEEDED':
+    'Too many login attempts! Please try again after 15-30 Minutes, or contact us!',
+  'error.USER_REQUEST_TOO_OFTEN':
+    'We received too many requests! Please try again later!',
+  'error.ORDER_ITEMS_CHANGE':
+    'Items were updated. Meanwhile, please check the new price and confirm again!',
+  'error.INVALID_REQUEST': 'The request is not valid or is expired!',
+  'error.EMAIL_CAN_NOT_BE_SEND':
+    'We experienced an error while sending e-mail. Please try again later!',
+  'error.STORAGE_LIMIT_EXCEEDED':
+    'The storage limit was exceeded. Please remove some files or contact our support team!',
   'error.IMAGE_UPLOAD_ERROR': 'Error while trying to upload image!',
-  'error.SIZE_TOO_LARGE': 'The size is too Large!',
+  'error.SIZE_TOO_LARGE': 'The size is too large!',
 };
