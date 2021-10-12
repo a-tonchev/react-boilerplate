@@ -31,6 +31,7 @@ const styles = {
   },
   message: {
     display: 'inline-block',
+    color: 'var(--theme-palette-success-contrastText)',
     marginLeft: 5,
   },
   snackBarMessage: {
