@@ -62,6 +62,7 @@
     "react/no-array-index-key": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/prop-types": "off",
+    "react/require-default-props": "off",
     "react/jsx-props-no-spreading": "off",
     "react/state-in-constructor": "off",
     "react/jsx-filename-extension": "off",

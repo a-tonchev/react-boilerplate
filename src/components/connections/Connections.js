@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import BasicConfig from '@/components/config/BasicConfig';
-import LocalStorage from '@/components/storage/LocalStorage';
+import Storage from '@/components/storage/Storage';
 import StorageEnums from '@/components/storage/enums/StorageEnums';
 import i18n from '@/components/translations/i18n';
 
@@ -85,15 +85,19 @@ const connectionErrorResponse = error => {
       errorData = responseError.data;
     }
     if (error.response.status === 401) {
-      LocalStorage.getObject(StorageEnums.token).then(
+      Storage.getObject(StorageEnums.token).then(
         tokenStored => {
-          LocalStorage.remove(StorageEnums.token).then();
-          LocalStorage.remove(StorageEnums.userData).then();
-          if (tokenStored) {
-            window.location.reload();
-          } else {
-            history.push(UrlEnums.LOGIN);
-          }
+          (async () => {
+            const tokenPromise = Storage.remove(StorageEnums.token);
+            const udPromise = Storage.remove(StorageEnums.userData);
+
+            await Promise.all([tokenPromise, udPromise]);
+            if (tokenStored) {
+              window.location.reload();
+            } else {
+              history.push(UrlEnums.LOGIN);
+            }
+          })();
         },
       );
     } else if (error.response.status === 403) {

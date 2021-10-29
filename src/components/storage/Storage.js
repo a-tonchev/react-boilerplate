@@ -4,7 +4,7 @@ localForage.config({
   name: 'project-storage-name',
 });
 
-const LocalStorage = {
+const Storage = {
   async save(field, value) {
     return localForage.setItem(field, value);
   },
@@ -48,4 +48,4 @@ const LocalStorage = {
   },
 };
 
-export default LocalStorage;
+export default Storage;

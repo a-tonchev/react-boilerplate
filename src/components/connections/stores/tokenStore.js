@@ -1,4 +1,4 @@
-import LocalStorage from '@/components/storage/LocalStorage';
+import Storage from '@/components/storage/Storage';
 import StorageEnums from '@/components/storage/enums/StorageEnums';
 import StringHelper from '@/components/helpers/StringHelper';
 
@@ -7,7 +7,7 @@ let token = '';
 const tokenStore = {
   set(newToken) {
     token = newToken;
-    LocalStorage.save(
+    Storage.save(
       StorageEnums.token,
       StringHelper.encode(newToken),
     ).then();
@@ -19,11 +19,11 @@ const tokenStore = {
 
   remove() {
     token = '';
-    LocalStorage.remove(StorageEnums.token).then();
+    Storage.remove(StorageEnums.token).then();
   },
 
   async restoreFromSession() {
-    const storedToken = (await LocalStorage.get(StorageEnums.token)) || '';
+    const storedToken = (await Storage.get(StorageEnums.token)) || '';
     token = storedToken ? StringHelper.decode(storedToken) : '';
     return token;
   },

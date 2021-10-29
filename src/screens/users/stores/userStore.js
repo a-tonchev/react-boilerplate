@@ -6,7 +6,7 @@ import {
 import BasicConfig from '@/components/config/BasicConfig';
 import tokenStore from '@/components/connections/stores/tokenStore';
 import i18n from '@/components/translations/i18n';
-import LocalStorage from '@/components/storage/LocalStorage';
+import Storage from '@/components/storage/Storage';
 import StorageEnums from '@/components/storage/enums/StorageEnums';
 
 import { UserRoles } from '../enums/UserEnums';
@@ -21,7 +21,7 @@ const defaultUserData = {
 
 const changeLanguage = language => {
   i18n.changeLanguage(language).then();
-  LocalStorage.save(StorageEnums.language, language).then();
+  Storage.save(StorageEnums.language, language).then();
 };
 
 export const userDataStore = atom({
@@ -29,7 +29,7 @@ export const userDataStore = atom({
   default: selector({
     key: 'userDataStore/default',
     get: async () => {
-      const storedUserData = await LocalStorage.getObject(StorageEnums.userData);
+      const storedUserData = await Storage.getObject(StorageEnums.userData);
       return storedUserData || defaultUserData;
     },
   }),
@@ -40,7 +40,7 @@ export const languageStore = atom({
   default: selector({
     key: 'languageStore/default',
     get: async () => {
-      const storedData = await LocalStorage.get(StorageEnums.language);
+      const storedData = await Storage.get(StorageEnums.language);
       return storedData || BasicConfig.localizations.defaultLanguage;
     },
   }),
@@ -110,7 +110,7 @@ export const setUserDataSelector = selector({
     if (isAdmin !== oldIsAdmin) {
       set(isAdminStore, isAdmin);
     }
-    LocalStorage.saveObject(StorageEnums.userData, newUserData).then();
+    Storage.saveObject(StorageEnums.userData, newUserData).then();
   },
 });
 
@@ -136,7 +136,7 @@ export const logoutUserDataSelector = selector({
     set(userDataStore, defaultUserData);
     set(isAdminStore, false);
     set(isLoggedInStore, false);
-    LocalStorage.remove(StorageEnums.userData).then();
+    Storage.remove(StorageEnums.userData).then();
   },
 });
 
