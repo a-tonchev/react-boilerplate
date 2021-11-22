@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import {
   Drawer as MuiDrawer,
 } from '@mui/material';
@@ -17,7 +17,7 @@ const styles = {
 
 export default function Drawer() {
   const classes = useClasses(styles);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = openDrawer => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

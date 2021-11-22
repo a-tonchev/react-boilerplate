@@ -1,5 +1,5 @@
 import { LockOutlined } from '@mui/icons-material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Avatar,
   Button,

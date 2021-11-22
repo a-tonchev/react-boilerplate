@@ -1,5 +1,4 @@
 import { Close, Error } from '@mui/icons-material';
-import React from 'react';
 import {
   IconButton,
   Snackbar,

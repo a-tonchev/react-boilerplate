@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRecoilCallback, waitForAll } from 'recoil';
 
 import { isLoggedInStore, languageStore, userDataStore } from '@/screens/users/stores/userStore';

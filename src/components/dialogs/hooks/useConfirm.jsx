@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import ConfirmDialog from '../ConfirmDialog';
 import ConfirmSnackBar from '../snackbars/ConfirmSnackBar';

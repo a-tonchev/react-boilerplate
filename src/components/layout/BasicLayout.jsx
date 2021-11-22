@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container } from '@mui/material';
 
 import useClasses from '@/components/layout/hooks/useClasses';

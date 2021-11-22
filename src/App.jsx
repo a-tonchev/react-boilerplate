@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Router } from 'react-router-dom';
 import './App.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';

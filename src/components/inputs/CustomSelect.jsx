@@ -1,4 +1,3 @@
-import React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -17,6 +16,7 @@ const styles = {
   nativeInput: {
     boxSizing: 'border-box',
   },
+  icon: { marginRight: 10 },
 };
 
 const CustomSelect = ({
@@ -61,7 +61,7 @@ const CustomSelect = ({
               key, value: optionValue, text, icon: Icon, ...optionProps
             }) => (
               <MenuItem key={key || optionValue} value={optionValue} {...optionProps}>
-                {Icon && <><Icon style={{ marginRight: 10 }} /></>}{t(text)}
+                {Icon && <><Icon className={classes.icon} /></>}{t(text)}
               </MenuItem>
             ),
           )

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@mui/material';
 import { green as mGreen } from '@mui/material/colors';
 

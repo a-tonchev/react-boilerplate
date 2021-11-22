@@ -1,4 +1,3 @@
-import React from 'react';
 import Popper from '@mui/material/Popper';
 import Paper from '@mui/material/Paper';
 import List from '@mui/material/List';

@@ -1,5 +1,4 @@
 import { CheckCircle, Close } from '@mui/icons-material';
-import React from 'react';
 import {
   IconButton,
   Snackbar,

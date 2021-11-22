@@ -1,5 +1,4 @@
 import { Done } from '@mui/icons-material';
-import React from 'react';
 import { Container, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 

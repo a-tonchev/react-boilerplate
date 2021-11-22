@@ -1,8 +1,8 @@
-import React from 'react';
 import {
   AppBar,
   Toolbar,
 } from '@mui/material';
+import { useState } from 'react';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 
@@ -20,8 +20,8 @@ const styles = {
 
 export default function Header() {
   const classes = useClasses(styles);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const handleMobileMenuOpen = event => {
     setMobileMoreAnchorEl(event.currentTarget);

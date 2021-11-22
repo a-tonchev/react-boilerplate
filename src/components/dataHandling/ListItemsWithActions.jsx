@@ -7,7 +7,6 @@ import {
 import {
   Delete, Edit, KeyboardArrowDown, KeyboardArrowUp,
 } from '@mui/icons-material';
-import React from 'react';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 

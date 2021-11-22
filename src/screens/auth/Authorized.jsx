@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useIsAdmin, useLoggedIn, useUserData } from '@/screens/users/hooks/userDataHooks';
 
 import AuthHelper from './AuthHelper';

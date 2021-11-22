@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import CustomTabs from '@/components/inputs/CustomTabs';
 import UrlHelper from '@/components/connections/UrlHelper';

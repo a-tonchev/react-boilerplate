@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import AlertDialog from '../AlertDialog';
 import AlertSnackBar from '../snackbars/AlertSnackBar';

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { withStyles } from '@mui/styles';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -58,7 +58,7 @@ const styles = {
 
 export default function CustomTabs({ tabs, onChange, activeTab = 0 }) {
   const classes = useClasses(styles);
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
     setValue(activeTab);
