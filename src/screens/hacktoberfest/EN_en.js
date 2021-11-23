@@ -385,7 +385,7 @@ window.languages.en = {
   sureToDeleteTag: 'Are you sure you want to delete this tag?',
   sureToDeleteTagGroup: 'Are you sure you want to delete this tag group?',
   sureToDeleteAddon: 'Are you sure you want to delete this Add-On?',
-  sureToDeleteAttribute: 'Are you sure you wantto delete this attribute?',
+  sureToDeleteAttribute: 'Are you sure you want to delete this attribute?',
   sureToDeleteOption:
     'Are you sure you want to delete this option? This will remove also all option sets!',
   sureToDeleteOptionSet: 'Are you sure you want to delete this option set?',
