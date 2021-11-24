@@ -63,14 +63,14 @@ const MobileMenu = ({
           return (
             <MenuItem key={`${ind}_${1}`} onClick={rest[onClick]}>
               <Component />
-              {text ? <p>{text}</p> : <></>}
+              {text ? <p>{text}</p> : null}
             </MenuItem>
           );
         }
         return (
           <MenuItem key={`${ind}_${1}`}>
             <Component />
-            {text ? <p>{text}</p> : <></>}
+            {text ? <p>{text}</p> : null}
           </MenuItem>
         );
       })}

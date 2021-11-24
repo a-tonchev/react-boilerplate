@@ -7,7 +7,7 @@ import i18n from '@/components/translations/i18n';
 
 import tokenStore from './stores/tokenStore';
 import UrlEnums from './enums/UrlEnums';
-import history from './History';
+import History from './History';
 
 const baseURL = `${BasicConfig.SERVER_URL}/${BasicConfig.API_VERSION}`;
 
@@ -95,13 +95,13 @@ const connectionErrorResponse = error => {
             if (tokenStored) {
               window.location.reload();
             } else {
-              history.push(UrlEnums.LOGIN);
+              History.navigate(UrlEnums.LOGIN);
             }
           })();
         },
       );
     } else if (error.response.status === 403) {
-      history.push(UrlEnums.MAIN);
+      History.navigate(UrlEnums.MAIN);
     }
   }
   return {

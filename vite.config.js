@@ -5,6 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
 import visualizer from 'rollup-plugin-visualizer';
 import path, { resolve } from 'path';
+import reactJsx from 'vite-react-jsx';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,8 +15,10 @@ export default defineConfig({
     }],
   },
   plugins: [
+    reactJsx(),
     reactRefresh(),
     VitePWA({
+      srcDir: 'src',
       strategies: 'injectManifest',
       injectRegister: null,
       filename: 'service-worker.js',

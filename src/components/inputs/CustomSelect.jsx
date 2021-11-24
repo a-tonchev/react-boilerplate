@@ -61,7 +61,7 @@ const CustomSelect = ({
               key, value: optionValue, text, icon: Icon, ...optionProps
             }) => (
               <MenuItem key={key || optionValue} value={optionValue} {...optionProps}>
-                {Icon && <><Icon className={classes.icon} /></>}{t(text)}
+                {Icon && <Icon className={classes.icon} />}{t(text)}
               </MenuItem>
             ),
           )

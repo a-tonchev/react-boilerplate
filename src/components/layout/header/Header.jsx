@@ -18,7 +18,7 @@ const styles = {
   },
 };
 
-export default function Header() {
+const Header = () => {
   const classes = useClasses(styles);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -67,4 +67,6 @@ export default function Header() {
       />
     </div>
   );
-}
+};
+
+export default Header;

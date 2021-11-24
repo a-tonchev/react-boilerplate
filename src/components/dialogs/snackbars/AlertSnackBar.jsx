@@ -52,11 +52,9 @@ const AlertSnackBar = ({
   };
 
   const action = (
-    <>
-      <IconButton className={classes.okButton} onClick={onClose} size="large">
-        <Check />
-      </IconButton>
-    </>
+    <IconButton className={classes.okButton} onClick={onClose} size="large">
+      <Check />
+    </IconButton>
   );
 
   return (

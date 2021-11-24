@@ -27,14 +27,16 @@ const useInputDialog = () => {
     });
   };
 
-  const openDialog = ({
-    text = '',
-    label = '',
-    title = '',
-    name = '',
-    type = 'text',
-  },
-  callback = () => {}) => {
+  const openDialog = (
+    {
+      text = '',
+      label = '',
+      title = '',
+      name = '',
+      type = 'text',
+    },
+    callback = () => {},
+  ) => {
     setDialog({
       callback,
       text,

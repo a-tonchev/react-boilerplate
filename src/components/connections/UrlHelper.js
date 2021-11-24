@@ -22,7 +22,7 @@ const UrlHelper = {
     const { pathname } = location;
     query.delete(param);
     const newUrl = `${pathname}?${query.toString()}`;
-    History.push(newUrl);
+    History.navigate(newUrl);
   },
 
   setParam(param, value) {
@@ -31,7 +31,7 @@ const UrlHelper = {
     const { pathname } = location;
     query.set(param, value);
     const newUrl = `${pathname}?${query.toString()}`;
-    History.push(newUrl);
+    History.navigate(newUrl);
   },
 
   setParams(params) {
@@ -42,7 +42,7 @@ const UrlHelper = {
       query.set(name, value);
     });
     const newUrl = `${pathname}?${query.toString()}`;
-    History.push(newUrl);
+    History.navigate(newUrl);
   },
 };
 

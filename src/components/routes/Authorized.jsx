@@ -1,25 +1,26 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import AuthHelper from '@/screens/auth/AuthHelper';
 import { useIsAdmin, useLoggedIn, useUserData } from '@/screens/users/hooks/userDataHooks';
-import UrlEnums from '@/components/connections/enums/UrlEnums';
+
+import UrlEnums from '../connections/enums/UrlEnums';
 
 const Authorized = ({
-  component: Component,
-  ...rest
+  element,
+  authProps,
 }) => {
   const userData = useUserData();
   const isAdmin = useIsAdmin();
   const loggedIn = useLoggedIn();
-  const authorized = AuthHelper.isAuthorized({ ...userData, isAdmin, loggedIn }, rest);
-  return (
-    <Route
-      {...rest}
-      render={props => (authorized ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to={UrlEnums.LOGIN} />
-      ))}
+
+  const authorized = AuthHelper.isAuthorized({ ...userData, isAdmin, loggedIn }, authProps);
+  return authorized ? element : (
+    <Navigate
+      to={UrlEnums.LOGIN}
+      state={{
+        redirectFrom:
+          location.pathname + location.search,
+      }}
     />
   );
 };

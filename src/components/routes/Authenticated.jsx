@@ -1,28 +1,22 @@
-import { Redirect, Route } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import { useLoggedIn } from '@/screens/users/hooks/userDataHooks';
-import UrlEnums from '@/components/connections/enums/UrlEnums';
+
+import UrlEnums from '../connections/enums/UrlEnums';
 
 const Authenticated = ({
-  removeLoginData, userLogin, component: Component, ...rest
+  element,
 }) => {
   const loggedIn = useLoggedIn();
+  const location = useLocation();
 
-  return (
-    <Route
-      {...rest}
-      render={props => (loggedIn ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to={{
-          pathname: UrlEnums.LOGIN,
-          state: {
-            redirectFrom:
-              rest.location.pathname + rest.location.search,
-          },
-        }}
-        />
-      ))}
+  return loggedIn ? element : (
+    <Navigate
+      to={UrlEnums.LOGIN}
+      state={{
+        redirectFrom:
+          location.pathname + location.search,
+      }}
     />
   );
 };

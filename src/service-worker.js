@@ -33,6 +33,7 @@ precacheAndRoute(self.__WB_MANIFEST);
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
 // https://developers.google.com/web/fundamentals/architecture/app-shell
+// eslint-disable-next-line prefer-regex-literals
 const fileExtensionRegexp = new RegExp('/[^/?]+\\.[^/]+$');
 registerRoute(
   // Return false to exempt requests from being fulfilled by index.html.
@@ -73,7 +74,7 @@ registerRoute(
 
 /* Custom Logic */
 const getCacheStorageNames = async () => {
-  const cacheNames = (await caches.keys()) || [];
+  const cacheNames = await caches.keys() || [];
   let latestCacheName;
   const outdatedCacheNames = [];
   for (const cacheName of cacheNames) {

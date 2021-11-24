@@ -20,7 +20,7 @@ const styles = {
   },
 };
 
-export default function CustomTimeLine({ items }) {
+const CustomTimeLine = ({ items }) => {
   const classes = useClasses(styles);
 
   return (
@@ -50,4 +50,6 @@ export default function CustomTimeLine({ items }) {
       ))}
     </Timeline>
   );
-}
+};
+
+export default CustomTimeLine;

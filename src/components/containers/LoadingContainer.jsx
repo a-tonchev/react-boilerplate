@@ -11,11 +11,7 @@ const LoadingContainer = ({ children }) => {
     ]));
   })();
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return children;
 };
 
 export default LoadingContainer;
