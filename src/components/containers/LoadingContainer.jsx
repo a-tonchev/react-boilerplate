@@ -1,15 +1,15 @@
-import { useRecoilCallback, waitForAll } from 'recoil';
+import { useRecoilValue, waitForAll } from 'recoil';
 
 import { isLoggedInStore, languageStore, userDataStore } from '@/screens/users/stores/userStore';
 
 const LoadingContainer = ({ children }) => {
-  useRecoilCallback(({ snapshot }) => async () => {
-    await snapshot.getPromise(waitForAll([
+  useRecoilValue(
+    waitForAll([
       userDataStore,
       languageStore,
       isLoggedInStore,
-    ]));
-  })();
+    ]),
+  );
 
   return children;
 };
