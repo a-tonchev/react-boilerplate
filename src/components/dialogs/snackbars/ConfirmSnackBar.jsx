@@ -76,6 +76,7 @@ const ConfirmSnackBar = ({
       open={open}
       onClose={closeSnackBar}
       className={classes.root}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
     >
       <SnackbarContent
         message={(
