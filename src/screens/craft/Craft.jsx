@@ -32,7 +32,7 @@ const GridContainer = ({
   return (
     <Grid
       container
-      spacing={3}
+      spacing={1}
       {...props}
       ref={ref => connect(drag(ref))}
     >
@@ -88,13 +88,12 @@ const Craft = () => {
           GridItem,
         }}
       >
-        <Grid container spacing={5} style={{ paddingTop: '10px' }}>
+        <Grid container spacing={1} style={{ paddingTop: '10px' }}>
           <Grid item xs>
             <Frame>
               <Element
                 canvas
                 is={Container}
-                padding={5}
                 background="#eeeeee"
                 data-cy="root-container"
               >

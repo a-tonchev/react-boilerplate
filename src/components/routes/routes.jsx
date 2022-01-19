@@ -13,6 +13,7 @@ import NotFoundPage from '@/screens/NotFoundPage';
 import Dnd from '@/screens/dnd/Dnd';
 import Craft from '@/screens/craft/Craft';
 import SmoothDnd, { SimpleSmooth } from '@/screens/smooth-dnd/SmoothDnd';
+import ReactEmailEditor from '@/screens/react-email-editor/ReactEmailEditor';
 
 const routes = [
   { path: UrlEnums.MAIN, element: <Home /> },
@@ -22,6 +23,7 @@ const routes = [
   { path: UrlEnums.DND, element: <Dnd /> },
   { path: UrlEnums.CRAFT, element: <Craft /> },
   { path: UrlEnums.SMOOTH_DND, element: <SimpleSmooth /> },
+  { path: UrlEnums.EMAIL_EDITOR, element: <ReactEmailEditor /> },
   { path: UrlEnums.PASSWORD_FORGET, element: <ForgetPassword /> },
   { path: UrlEnums.LOGOUT, element: <Logout />, type: 'authenticated' },
   { path: UrlEnums.NOT_FOUND, element: <NotFoundPage /> },

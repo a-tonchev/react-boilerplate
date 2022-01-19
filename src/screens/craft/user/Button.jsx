@@ -18,7 +18,7 @@ const Button = ({
   return (
     <MaterialButton
       ref={ref => connect(drag(ref))}
-      style={{ margin: '5px' }}
+      style={{ marginTop: '5px' }}
       size={size}
       variant={variant}
       color={color}
