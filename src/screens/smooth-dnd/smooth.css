@@ -1,0 +1,40 @@
+.draggable-item, .draggable-item-horizontal {
+    text-align: center;
+    display: block;
+    background-color: #fff;
+    outline: 0;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.draggable-item {
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+.column-drag-handle {
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    top: -15px;
+    right: 0;
+    z-index: 10000;
+}
+
+.custom-drag-item{
+    position: relative;
+    overflow: visible !important;
+}
+
+.custom-drag-item:hover .column-drag-handle {
+    opacity: 1;
+}
+
+.animated.custom-drag-item:hover .column-drag-handle {
+    opacity: 0;
+}
+
+.smooth-dnd-ghost .column-drag-handle {
+    opacity: 1;
+}
