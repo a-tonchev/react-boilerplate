@@ -39,7 +39,7 @@ const styles = {
   },
 };
 
-export default function SignUp() {
+const SignUp = () => {
   const classes = useClasses(styles);
 
   const { t } = useTranslation();
@@ -210,4 +210,6 @@ export default function SignUp() {
       </div>
     </Container>
   );
-}
+};
+
+export default SignUp;

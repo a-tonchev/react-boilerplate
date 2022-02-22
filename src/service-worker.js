@@ -74,7 +74,7 @@ registerRoute(
 
 /* Custom Logic */
 const getCacheStorageNames = async () => {
-  const cacheNames = (await caches.keys()) || [];
+  const cacheNames = await caches.keys() || [];
   let latestCacheName;
   const outdatedCacheNames = [];
   for (const cacheName of cacheNames) {

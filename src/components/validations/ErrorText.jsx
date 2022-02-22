@@ -13,7 +13,7 @@ const ErrorText = ({ error, center, ...rest }) => {
     >
       {t(error)}
     </FormHelperText>
-  ) : <div />);
+  ) : null);
 };
 
 export default ErrorText;

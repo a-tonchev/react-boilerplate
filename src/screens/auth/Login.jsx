@@ -56,7 +56,7 @@ const validations = {
   }],
 };
 
-export default function Login() {
+const Login = () => {
   const classes = useClasses(styles);
   const [redirection, setRedirection] = useState('');
   const [showVerification, setShowVerification] = useState(false);
@@ -229,4 +229,6 @@ export default function Login() {
       </div>
     </Container>
   );
-}
+};
+
+export default Login;

@@ -56,7 +56,7 @@ const styles = {
   },
 };
 
-export default function CustomTabs({ tabs, onChange, activeTab = 0 }) {
+const CustomTabs = ({ tabs, onChange, activeTab = 0 }) => {
   const classes = useClasses(styles);
   const [value, setValue] = useState(0);
 
@@ -82,4 +82,6 @@ export default function CustomTabs({ tabs, onChange, activeTab = 0 }) {
       </StyledTabs>
     </div>
   );
-}
+};
+
+export default CustomTabs;

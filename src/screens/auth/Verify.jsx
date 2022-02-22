@@ -8,9 +8,9 @@ import ErrorBox from '@/components/validations/ErrorBox';
 import CustomLink from '@/components/inputs/CustomLink';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
 
-export default function Verify({
+const Verify = ({
   match,
-}) {
+}) => {
   const [verified, setVerified] = useState(false);
   const { verificationToken } = match.params;
 
@@ -53,4 +53,6 @@ export default function Verify({
       text="signUp.verificationError"
     />
   );
-}
+};
+
+export default Verify;

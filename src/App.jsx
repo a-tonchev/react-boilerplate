@@ -8,11 +8,13 @@ import { RecoilRoot } from 'recoil';
 import LoadingContainer from '@/components/containers/LoadingContainer';
 import MainRoutes from '@/components/routes/MainRoutes';
 import DesignProvider from '@/components/layout/DesignProvider';
+import NavigateSetter from '@/components/connections/NavigateSetter';
 
 const App = () => {
   const { t } = useTranslation();
   return (
     <BrowserRouter>
+      <NavigateSetter />
       <RecoilRoot>
         <HelmetProvider>
           <Helmet>

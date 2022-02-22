@@ -37,7 +37,7 @@ const styles = {
   },
 };
 
-export default function ForgotPassword() {
+const ForgetPassword = () => {
   const classes = useClasses(styles);
 
   const { t } = useTranslation();
@@ -142,4 +142,6 @@ export default function ForgotPassword() {
       </div>
     </Container>
   );
-}
+};
+
+export default ForgetPassword;

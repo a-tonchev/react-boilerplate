@@ -15,7 +15,7 @@ const styles = {
   },
 };
 
-export default function Drawer() {
+const Drawer = () => {
   const classes = useClasses(styles);
   const [open, setOpen] = useState(false);
 
@@ -50,4 +50,6 @@ export default function Drawer() {
       </IconButton>
     </div>
   );
-}
+};
+
+export default Drawer;

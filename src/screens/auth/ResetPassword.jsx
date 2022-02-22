@@ -38,9 +38,9 @@ const styles = {
   },
 };
 
-export default function ResetPassword({
+const ResetPassword = ({
   match,
-}) {
+}) => {
   const classes = useClasses(styles);
 
   const { t } = useTranslation();
@@ -159,4 +159,6 @@ export default function ResetPassword({
       </div>
     </Container>
   );
-}
+};
+
+export default ResetPassword;

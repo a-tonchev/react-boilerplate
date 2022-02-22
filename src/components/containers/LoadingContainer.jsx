@@ -1,13 +1,6 @@
 import { useRecoilValue, waitForAll } from 'recoil';
-import { useNavigate } from 'react-router-dom';
 
 import { isLoggedInStore, languageStore, userDataStore } from '@/screens/users/stores/userStore';
-
-const NavigateSetter = () => {
-  History.navigate = useNavigate();
-
-  return null;
-};
 
 const LoadingContainer = ({ children }) => {
   useRecoilValue(
@@ -18,12 +11,7 @@ const LoadingContainer = ({ children }) => {
     ]),
   );
 
-  return (
-    <>
-      <NavigateSetter />
-      {children}
-    </>
-  );
+  return children;
 };
 
 export default LoadingContainer;
