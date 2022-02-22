@@ -26,13 +26,15 @@ const useValuesDialog = () => {
     });
   };
 
-  const openDialog = ({
-    text = '',
-    title = '',
-    defaultValues = {},
-    inputs = [],
-  },
-  callback = () => {}) => {
+  const openDialog = (
+    {
+      text = '',
+      title = '',
+      defaultValues = {},
+      inputs = [],
+    },
+    callback = () => {},
+  ) => {
     setDialog({
       callback,
       text,

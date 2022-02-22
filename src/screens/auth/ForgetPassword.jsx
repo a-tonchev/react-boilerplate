@@ -77,11 +77,9 @@ export default function ForgotPassword() {
     setLoading(true);
     const err = getActivateError();
     if (!err) {
-      const res = await Connections.postRequest(
-        ApiEndpoints.passwordResetRequest, {
-          email: values.email,
-        },
-      );
+      const res = await Connections.postRequest(ApiEndpoints.passwordResetRequest, {
+        email: values.email,
+      });
       if (res.ok) {
         setRequestLinkSent(true);
       } else if (res.errorData && res.errorData.errors) {

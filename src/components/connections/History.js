@@ -1,3 +1,6 @@
-import { createBrowserHistory } from 'history';
+const History = {
+  navigate: null,
+  push: (page, ...rest) => History.navigate(page, ...rest),
+};
 
-export default createBrowserHistory();
+export default History;

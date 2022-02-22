@@ -72,6 +72,7 @@ const ErrorSnackBar = () => {
       autoHideDuration={6000}
       onClose={onClose}
       className={classes.root}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
     >
       <SnackbarContent
         message={(

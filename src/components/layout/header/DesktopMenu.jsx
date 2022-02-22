@@ -110,8 +110,9 @@ const DesktopMenuSection = props => {
     <div className={classes.sectionDesktop}>
       {menu.map((el, ind) => {
         const { component: Component, onClick, authorizations } = el;
+        const { [onClick]: clickFunction } = props;
         let WrappedComponent = onClick
-          ? <Component key={`${ind}_${1}`} onClick={props[onClick]} />
+          ? <Component key={`${ind}_${1}`} onClick={clickFunction} />
           : <Component key={`${ind}_${1}`} />;
         if (authorizations) {
           WrappedComponent = (

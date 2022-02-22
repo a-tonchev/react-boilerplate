@@ -22,25 +22,22 @@ const ListItemsWithActions = ({
   const classes = useClasses(styles);
 
   return (
-    <>
-      <List>
-        {items.map((item, index) => (
-          <ListItem key={item.key || `item_${index}`}>
-            <ListItemText
-              className={item.className || classes.item}
-              primary={item.text}
-              secondary={item.secondary}
-            />
-            <ListItemSecondaryAction>
-              {handleSwitch && (
+    <List>
+      {items.map((item, index) => (
+        <ListItem key={item.key || `item_${index}`}>
+          <ListItemText
+            className={item.className || classes.item}
+            primary={item.text}
+            secondary={item.secondary}
+          />
+          <ListItemSecondaryAction>
+            {handleSwitch && (
               <>
                 <IconButton
                   edge="end"
                   aria-label="arrow_up"
                   onClick={
-                  () => handleSwitch(
-                    index, index - 1,
-                  )
+                  () => handleSwitch(index, index - 1)
                 }
                   disabled={index === 0}
                   size="large"
@@ -62,8 +59,8 @@ const ListItemsWithActions = ({
                   <KeyboardArrowDown />
                 </IconButton>
               </>
-              )}
-              {handleRemove && (
+            )}
+            {handleRemove && (
               <IconButton
                 edge="end"
                 aria-label="delete"
@@ -72,8 +69,8 @@ const ListItemsWithActions = ({
               >
                 <Delete />
               </IconButton>
-              )}
-              {handleEdit && (
+            )}
+            {handleEdit && (
               <IconButton
                 edge="end"
                 aria-label="edit"
@@ -82,12 +79,11 @@ const ListItemsWithActions = ({
               >
                 <Edit />
               </IconButton>
-              )}
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
-    </>
+            )}
+          </ListItemSecondaryAction>
+        </ListItem>
+      ))}
+    </List>
   );
 };
 

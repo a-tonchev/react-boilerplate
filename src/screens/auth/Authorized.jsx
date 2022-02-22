@@ -16,7 +16,7 @@ const Authorized = ({
   }, rest);
 
   // Return component if all check passed
-  return children && authorized ? <>{children}</> : <div />;
+  return children && authorized ? children : <div />;
 };
 
 export default Authorized;

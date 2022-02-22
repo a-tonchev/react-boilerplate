@@ -7,6 +7,7 @@ import {
   Container,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 import CustomLink from '@/components/inputs/CustomLink';
 import CustomTextField from '@/components/inputs/CustomTextField';
@@ -14,7 +15,6 @@ import Connections, { ApiEndpoints } from '@/components/connections/Connections'
 import useErrorCheck from '@/components/validations/hooks/useError';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
 import useLoading from '@/components/loading/hooks/useLoading';
-import History from '@/components/connections/History';
 import CustomButton from '@/components/inputs/CustomButton';
 import { useLoginUser } from '@/screens/users/hooks/userDataHooks';
 import useClasses from '@/components/layout/hooks/useClasses';
@@ -62,6 +62,7 @@ export default function Login() {
   const [showVerification, setShowVerification] = useState(false);
   const { t } = useTranslation();
   const loginUser = useLoginUser();
+  const location = useLocation();
 
   const {
     loading,
@@ -75,11 +76,12 @@ export default function Login() {
   });
 
   useEffect(() => {
-    const { state } = History.location;
+    const { state } = location;
     const { redirectFrom } = state || {};
     if (redirectFrom) {
       setRedirection(redirectFrom);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {

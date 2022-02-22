@@ -14,7 +14,7 @@ const Copyright = () => (
       Your Website
     </CustomLink>{' '}
     {new Date().getFullYear()}
-    {'.'}
+    .
   </Typography>
 );
 

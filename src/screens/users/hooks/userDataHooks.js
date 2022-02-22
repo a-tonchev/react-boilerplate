@@ -25,6 +25,7 @@ export const useLoggedIn = () => useRecoilValue(isLoggedInStore);
 export const useIsAdmin = () => useRecoilValue(isAdminStore);
 
 // User redirects
+/**  @return string */
 export const useRedirected = () => useRecoilValue(redirectedFromStore);
 
 export const useSetRedirected = () => useSetRecoilState(redirectedFromStore);

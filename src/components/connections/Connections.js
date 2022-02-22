@@ -19,6 +19,9 @@ export const ApiEndpoints = {
   resetPassword: '/users/resetPassword',
   sendUserVerificationEmail: '/users/sendVerification',
   verifyAccount: '/users/verify',
+  getOwnProfile: '/users/ownProfile',
+  updateOwnProfile: '/users/updateOwnProfile',
+  updatePassword: '/users/updatePassword',
 };
 
 const getUrl = endpointPath => {
@@ -46,8 +49,8 @@ const getLoginHeader = async () => {
 
 const connectionSuccessResponse = response => {
   if (BasicConfig.system?.debug) {
-    console.log('---success---');
-    console.log(response);
+    console.info('---success---');
+    console.info(response);
   }
   if (!response || !response.data?.ok) {
     return { ok: false };
@@ -62,8 +65,8 @@ const connectionSuccessResponse = response => {
 const connectionErrorResponse = error => {
   let errorMessage = i18n.t('error.unknown');
   if (BasicConfig.system?.debug) {
-    console.log('---error---');
-    console.log(error);
+    console.error('---error---');
+    console.error(error);
   }
   let errorData = null;
   let errorCode = null;

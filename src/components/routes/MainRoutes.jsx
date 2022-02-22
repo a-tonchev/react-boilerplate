@@ -1,27 +1,51 @@
-import { Route, Switch } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useRoutes } from 'react-router-dom';
 
-import Logout from '@/screens/auth/Logout';
-import Home from '@/screens/Home';
-import Login from '@/screens/auth/Login';
-import NotFoundPage from '@/screens/NotFoundPage';
-import SignUp from '@/screens/auth/SignUp';
-import UrlEnums from '@/components/connections/enums/UrlEnums';
-import ForgotPassword from '@/screens/auth/ForgetPassword';
-import Showcase from '@/screens/hacktoberfest/Showcase';
+import Authorized from '@/components/routes/Authorized';
 
+import routesBase from './routes';
 import Authenticated from './Authenticated';
 import Public from './Public';
 
-const MainRoutes = () => (
-  <Switch>
-    <Authenticated exact path={UrlEnums.MAIN} component={Home} />
-    <Public exact path={UrlEnums.LOGIN} component={Login} />
-    <Public exact path={UrlEnums.SIGN_UP} component={SignUp} />
-    <Public exact path={UrlEnums.PASSWORD_FORGET} component={ForgotPassword} />
-    <Route exact path={UrlEnums.SHOWCASE} component={Showcase} />
-    <Authenticated exact path={UrlEnums.LOGOUT} component={Logout} />
-    <Route path="*" component={NotFoundPage} />
-  </Switch>
+const normalizeRoutes = routes => routes.map(
+  route => {
+    const {
+      path, type, element, authProps,
+    } = route;
+
+    switch (type) {
+      case 'public': {
+        return {
+          path,
+          element: <Public element={element} />,
+        };
+      }
+      case 'authenticated': {
+        return {
+          path,
+          element: <Authenticated element={element} />,
+        };
+      }
+      case 'authorized': {
+        return {
+          path,
+          element: <Authorized path={path} element={element} authProps={authProps} />,
+        };
+      }
+      default: {
+        return {
+          path,
+          element,
+        };
+      }
+    }
+  },
 );
+
+const MainRoutes = () => {
+  const normalizedRoutes = useMemo(() => normalizeRoutes(routesBase), []);
+
+  return useRoutes(normalizedRoutes);
+};
 
 export default MainRoutes;

@@ -1,11 +1,10 @@
 import { Suspense } from 'react';
-import { Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { RecoilRoot } from 'recoil';
 
-import history from '@/components/connections/History';
 import LoadingContainer from '@/components/containers/LoadingContainer';
 import MainRoutes from '@/components/routes/MainRoutes';
 import DesignProvider from '@/components/layout/DesignProvider';
@@ -13,7 +12,7 @@ import DesignProvider from '@/components/layout/DesignProvider';
 const App = () => {
   const { t } = useTranslation();
   return (
-    <Router history={history}>
+    <BrowserRouter>
       <RecoilRoot>
         <HelmetProvider>
           <Helmet>
@@ -29,7 +28,7 @@ const App = () => {
           </Suspense>
         </HelmetProvider>
       </RecoilRoot>
-    </Router>
+    </BrowserRouter>
   );
 };
 

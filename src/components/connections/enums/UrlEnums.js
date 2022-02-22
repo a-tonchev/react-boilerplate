@@ -6,6 +6,8 @@ const UrlEnums = {
   SIGN_UP: '/signUp',
   LOGOUT: '/logout',
   PASSWORD_FORGET: '/forgetPassword',
+  PASSWORD_RESET: '/resetPassword/:resetToken',
   SHOWCASE: '/showcase',
+  NOT_FOUND: '/notFound',
 };
 export default UrlEnums;

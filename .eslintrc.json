@@ -24,10 +24,14 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 2018,
-    "sourceType": "module"
+    "sourceType": "module",
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    }
   },
   "plugins": [
     "react", "react-hooks"
@@ -37,7 +41,7 @@
     "consistent-return": "off",
     "no-return-assign": "off",
     "no-unused-vars": "warn",
-    "no-console": "off",
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
     "func-names": "off",
     "no-process-exit": "off",
     "object-shorthand": "off",
@@ -70,6 +74,12 @@
     "react/require-default-props": "off",
     "react/no-unescaped-entities": "off",
     "react/no-danger": "off",
+    "default-param-last": "off",
+    "no-nested-ternary": "off",
+    "react/function-component-definition": [0, {
+      "namedComponents": "arrow-function",
+      "unnamedComponents": "arrow-function"
+    }],
     "jsx-a11y/label-has-associated-control": "off",
     "import/order": ["error", {
       "newlines-between": "always",
