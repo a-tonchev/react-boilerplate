@@ -88,6 +88,7 @@ const Login = () => {
     setCustomError,
     isError,
     getActivateError,
+    convertErrorArray,
   } = useErrorCheck({
     values,
     validations,
@@ -106,10 +107,13 @@ const Login = () => {
         },
       );
       if (!response.ok) {
-        if (response && response.errorCode && response.errorCode === 'USER_NOT_VERIFIED') {
+        if (response.errorCode === 'USER_NOT_VERIFIED') {
           setShowVerification(true);
+        } else if (response.errorData.errors?.length) {
+          setCustomError(convertErrorArray(response.errorData.errors, validations));
+        } else {
+          setCustomError({ email: response.errorMessage });
         }
-        setCustomError({ email: response.errorMessage });
         setLoading(false);
       } else {
         let redirectedFrom = null;
