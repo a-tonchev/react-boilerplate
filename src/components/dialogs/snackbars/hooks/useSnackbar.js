@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import {
   useSetSuccessSnackbar,
   useSetErrorSnackbar,
@@ -7,19 +9,19 @@ const useSnackbar = () => {
   const setSuccessSnackbar = useSetSuccessSnackbar();
   const setErrorSnackbar = useSetErrorSnackbar();
 
-  const createSuccessSnackbar = (message = '') => {
+  const createSuccessSnackbar = useCallback((message = '') => {
     setSuccessSnackbar({
       message,
       open: true,
     });
-  };
+  }, [setSuccessSnackbar]);
 
-  const createErrorSnackbar = (message = '') => {
+  const createErrorSnackbar = useCallback((message = '') => {
     setErrorSnackbar({
       message,
       open: true,
     });
-  };
+  }, [setErrorSnackbar]);
 
   return {
     createSuccessSnackbar,

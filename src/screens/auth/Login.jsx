@@ -106,6 +106,7 @@ const Login = () => {
           password: values.password,
         },
       );
+
       if (!response.ok) {
         if (response.errorCode === 'USER_NOT_VERIFIED') {
           setShowVerification(true);
