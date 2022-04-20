@@ -1,35 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import ConfirmSnackBar from '@/components/dialogs/snackbars/ConfirmSnackBar';
 
 import ConfirmDialog from '../ConfirmDialog';
-import ConfirmSnackBar from '../snackbars/ConfirmSnackBar';
+
+const defaultDialog = {
+  open: false,
+  text: '',
+  callback: () => {},
+  resolve: null,
+};
 
 const useConfirm = (type = 'modal') => {
-  const [dialog, setDialog] = useState({
-    open: false,
-    text: 'Are you sure?',
-    callback: () => {},
+  const [dialog, setDialog] = useState(defaultDialog);
+
+  useEffect(() => () => {
+    if (dialog.resolve) dialog.resolve(false);
+  }, [dialog]);
+
+  const closeDialog = confirm => {
+    if (dialog.resolve && !confirm) dialog.resolve();
+    setDialog({
+      ...defaultDialog,
+    });
+  };
+
+  const openDialog = (text = '', callback = () => {}) => new Promise(resolve => {
+    setDialog({
+      open: true,
+      text,
+      callback,
+      resolve,
+    });
   });
 
-  const closeDialog = () => {
-    setDialog({
-      ...dialog,
-      open: false,
-    });
-  };
-
-  const onOpenDialog = () => {
-    setDialog({
-      ...dialog,
-      open: true,
-    });
-  };
-
-  const openDialog = (text = '', callback = () => {}) => {
-    setDialog({
-      callback,
-      text,
-      open: true,
-    });
+  const onConfirm = () => {
+    dialog.callback && dialog.callback();
+    dialog.resolve && dialog.resolve(true);
   };
 
   const Dialog = type === 'snackbar'
@@ -37,7 +44,7 @@ const useConfirm = (type = 'modal') => {
       <ConfirmSnackBar
         open={dialog.open}
         text={dialog.text}
-        onConfirm={dialog.callback}
+        onConfirm={onConfirm}
         onClose={closeDialog}
       />
     )
@@ -45,14 +52,13 @@ const useConfirm = (type = 'modal') => {
       <ConfirmDialog
         open={dialog.open}
         text={dialog.text}
-        onConfirm={dialog.callback}
+        onConfirm={onConfirm}
         onClose={closeDialog}
       />
     );
 
   return {
     openDialog,
-    onOpenDialog,
     ConfirmDialog: Dialog,
   };
 };

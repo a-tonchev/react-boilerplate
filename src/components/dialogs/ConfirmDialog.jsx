@@ -42,7 +42,7 @@ const ConfirmDialog = ({
       <DialogActions>
         <CustomButton
           onClick={() => {
-            onClose();
+            onClose(true);
             onConfirm();
           }}
           color="primary"

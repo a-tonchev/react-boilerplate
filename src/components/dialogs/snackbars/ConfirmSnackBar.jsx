@@ -58,7 +58,7 @@ const ConfirmSnackBar = ({
       <IconButton
         className={classes.closeButton}
         onClick={() => {
-          onClose();
+          onClose(true);
           onConfirm();
         }}
         size="large"
