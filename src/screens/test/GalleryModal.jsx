@@ -1,36 +1,38 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Modal, Paper } from '@mui/material';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 
-const styles = {
-  button: {
-    border: 'none',
-    background: 'none',
-    cursor: 'pointer',
-  },
-  thumbnail: {
-    height: 150,
-  },
-  modal: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    maxWidth: '80%',
-    padding: '20px',
-
-    '& .gallery .image-gallery-image': {
-      maxHeight: 400,
-    },
-  },
-};
-
 const GalleryModal = ({ items }) => {
-  const classes = useClasses(styles);
   const [open, setOpen] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const styles = useMemo(() => ({
+    button: {
+      border: 'none',
+      background: 'none',
+      cursor: 'pointer',
+    },
+    thumbnail: {
+      height: 150,
+    },
+    modal: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      maxWidth: '80%',
+      padding: '20px',
+
+      '& .gallery .image-gallery-image': {
+        maxHeight: isFullScreen ? '100vh' : 400,
+      },
+    },
+  }), [isFullScreen]);
+
+  const classes = useClasses(styles);
 
   const images = Object.values(items).map(item => ({
     original: item,
@@ -46,10 +48,10 @@ const GalleryModal = ({ items }) => {
         <Paper className={classes.modal}>
           <ImageGallery
             items={images}
-            showFullscreenButton={false}
             showPlayButton={false}
             originalHeight="100px"
             additionalClass="gallery"
+            onScreenChange={value => setIsFullScreen(value)}
           />
         </Paper>
       </Modal>
