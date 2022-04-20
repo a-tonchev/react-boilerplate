@@ -8,6 +8,7 @@ const UrlEnums = {
   PASSWORD_FORGET: '/forgetPassword',
   PASSWORD_RESET: '/resetPassword/:resetToken',
   SHOWCASE: '/showcase',
+  TEST: '/test',
   NOT_FOUND: '/notFound',
 };
 export default UrlEnums;
