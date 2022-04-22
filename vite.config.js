@@ -26,7 +26,7 @@ export default ({ mode }) => {
         injectRegister: null,
         filename: 'service-worker.js',
       }),
-      eslintPlugin(),
+      eslintPlugin({ eslintOptions: { cache: false } }),
     ],
     build: {
       outDir: 'build',
