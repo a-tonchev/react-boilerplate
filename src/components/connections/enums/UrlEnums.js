@@ -9,5 +9,9 @@ const UrlEnums = {
   PASSWORD_RESET: '/resetPassword/:resetToken',
   SHOWCASE: '/showcase',
   NOT_FOUND: '/notFound',
+  PRIVACY_POLICY: '/privacyPolicy',
+  TERMS: '/terms',
+  HELP: '/help',
+  IMPRINT: '/imprint',
 };
 export default UrlEnums;

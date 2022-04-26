@@ -29,6 +29,9 @@ const GlobalStyles = () => {
       '--theme-palette-error-main': theme.palette.error.main,
       '--theme-palette-error-contrastText': theme.palette.error.contrastText,
       '--theme-palette-primary-contrastText': theme.palette.primary.contrastText,
+      '--theme-palette-lightGray': theme.palette.grey[50],
+      '--theme-palette-darkGray': theme.palette.grey[900],
+      '--theme-palette-mode': theme.palette.mode,
       '--theme-spacing-8': theme.spacing(8),
       '--searchInput-paddingLeft': `calc(1em + ${theme.spacing(4)})`,
       '--theme-spacing-3': theme.spacing(3),
@@ -47,7 +50,7 @@ const GlobalStyles = () => {
 
   return <Global styles={styles} />;
 };
-
+// Choose Colorset from variants.js
 const myTheme = muiTheme[1];
 
 const DesignProvider = ({ children }) => (
