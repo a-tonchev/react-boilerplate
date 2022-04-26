@@ -4,7 +4,6 @@ import {
   Avatar,
   Grid,
   Typography,
-  Container,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
@@ -18,8 +17,11 @@ import useLoading from '@/components/loading/hooks/useLoading';
 import CustomButton from '@/components/inputs/CustomButton';
 import { useLoginUser } from '@/screens/users/hooks/userDataHooks';
 import useClasses from '@/components/layout/hooks/useClasses';
+import Logo from '@/components/layout/assets/logo.svg';
+import BasicConfig from '@/components/config/BasicConfig';
 
 import SendVerificationMail from './SendVerificationMail';
+import LoginLayout from './LoginLayout';
 
 const styles = {
   paper: {
@@ -30,18 +32,18 @@ const styles = {
   },
   avatar: {
     margin: 'var(--theme-spacing-1)',
-    backgroundColor: 'var(--theme-palette-primary-main)',
+    backgroundColor: 'var(--theme-palette-secondary-main)',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: 'var(--theme-spacing-1)',
+    // marginTop: 'var(--theme-spacing-1)',
   },
   submit: {
     margin: 'var(--theme-spacing-3_0_2)',
   },
   signUp: {
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: '2.5em',
   },
 };
 
@@ -145,14 +147,26 @@ const Login = () => {
   if (loading) return <Loading />;
 
   return (
-    <Container maxWidth="xs">
+    <LoginLayout>
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlined />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          {t('login')}
-        </Typography>
+        <div style={{ marginBottom: '4em' }}>
+          <img src={Logo} alt={BasicConfig.copyright.text} width={200} height="auto" />
+        </div>
+        <Grid container direction="row" justify="flex-start" alignItems="center">
+          <div>
+            <Avatar className={classes.avatar}>
+              <LockOutlined />
+            </Avatar>
+          </div>
+          <div>
+            <Typography component="h1" variant="h5">
+              {t('login')}
+            </Typography>
+            <Typography>
+              {t('login.welcome')}
+            </Typography>
+          </div>
+        </Grid>
         <form className={classes.form} noValidate>
           <CustomTextField
             name="email"
@@ -191,8 +205,8 @@ const Login = () => {
             {t('login')}
           </CustomButton>
           <Grid container>
-            <Grid item xs={12}>
-              <CustomLink to={UrlEnums.PASSWORD_FORGET} variant="body2">
+            <Grid item xs={12} align="right">
+              <CustomLink to={UrlEnums.PASSWORD_RECOVERY} variant="body2">
                 {t('password.forgot')}
               </CustomLink>
             </Grid>
@@ -207,7 +221,7 @@ const Login = () => {
           </Grid>
           <Grid
             container
-            justifyContent="center"
+            justify="center"
             alignContent="center"
             alignItems="center"
             className={classes.signUp}
@@ -215,24 +229,18 @@ const Login = () => {
             <Grid item xs={12}>
               <Typography>
                 {t('signUp.noAccount')}
+                <CustomLink
+                  to={UrlEnums.SIGN_UP}
+                  text
+                >
+                  {t('signUp')}
+                </CustomLink>
               </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <CustomLink
-                to={UrlEnums.SIGN_UP}
-                button
-                buttonProps={{
-                  fullWidth: true,
-                  variant: 'outlined',
-                }}
-              >
-                {t('signUp')}
-              </CustomLink>
             </Grid>
           </Grid>
         </form>
       </div>
-    </Container>
+    </LoginLayout>
   );
 };
 
