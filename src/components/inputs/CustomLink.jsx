@@ -34,6 +34,7 @@ const CustomLink = forwardRef((props, ref) => {
     component,
     children,
     plain,
+    target = '_self',
     className = '',
     ...rest
   } = props;
@@ -84,9 +85,9 @@ const CustomLink = forwardRef((props, ref) => {
       return content;
     }
     if (rest.href) {
-      return <a className={`${className} ${classes.link}`} ref={ref} {...rest}>{content}</a>;
+      return <a className={`${className} ${classes.link}`} ref={ref} {...rest} target={target}>{content}</a>;
     }
-    return <Link className={`${className} ${classes.link}`} ref={ref} {...rest}>{content}</Link>;
+    return <Link className={`${className} ${classes.link}`} ref={ref} {...rest} target={target}>{content}</Link>;
   }
 
   if (buttonProps.disabled) {
@@ -98,7 +99,13 @@ const CustomLink = forwardRef((props, ref) => {
   }
 
   return (
-    <MuiLink className={className} {...rest} ref={ref} component={rest.href ? PureLink : Link}>
+    <MuiLink
+      className={className}
+      {...rest}
+      target={target}
+      ref={ref}
+      component={rest.href ? PureLink : Link}
+    >
       {content}
     </MuiLink>
   );
