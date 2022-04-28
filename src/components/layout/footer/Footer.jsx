@@ -1,27 +1,35 @@
 import { Box, Container, Typography } from '@mui/material';
+import { css } from '@emotion/react';
 
 import CustomLink from '@/components/inputs/CustomLink';
 
-const Copyright = () => (
-  <Typography variant="body2" color="textSecondary" align="center">
+const Copyright = ({ href, children, className }) => (
+  <Typography
+    variant="caption"
+    display="block"
+    gutterBottom
+    color="textSecondary"
+    align="center"
+    css={css`${className}`}
+  >
     {'Copyright © '}
     <CustomLink
-      rel="noreferrer"
+      rel="noreferrer noopener"
       plain
       target="_blank"
-      href="https://github.com/a-tonchev/react-boilerplate"
-    >
-      Your Website
-    </CustomLink>{' '}
-    {new Date().getFullYear()}
-    .
+      href={href}
+    >     {new Date().getFullYear()}{' '}
+      {children}
+    </CustomLink>
   </Typography>
 );
 
-const Footer = () => (
+const Footer = ({ href, children, className = '' }) => (
   <Container>
-    <Box mt={8}>
-      <Copyright />
+    <Box mt={1} align="center">
+      <Copyright className={className} href={href}>
+        {children}
+      </Copyright>
     </Box>
   </Container>
 );

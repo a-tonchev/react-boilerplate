@@ -69,7 +69,7 @@ const SignUp = () => {
     },
     terms: {
       type: 'isTrue',
-      text: 'field.required',
+      text: 'terms.required',
     },
   };
 
@@ -167,7 +167,7 @@ const SignUp = () => {
             error={isError('repeatPassword')}
           />
           <CustomCheckBox
-            label="Terms and service"
+            label={t('legal.termsCheckbox')}
             name="terms"
             onChange={handleChange}
             error={isError('terms')}

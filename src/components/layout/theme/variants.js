@@ -13,6 +13,9 @@ const blueVariant = {
       main: blue[600],
       contrastText: '#FFF',
     },
+    body: {
+      background: '#fcfcfc',
+    },
   },
   header: {
     color: grey[500],
@@ -61,6 +64,9 @@ const greenVariant = {
     secondary: {
       main: green[500],
       contrastText: '#FFF',
+    },
+    body: {
+      background: '#fcfcfc',
     },
   },
   header: {
@@ -111,6 +117,9 @@ const indigoVariant = {
       main: indigo[400],
       contrastText: '#FFF',
     },
+    body: {
+      background: '#fcfcfc',
+    },
   },
   header: {
     color: grey[500],
@@ -159,6 +168,9 @@ const tealVariant = {
     secondary: {
       main: teal[600],
       contrastText: '#FFF',
+    },
+    body: {
+      background: '#fcfcfc',
     },
   },
   header: {
@@ -209,6 +221,9 @@ const lightVariant = {
       main: blue[600],
       contrastText: '#FFF',
     },
+    body: {
+      background: '#fcfcfc',
+    },
   },
   header: {
     color: grey[200],
@@ -258,6 +273,9 @@ const darkVariant = {
       main: blue[500],
       contrastText: '#FFF',
     },
+    body: {
+      background: '#fcfcfc',
+    },
   },
   header: {
     color: grey[500],
@@ -306,6 +324,9 @@ const orangeVariant = {
     secondary: {
       main: blue[500],
       contrastText: '#FFF',
+    },
+    body: {
+      background: '#fcfcfc',
     },
   },
   header: {

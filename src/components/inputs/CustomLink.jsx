@@ -98,7 +98,12 @@ const CustomLink = forwardRef((props, ref) => {
   }
 
   return (
-    <MuiLink className={className} {...rest} ref={ref} component={rest.href ? PureLink : Link}>
+    <MuiLink
+      className={className}
+      {...rest}
+      ref={ref}
+      component={rest.href ? PureLink : Link}
+    >
       {content}
     </MuiLink>
   );
