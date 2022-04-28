@@ -206,7 +206,7 @@ const Login = () => {
           </CustomButton>
           <Grid container>
             <Grid item xs={12} align="right">
-              <CustomLink to={UrlEnums.PASSWORD_RECOVERY} variant="body2">
+              <CustomLink to={UrlEnums.PASSWORD_RESET} variant="body2">
                 {t('password.forgot')}
               </CustomLink>
             </Grid>
