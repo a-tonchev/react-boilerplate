@@ -51,7 +51,7 @@ export default function LoginLayout({ children }) {
             sx={{
               padding: {
                 xs: 2,
-                sm: 3,
+                sm: 4,
               },
             }}
           >
