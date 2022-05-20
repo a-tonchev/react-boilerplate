@@ -1,11 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { defineConfig, loadEnv } from 'vite';
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
 import visualizer from 'rollup-plugin-visualizer';
 import path, { resolve } from 'path';
-import reactJsx from 'vite-react-jsx';
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
@@ -18,8 +17,7 @@ export default ({ mode }) => {
       }],
     },
     plugins: [
-      reactJsx(),
-      reactRefresh(),
+      react(),
       VitePWA({
         srcDir: 'src',
         strategies: 'injectManifest',
