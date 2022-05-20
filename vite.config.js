@@ -28,6 +28,9 @@ export default ({ mode }) => {
       }),
       eslintPlugin({ eslintOptions: { cache: false } }),
     ],
+    define: {
+      __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+    },
     build: {
       outDir: 'build',
       assetsDir: 'static',

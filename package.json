@@ -40,6 +40,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
+    "updateVersion": "node scripts/updateVersion.mjs",
     "serve": "serve -s build -l 4000",
     "lint": "eslint --ext .jsx,.js src/ --fix"
   },
@@ -74,8 +75,10 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "rollup-plugin-visualizer": "^5.5.1",
     "sass": "^1.35.1",
+    "semver": "^7.3.7",
     "vite": "^2.3.8",
     "vite-plugin-pwa": "^0.11.2",
-    "vite-react-jsx": "^1.1.2"
+    "vite-react-jsx": "^1.1.2",
+    "yargs": "^17.5.1"
   }
 }
