@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 import Connections, { ApiEndpoints } from '@/components/connections/Connections';
 import useLoading from '@/components/loading/hooks/useLoading';
@@ -8,11 +9,9 @@ import ErrorBox from '@/components/validations/ErrorBox';
 import CustomLink from '@/components/inputs/CustomLink';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
 
-const Verify = ({
-  match,
-}) => {
+const Verify = () => {
   const [verified, setVerified] = useState(false);
-  const { verificationToken } = match.params;
+  const { verificationToken } = useParams();
 
   const { t } = useTranslation();
 
