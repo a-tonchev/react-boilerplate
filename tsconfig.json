@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "outDir": "./built",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "jsx": "react-jsx",
+        "allowJs": true,
+        "checkJs": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
+    },
+    "exclude": ["./built/**/*"]
+}
