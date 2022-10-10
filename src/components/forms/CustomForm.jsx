@@ -17,12 +17,13 @@ export default function CustomForm({ elements, onSubmit }) {
     onSubmit(formValues);
   }
 
-  function handleChange(newValue, newValueIndex) {
-    setFormValues(prev =>
-      prev.map((oldFormValue, oldValueIndex) =>
-        newValueIndex === oldValueIndex ? { label: oldFormValue.label, value: newValue.value } : oldFormValue,
-      ),
-    );
+  function handleChange(newValue, newIndex) {
+    setFormValues(prev => prev.map((oldFormValue, oldIndex) => {
+      if (newIndex === oldIndex) {
+        return { label: oldFormValue.label, value: newValue.value };
+      }
+      return oldFormValue;
+    }));
   }
 
   return (
@@ -42,9 +43,8 @@ export default function CustomForm({ elements, onSubmit }) {
   );
 }
 
-const InputElement = props => {
-  const { label, type, value, onChange, required } = props;
-  const propsToPass = { name: label, label, type, value, onChange, required, fullWidth: true };
+const InputElement = ({ defaultValue, ...propsToPass }) => {
+  const { type, value } = propsToPass;
 
   switch (type) {
     case 'text':
