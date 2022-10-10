@@ -60,7 +60,7 @@ const InputElement = ({ defaultValue, ...propsToPass }) => {
     case 'textarea':
       return <CustomTextField {...propsToPass} />;
     case 'number':
-      return <CustomTextField {...propsToPass} />;
+      return <CustomTextField multiline rows={3} {...propsToPass} />;
     case 'checkbox':
       return <CustomCheckBox checked={value} fullWidth {...propsToPass} />;
     default:
