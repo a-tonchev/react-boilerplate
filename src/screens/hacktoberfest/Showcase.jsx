@@ -10,10 +10,145 @@ const Showcase = () => {
   const [simplePopperEl, setSimplePopperEl] = useState(null);
   const [complexPopperEl, setComplexPopperEl] = useState(null);
 
+  const [componentfirstC1, setcomponentfirstC1] = useState(null);
+  const [componentsecondC2, setcomponentsecondC2] = useState(null);
+  const [componentthirdC3, setcomponentthirdC3] = useState(null);
+
   return (
     <div>
       <Typography>{t('Components')}</Typography>
       {/* display here all your components */}
+
+      <div>
+        <span
+          onMouseEnter={e => setcomponentfirstC1(e.currentTarget)}
+          onMouseLeave={() => setcomponentfirstC1(null)}
+        >
+          <button type="button">Marke wahlen</button>
+          <DropdownMenu
+            variant="componentfirst"
+            open={Boolean(componentfirstC1)}
+            anchorEl={componentfirstC1}
+            categories={[
+
+              {
+                name: 'Filter name 1',
+                children: [
+                  {
+                    name: 'subfilter 1',
+                    link: 'subfilter1',
+                  },
+                  {
+                    name: 'subfilter 2',
+                    link: 'subfilter2',
+                  }],
+              },
+              {
+                name: 'Filter name 2',
+                children: [
+                  {
+                    name: 'option 1',
+                    link: 'option1',
+                  },
+                  {
+                    name: 'option 2',
+                    link: 'option2',
+                  }],
+              },
+
+            ]}
+          />
+
+        </span>
+        <span
+          onMouseEnter={e => setcomponentsecondC2(e.currentTarget)}
+          onMouseLeave={() => setcomponentsecondC2(null)}
+        >
+          <button type="button">Modell wahlen</button>
+          <DropdownMenu
+            variant="componentsecond"
+            open={Boolean(componentsecondC2)}
+            anchorEl={componentsecondC2}
+            categories={[
+
+              {
+                name: 'Filter name 1',
+                children: [
+                  {
+                    name: 'subfilter 1',
+                    link: 'subfilter1',
+                  },
+                  {
+                    name: 'subfilter 2',
+                    link: 'subfilter2',
+                  }],
+              },
+              {
+                name: 'Filter name 2',
+                children: [
+                  {
+                    name: 'option 1',
+                    link: 'option1',
+                  },
+                  {
+                    name: 'option 2',
+                    link: 'option2',
+                  },
+                ],
+              },
+
+            ]}
+          />
+
+        </span>
+        <span
+          onMouseEnter={e => setcomponentthirdC3(e.currentTarget)}
+          onMouseLeave={() => setcomponentthirdC3(null)}
+        >
+          <button type="button">Motor (Typ) wahlen</button>
+          <DropdownMenu
+            variant="componentthird"
+            open={Boolean(componentthirdC3)}
+            anchorEl={componentthirdC3}
+            categories={[
+
+              {
+                name: 'Filter name 1',
+                children: [
+                  {
+                    name: 'subfilter 1',
+                    link: 'subfilter1',
+                  },
+                  {
+                    name: 'subfilter 2',
+                    link: 'subfilter2',
+                  }],
+              },
+              {
+                name: 'Filter name 2',
+                children: [
+                  {
+                    name: 'option 1',
+                    link: 'option1',
+                  },
+                  {
+                    name: 'option 2',
+                    link: 'option2',
+                  },
+                ],
+              },
+
+            ]}
+          />
+
+        </span>
+        <span>
+          <form action="action_page.php">
+            <button type="submit">Search</button>
+          </form>
+        </span>
+      </div>
+
       <span
         onMouseEnter={e => setSimplePopperEl(e.currentTarget)}
         onMouseLeave={() => setSimplePopperEl(null)}
