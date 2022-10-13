@@ -1,10 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { defineConfig, loadEnv } from 'vite';
-import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
 import visualizer from 'rollup-plugin-visualizer';
 import path, { resolve } from 'path';
+import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
@@ -48,7 +48,7 @@ export default ({ mode }) => {
       port: process.env.VITE_DEV_PORT || 3000,
       open: true,
       fs: {
-      // Allow serving files from one level up to the project root
+        // Allow serving files from one level up to the project root
         allow: [
           '..',
         ],
