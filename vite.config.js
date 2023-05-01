@@ -55,8 +55,8 @@ export default ({ mode }) => {
       },
     },
     esbuild: {
-      jsxFactory: 'jsx',
-      jsxInject: 'import { jsx } from \'@emotion/react\'',
+      // jsxFactory: 'jsx',
+      // jsxInject: 'import { jsx } from \'@emotion/react\'',
     },
   });
 };
