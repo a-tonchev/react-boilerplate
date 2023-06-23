@@ -1,10 +1,9 @@
 import {
   List,
   Divider,
-  ListItem,
   ListItemIcon,
   ListItemText,
-  IconButton,
+  IconButton, ListItemButton,
 } from '@mui/material';
 import {
   ChevronLeft as ChevronLeftIcon,
@@ -57,56 +56,56 @@ const Sidebar = () => {
       <Divider />
       <List>
         <CustomLink plain to={UrlEnums.MAIN}>
-          <ListItem button key="home">
+          <ListItemButton key="home">
             <ListItemIcon>
               <Home />
             </ListItemIcon>
             <ListItemText primary={t('home')} />
-          </ListItem>
+          </ListItemButton>
         </CustomLink>
         <Authorized publicOnly>
           <CustomLink plain to={UrlEnums.LOGIN}>
-            <ListItem button key="login">
+            <ListItemButton key="login">
               <ListItemIcon>
                 <LockOutlined />
               </ListItemIcon>
               <ListItemText primary={t('login')} />
-            </ListItem>
+            </ListItemButton>
           </CustomLink>
         </Authorized>
         <Authorized authenticated>
           <CustomLink plain to={UrlEnums.PROFILE}>
-            <ListItem button key="profile">
+            <ListItemButton key="profile">
               <ListItemIcon>
                 <AccountCircle />
               </ListItemIcon>
               <ListItemText primary={t('profile')} />
-            </ListItem>
+            </ListItemButton>
           </CustomLink>
-          <ListItem button key="myPages">
+          <ListItemButton key="myPages">
             <ListItemIcon>
               <WebAsset />
             </ListItemIcon>
             <ListItemText primary={t('pages.my')} />
-          </ListItem>
+          </ListItemButton>
         </Authorized>
         <Authorized adminOnly>
           <Divider />
           <CustomLink plain to={UrlEnums.ALL_USERS}>
-            <ListItem button key="allUsers">
+            <ListItemButton key="allUsers">
               <ListItemIcon>
                 <SupervisorAccount />
               </ListItemIcon>
               <ListItemText primary={t('users.all')} />
-            </ListItem>
+            </ListItemButton>
           </CustomLink>
           <CustomLink plain to={UrlEnums.MAIN}>
-            <ListItem button key="allPages">
+            <ListItemButton key="allPages">
               <ListItemIcon>
                 <Web />
               </ListItemIcon>
               <ListItemText primary={t('pages.all')} />
-            </ListItem>
+            </ListItemButton>
           </CustomLink>
         </Authorized>
       </List>
