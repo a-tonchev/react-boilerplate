@@ -19,7 +19,7 @@
     "prop-types": "^15.7.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-helmet-async": "^1.0.9",
+    "react-helmet-async": "^2.0.3",
     "react-i18next": "^13.0.1",
     "react-router-dom": "^6.2.1",
     "recoil": "^0.7.7",
@@ -62,7 +62,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
     "@babel/preset-react": "^7.16.7",
-    "@nabla/vite-plugin-eslint": "^1.2.0",
+    "@nabla/vite-plugin-eslint": "^2.0.2",
     "@vitejs/plugin-react": "^4.0.0",
     "eslint": "^8.9.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -76,8 +76,8 @@
     "rollup-plugin-visualizer": "^5.5.1",
     "sass": "^1.35.1",
     "semver": "^7.3.7",
-    "vite": "^4.3.3",
-    "vite-plugin-pwa": "^0.16.4",
+    "vite": "^5.0.7",
+    "vite-plugin-pwa": "^0.17.4",
     "yargs": "^17.5.1"
   }
 }
