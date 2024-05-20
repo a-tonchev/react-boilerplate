@@ -41,6 +41,9 @@ export const languageStore = atom({
     key: 'languageStore/default',
     get: async () => {
       const storedData = await Storage.get(StorageEnums.language);
+      if (storedData && i18n.language !== storedData) {
+        i18n.changeLanguage(storedData).then();
+      }
       return storedData || BasicConfig.localizations.defaultLanguage;
     },
   }),
