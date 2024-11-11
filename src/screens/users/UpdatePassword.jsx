@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import {
   FormHelperText,
-  Container, Grid,
+  Container,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import Grid from '@/components/inputs/CustomGrid';
 import CustomTextField from '@/components/inputs/CustomTextField';
 import Connections, { ApiEndpoints } from '@/components/connections/Connections';
 import useError from '@/components/validations/hooks/useError';

@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import {
-  Dialog, DialogActions, DialogContent, DialogTitle, Typography, Grid,
+  Dialog, DialogActions, DialogContent, DialogTitle, Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import Grid from '@/components/inputs/CustomGrid';
 import useValues from '@/components/dataHandling/hooks/useValues';
 import CustomButton from '@/components/inputs/CustomButton';
 import CustomSelect from '@/components/inputs/CustomSelect';

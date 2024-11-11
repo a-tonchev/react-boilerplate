@@ -3,12 +3,12 @@ import { useState } from 'react';
 import {
   Avatar,
   Button,
-  Grid,
   Typography,
   Container,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import Grid from '@/components/inputs/CustomGrid';
 import CustomLink from '@/components/inputs/CustomLink';
 import CustomTextField from '@/components/inputs/CustomTextField';
 import Connections, { ApiEndpoints } from '@/components/connections/Connections';

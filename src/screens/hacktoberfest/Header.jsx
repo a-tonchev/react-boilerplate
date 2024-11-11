@@ -1,5 +1,4 @@
 import Stack from '@mui/material/Stack';
-import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
+import Grid from '@/components/inputs/CustomGrid';
 import useClasses from '@/components/layout/hooks/useClasses';
 
 const styles = {

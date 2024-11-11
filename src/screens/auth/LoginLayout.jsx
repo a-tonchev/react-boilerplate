@@ -1,7 +1,8 @@
 import React from 'react';
-import { Grid, Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 import { Language } from '@mui/icons-material';
 
+import Grid from '@/components/inputs/CustomGrid';
 import BasicConfig from '@/components/config/BasicConfig';
 import LanguagesPicker from '@/components/translations/LanguagesPicker';
 import Footer from '@/components/layout/footer/Footer';

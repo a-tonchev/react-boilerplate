@@ -2,12 +2,12 @@ import { LockOutlined } from '@mui/icons-material';
 import { useState, useEffect } from 'react';
 import {
   Avatar,
-  Grid,
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
+import Grid from '@/components/inputs/CustomGrid';
 import CustomLink from '@/components/inputs/CustomLink';
 import CustomTextField from '@/components/inputs/CustomTextField';
 import Connections, { ApiEndpoints } from '@/components/connections/Connections';

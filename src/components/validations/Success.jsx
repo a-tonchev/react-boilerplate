@@ -1,9 +1,9 @@
 import {
-  Grid,
   Zoom,
   Alert,
 } from '@mui/material';
 
+import Grid from '@/components/inputs/CustomGrid';
 import useClasses from '@/components/layout/hooks/useClasses';
 
 const styles = {

@@ -1,6 +1,7 @@
-import { Container, Grid } from '@mui/material';
+import { Container } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 
+import Grid from '@/components/inputs/CustomGrid';
 import BasicConfig from '@/components/config/BasicConfig';
 import useClasses from '@/components/layout/hooks/useClasses';
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import Grid from '@/components/inputs/CustomGrid';
 import useSnackbar from '@/components/dialogs/snackbars/hooks/useSnackbar';
 import CustomButton from '@/components/inputs/CustomButton';
 import CustomTextField from '@/components/inputs/CustomTextField';

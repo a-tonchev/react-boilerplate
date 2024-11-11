@@ -1,8 +1,6 @@
 import get from 'lodash-es/get';
-import {
-  Grid,
-} from '@mui/material';
 
+import Grid from '@/components/inputs/CustomGrid';
 import CustomSelect from '@/components/inputs/CustomSelect';
 import CustomTextField from '@/components/inputs/CustomTextField';
 import CustomCheckBox from '@/components/inputs/CustomCheckBox';
