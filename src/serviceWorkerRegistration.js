@@ -24,7 +24,7 @@ const isLocalhost = Boolean(
 
 window.addEventListener('beforeunload', async () => {
   if (window.swNeedUpdate) {
-    await SWHelper.skipWaiting();
+    await SWHelper.skipWaitingWhenSolo();
   }
 });
 
@@ -70,9 +70,9 @@ function registerValidSW(swUrl, config) {
     .register(swUrl)
     .then(registration => {
       if (registration.waiting && registration.active) {
-        window.swNeedUpdate = true;
+        SWHelper.callNewServiceWorkerEvent().then();
       }
-      // eslint-disable-next-line no-param-reassign
+
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
@@ -84,8 +84,7 @@ function registerValidSW(swUrl, config) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
-              window.swNeedUpdate = true;
-              SWHelper.prepareCachesForUpdate().then();
+              SWHelper.callNewServiceWorkerEvent().then();
               console.info(
                 'New content is available and will be used when all ' +
                   'tabs for this page are closed. See https://bit.ly/CRA-PWA.',

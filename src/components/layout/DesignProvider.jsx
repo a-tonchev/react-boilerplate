@@ -12,6 +12,7 @@ import { ThemeProvider, Global, css } from '@emotion/react';
 
 import SuccessSnackBar from '@/components/dialogs/snackbars/SuccessSnackBar';
 import ErrorSnackBar from '@/components/dialogs/snackbars/ErrorSnackBar';
+import VersionDetector from '@/screens/update/VersionDetector';
 
 import muiTheme from './theme';
 import BasicLayout from './BasicLayout';
@@ -64,6 +65,7 @@ const DesignProvider = ({ children }) => (
           </BasicLayout>
           <SuccessSnackBar />
           <ErrorSnackBar />
+          <VersionDetector />
         </ThemeProvider>
       </MuiThemeProvider>
     </StyledEngineProvider>

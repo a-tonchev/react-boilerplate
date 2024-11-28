@@ -50,5 +50,6 @@
   "view.list": "Listen Ansicht",
 
   "errorDescription.email": "E-mail Adresse wird benötigt",
-  "errorDescription.password": "Passwort wird benötigt"
+  "errorDescription.password": "Passwort wird benötigt",
+  "newVersionDetected.refresh": "Neue Version erkannt. Möchtest du sie installieren?"
 }

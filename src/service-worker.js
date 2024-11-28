@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-globals,no-underscore-dangle */
-
 // This service worker can be customized!
 // See https://developers.google.com/web/tools/workbox/modules
 // for the list of available Workbox components, or add any other
@@ -118,6 +116,23 @@ const prepareCachesForUpdate = async () => {
 
   return Promise.all(cachePromises);
 };
+
+const resetClients = async clients => {
+  const { currentCacheName, otherCacheNames } = await getCacheStorageNames(true);
+
+  const [waitingCacheName] = otherCacheNames;
+
+  prepareCachesForUpdate({
+    currentCacheName: waitingCacheName,
+    otherCacheNames: [currentCacheName],
+  }).then(() => {
+    const [firstClient] = clients;
+
+    firstClient.postMessage({
+      msg: 'CACHE_PREPARED',
+    });
+  });
+};
 /* End of Custom Logic */
 
 // This allows the web app to trigger skipWaiting via
@@ -135,6 +150,28 @@ self.addEventListener('message', event => {
       if (clients.length < 2) {
         self.skipWaiting();
       }
+    });
+  }
+
+  if (event.data?.type === 'RELOAD_CLIENTS') {
+    self.clients.matchAll().then(clients => {
+      clients.forEach(client => client.navigate(client.url));
+    });
+  }
+
+  if (event.data?.type === 'FORCE_REFRESH_SW') {
+    self.clients.matchAll().then(clients => {
+      resetClients(clients).then();
+    });
+  }
+
+  if (event.data?.type === 'OPEN_MESSAGE_DIALOG_ALL_CLIENTS') {
+    self.clients.matchAll().then(clients => {
+      clients.forEach(client => {
+        client.postMessage({
+          msg: 'OPEN_DIALOG',
+        });
+      });
     });
   }
 

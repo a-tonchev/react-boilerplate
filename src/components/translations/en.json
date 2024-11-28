@@ -50,5 +50,6 @@
   "view.list": "List view",
 
   "errorDescription.email": "E-mail Address is a required field",
-  "errorDescription.password": "Password is required."
+  "errorDescription.password": "Password is required.",
+  "newVersionDetected.refresh": "New version detected. Do you want to install it?"
 }
