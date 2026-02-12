@@ -1,13 +1,11 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useStoreValue } from '@/components/state/GlobalState';
 
 import {
-  languageStore, setLanguageSelector,
+  UserStores,
 } from '../stores/userStore';
 
-export const useLanguage = () => useRecoilValue(languageStore);
-export const useSetLanguage = () => useSetRecoilState(setLanguageSelector);
+export const useLanguage = () => useStoreValue(UserStores.languageStore);
 
 export default {
   useLanguage,
-  useSetLanguage,
 };

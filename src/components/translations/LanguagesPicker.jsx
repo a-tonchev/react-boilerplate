@@ -5,7 +5,7 @@ import Select from '@mui/material/Select';
 import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/material';
 
-import { useSetLanguage } from '@/screens/users/hooks/languageHook';
+import { setLanguage } from '@/screens/users/stores/userStore';
 import useClasses from '@/components/layout/hooks/useClasses';
 
 function checkColor(color = '#000') {
@@ -55,7 +55,7 @@ const LanguagesPicker = props => {
   });
 
   const classes = useClasses(styles);
-  const changeLanguage = useSetLanguage();
+  const changeLanguage = setLanguage;
   const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
   const handleChange = event => {

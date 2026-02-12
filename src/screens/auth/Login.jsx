@@ -15,7 +15,7 @@ import useErrorCheck from '@/components/validations/hooks/useError';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
 import useLoading from '@/components/loading/hooks/useLoading';
 import CustomButton from '@/components/inputs/CustomButton';
-import { useLoginUser } from '@/screens/users/hooks/userDataHooks';
+import { loginUser } from '@/screens/users/stores/userStore';
 import useClasses from '@/components/layout/hooks/useClasses';
 import Logo from '@/components/layout/assets/logo.svg';
 import BasicConfig from '@/components/config/BasicConfig';
@@ -63,7 +63,6 @@ const Login = () => {
   const [redirection, setRedirection] = useState('');
   const [showVerification, setShowVerification] = useState(false);
   const { t } = useTranslation();
-  const loginUser = useLoginUser();
   const location = useLocation();
 
   const {

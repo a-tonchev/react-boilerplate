@@ -1,15 +1,19 @@
-import {
-  atom,
-  selector,
-} from 'recoil';
-
 import BasicConfig from '@/components/config/BasicConfig';
 import tokenStore from '@/components/connections/stores/tokenStore';
 import i18n from '@/components/translations/i18n';
 import Storage from '@/components/storage/Storage';
 import StorageEnums from '@/components/storage/enums/StorageEnums';
+import GlobalStateHelper from '@/components/state/GlobalStateHelper';
 
 import { UserRoles } from '../enums/UserEnums';
+
+export const UserStores = {
+  languageStore: null,
+  userDataStore: null,
+  redirectedFromStore: null,
+  isAdminStore: null,
+  isLoggedInStore: null,
+};
 
 const defaultUserData = {
   loggedIn: false,
@@ -24,123 +28,107 @@ const changeLanguage = language => {
   Storage.save(StorageEnums.language, language).then();
 };
 
-export const userDataStore = atom({
+GlobalStateHelper.atom({
   key: 'userDataStore',
-  default: selector({
-    key: 'userDataStore/default',
-    get: async () => {
-      const storedUserData = await Storage.getObject(StorageEnums.userData);
-      return storedUserData || defaultUserData;
-    },
-  }),
-});
-
-export const languageStore = atom({
-  key: 'languageStore',
-  default: selector({
-    key: 'languageStore/default',
-    get: async () => {
-      const storedData = await Storage.get(StorageEnums.language);
-      if (storedData && i18n.language !== storedData) {
-        i18n.changeLanguage(storedData).then();
-      }
-      return storedData || BasicConfig.localizations.defaultLanguage;
-    },
-  }),
-});
-
-export const setLanguageSelector = selector({
-  key: 'setLanguageSelector',
-  get: ({ get }) => get(languageStore),
-  set: ({ get, set }, language) => {
-    const oldLanguage = get(languageStore);
-
-    if (
-      language
-      && BasicConfig.localizations.availableLanguages.includes(language)
-      && language !== oldLanguage
-    ) {
-      set(languageStore, language);
-      changeLanguage(language);
-    }
+  default: async () => {
+    const storedUserData = await Storage.getObject(StorageEnums.userData);
+    return storedUserData || defaultUserData;
   },
+  type: 'async',
+  store: UserStores,
+  dependencies: [],
 });
 
-export const redirectedFromStore = atom({
+GlobalStateHelper.atom({
+  key: 'languageStore',
+  default: async () => {
+    const storedData = await Storage.get(StorageEnums.language);
+    if (storedData && i18n.language !== storedData) {
+      changeLanguage(storedData);
+    }
+    return storedData || BasicConfig.localizations.defaultLanguage;
+  },
+  type: 'async',
+  store: UserStores,
+  dependencies: [],
+});
+
+export const setLanguage = language => {
+  const oldLanguage = UserStores.languageStore.get();
+
+  if (
+    language
+    && BasicConfig.localizations.availableLanguages.includes(language)
+    && language !== oldLanguage
+  ) {
+    UserStores.languageStore.set(language);
+    changeLanguage(language);
+  }
+};
+
+GlobalStateHelper.atom({
   key: 'redirectedFromStore',
   default: '',
+  store: UserStores,
 });
 
-export const isAdminStore = atom({
+GlobalStateHelper.atom({
   key: 'isAdminStore',
-  default: selector({
-    key: 'isAdminStore/default',
-    get: ({ get }) => {
-      const userData = get(userDataStore);
-      const { roles } = userData;
-      return !!(roles && roles.length && roles.includes(UserRoles.ADMIN_ROLE));
-    },
-  }),
+  default: () => {
+    const userData = UserStores.userDataStore.get();
+    const { roles } = userData;
+    return !!(roles && roles.length && roles.includes(UserRoles.ADMIN_ROLE));
+  },
+  store: UserStores,
+  dependencies: [UserStores.userDataStore],
 });
 
-export const isLoggedInStore = atom({
+GlobalStateHelper.atom({
   key: 'isLoggedInStore',
-  default: selector({
-    key: 'isLoggedInStore/default',
-    get: async () => {
-      const storedData = await tokenStore.restoreFromSession();
-      return !!storedData;
-    },
-  }),
-});
-
-export const setUserDataSelector = selector({
-  key: 'setUserDataSelector',
-  get: ({ get }) => get(userDataStore),
-  set: ({ get, set }, userDataObject = {}) => {
-    const oldUserData = get(userDataStore);
-    const oldIsAdmin = get(isAdminStore);
-
-    const newUserData = {
-      ...oldUserData,
-      ...userDataObject,
-    };
-    const { roles } = newUserData;
-
-    set(userDataStore, newUserData);
-    const isAdmin = !!(roles && roles.length && roles.includes(UserRoles.ADMIN_ROLE));
-
-    if (isAdmin !== oldIsAdmin) {
-      set(isAdminStore, isAdmin);
-    }
-    Storage.saveObject(StorageEnums.userData, newUserData).then();
+  default: async () => {
+    const storedData = await tokenStore.restoreFromSession();
+    return !!storedData;
   },
+  type: 'async',
+  store: UserStores,
 });
 
-export const loginUserSelector = selector({
-  key: 'loginUserSelector',
-  get: ({ get }) => get(userDataStore),
-  set: ({ set }, { token, redirectedFrom, ...userData }) => {
-    if (token) {
-      tokenStore.set(token);
-      set(isLoggedInStore, true);
-      set(redirectedFromStore, redirectedFrom);
-      set(setUserDataSelector, {
-        ...userData,
-      });
-    }
-  },
-});
+export const setUserData = (userDataObject = {}) => {
+  const oldUserData = UserStores.userDataStore.get();
+  const oldIsAdmin = UserStores.isAdminStore.get();
 
-export const logoutUserDataSelector = selector({
-  key: 'logoutUserDataSelector',
-  get: ({ get }) => get(userDataStore),
-  set: ({ set }) => {
-    set(userDataStore, defaultUserData);
-    set(isAdminStore, false);
-    set(isLoggedInStore, false);
-    Storage.remove(StorageEnums.userData).then();
-  },
-});
+  const newUserData = {
+    ...oldUserData,
+    ...userDataObject,
+  };
+  const { roles } = newUserData;
+
+  UserStores.userDataStore.set(newUserData);
+
+  const isAdmin = !!(roles && roles.length && roles.includes(UserRoles.ADMIN_ROLE));
+
+  if (isAdmin !== oldIsAdmin) {
+    UserStores.isAdminStore.set(isAdmin);
+  }
+  Storage.saveObject(StorageEnums.userData, newUserData).then();
+};
+
+export const loginUser = ({ token, redirectedFrom, ...userData }) => {
+  if (token) {
+    tokenStore.set(token);
+    UserStores.isLoggedInStore.set(true);
+    UserStores.redirectedFromStore.set(redirectedFrom);
+    setUserData({
+      ...userData,
+    });
+  }
+};
+
+export const logoutUser = () => {
+  UserStores.userDataStore.set(defaultUserData);
+  UserStores.isAdminStore.set(false);
+  UserStores.isLoggedInStore.set(false);
+  Storage.remove(StorageEnums.userData).then();
+};
 
 export default {};

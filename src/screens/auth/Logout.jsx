@@ -2,20 +2,17 @@ import { useEffect } from 'react';
 
 import Connections, { ApiEndpoints } from '@/components/connections/Connections';
 import tokenStore from '@/components/connections/stores/tokenStore';
-import { useLogoutUser } from '@/screens/users/hooks/userDataHooks';
+import { logoutUser } from '@/screens/users/stores/userStore';
 
 const Logout = () => {
-  const logout = useLogoutUser();
-
   useEffect(() => {
-    const logoutUser = async () => {
+    const doLogout = async () => {
       await Connections.postRequest(ApiEndpoints.logout);
     };
-    logoutUser().then(() => {
+    doLogout().then(() => {
       tokenStore.remove();
     });
-    logout(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    logoutUser();
   }, []);
 
   return <div />;

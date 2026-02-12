@@ -1,21 +1,26 @@
-import {
-  atom,
-} from 'recoil';
+import GlobalStateHelper from '@/components/state/GlobalStateHelper';
 
-export const successSnackbarStore = atom({
+export const SnackBarStores = {
+  successSnackbarStore: null,
+  errorSnackbarStore: null,
+};
+
+GlobalStateHelper.atom({
   key: 'successSnackbarStore',
   default: {
     open: false,
     message: '',
   },
+  store: SnackBarStores,
 });
 
-export const errorSnackbarStore = atom({
+GlobalStateHelper.atom({
   key: 'errorSnackbarStore',
   default: {
     open: false,
     message: '',
   },
+  store: SnackBarStores,
 });
 
 export default {};

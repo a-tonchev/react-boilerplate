@@ -1,39 +1,21 @@
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useStoreValue } from '@/components/state/GlobalState';
 
 import {
-  userDataStore,
-  loginUserSelector,
-  logoutUserDataSelector,
-  setUserDataSelector,
-  isLoggedInStore,
-  isAdminStore,
-  redirectedFromStore,
+  UserStores,
 } from '../stores/userStore';
 
-// User data actions
-export const useUpdateUserData = () => useSetRecoilState(setUserDataSelector);
-
-export const useLogoutUser = () => useSetRecoilState(logoutUserDataSelector);
-
-export const useLoginUser = () => useSetRecoilState(loginUserSelector);
-
-export const useUserData = () => useRecoilValue(userDataStore);
+export const useUserData = () => useStoreValue(UserStores.userDataStore);
 
 // User roles and permissions
-export const useLoggedIn = () => useRecoilValue(isLoggedInStore);
+export const useLoggedIn = () => useStoreValue(UserStores.isLoggedInStore);
 
-export const useIsAdmin = () => useRecoilValue(isAdminStore);
+export const useIsAdmin = () => useStoreValue(UserStores.isAdminStore);
 
 // User redirects
 /**  @return string */
-export const useRedirected = () => useRecoilValue(redirectedFromStore);
-
-export const useSetRedirected = () => useSetRecoilState(redirectedFromStore);
+export const useRedirected = () => useStoreValue(UserStores.redirectedFromStore);
 
 export default {
-  useUpdateUserData,
-  useLogoutUser,
-  useLoginUser,
   useUserData,
   useIsAdmin,
 };

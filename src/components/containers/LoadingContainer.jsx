@@ -1,15 +1,27 @@
-import { useRecoilValue, waitForAll } from 'recoil';
+import { atom, useAtomValue } from 'jotai';
 
-import { isLoggedInStore, languageStore, userDataStore } from '@/screens/users/stores/userStore';
+import GlobalStore from '@/components/state/GlobalStore';
+import {
+  UserStores,
+} from '@/screens/users/stores/userStore';
+import Loading from '@/components/loading/Loading';
+
+export const prioLoadedSetAtom = atom(false);
+
+export const usePrioLoadedSet = () => useAtomValue(prioLoadedSetAtom);
+
+Promise.all([
+  UserStores.isLoggedInStore.promise,
+  UserStores.userDataStore.promise,
+  UserStores.languageStore.promise,
+]).then(() => {
+  GlobalStore.set(prioLoadedSetAtom, true);
+});
 
 const LoadingContainer = ({ children }) => {
-  useRecoilValue(
-    waitForAll([
-      userDataStore,
-      languageStore,
-      isLoggedInStore,
-    ]),
-  );
+  const prioLoaded = usePrioLoadedSet();
+
+  if (!prioLoaded) return <Loading />;
 
   return children;
 };
