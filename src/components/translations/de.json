@@ -78,6 +78,9 @@
   "field.notValidOrRequired": "Dieses Feld ist ungültig oder erforderlich!",
 
   "resetPassword": "Passwort zurücksetzen",
+  "resetPassword.description": "Gib deine E-Mail ein und wir senden dir einen Link zum Zurücksetzen.",
+  "backToLogin": "Zurück zum Login",
+  "signUp.description": "Erstelle dein Konto, um loszulegen.",
   "typeNewPassword": "Neues Passwort eingeben",
   "newPassword": "Neues Passwort",
   "repeatNewPassword": "Neues Passwort wiederholen",

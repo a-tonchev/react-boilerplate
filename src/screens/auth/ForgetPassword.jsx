@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import {
-  Avatar,
+  Box,
   Typography,
 } from '@mui/material';
-import {
-  LockOutlined,
-} from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 import CustomTextField from '@/components/inputs/CustomTextField';
@@ -15,23 +12,22 @@ import useLoading from '@/components/loading/hooks/useLoading';
 import SuccessBox from '@/components/validations/SuccessBox';
 import CustomButton from '@/components/inputs/CustomButton';
 import useClasses from '@/components/layout/hooks/useClasses';
+import Logo from '@/components/layout/assets/logo.svg';
+import BasicConfig from '@/components/config/BasicConfig';
+import CustomLink from '@/components/inputs/CustomLink';
+import UrlEnums from '@/components/connections/enums/UrlEnums';
 
 import LoginLayout from './LoginLayout';
 
 const styles = {
   paper: {
-    marginTop: 'var(--theme-spacing-8)',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: 'var(--theme-spacing-1)',
-    backgroundColor: 'var(--theme-palette-primary-main)',
+    alignItems: 'flex-start',
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: 'var(--theme-spacing-1)',
+    width: '100%',
+    marginTop: '2em',
   },
   submit: {
     margin: 'var(--theme-spacing-3_0_2)',
@@ -111,12 +107,29 @@ const ForgetPassword = () => {
   return (
     <LoginLayout>
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlined />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          {t('resetPassword')}
-        </Typography>
+        <Box sx={{ mb: 5 }}>
+          <img src={Logo} alt={BasicConfig.copyright.text} width={160} height="auto" />
+        </Box>
+        <Box sx={{ width: '100%', mb: 0.5 }}>
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{
+              fontWeight: 800,
+              color: 'text.primary',
+              letterSpacing: '-0.025em',
+            }}
+          >
+            {t('resetPassword')}
+          </Typography>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ mt: 0.75 }}
+          >
+            {t('resetPassword.description')}
+          </Typography>
+        </Box>
         <form className={classes.form} noValidate>
           <CustomTextField
             name="email"
@@ -139,6 +152,11 @@ const ForgetPassword = () => {
           >
             {t('sendVerificationLink')}
           </CustomButton>
+          <Box sx={{ textAlign: 'center', mt: 2 }}>
+            <CustomLink to={UrlEnums.LOGIN} variant="body2">
+              {t('backToLogin')}
+            </CustomLink>
+          </Box>
         </form>
       </div>
     </LoginLayout>

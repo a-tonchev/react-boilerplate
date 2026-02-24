@@ -41,9 +41,9 @@ const Header = () => {
   };
 
   return (
-    <div className={classes.grow}>
+    <div>
       <AppBar position="fixed">
-        <Toolbar>
+        <Toolbar sx={{ px: { xs: 1, sm: 2 }, gap: 0.5 }}>
           <Drawer />
           <HeaderLogo />
           <HeaderSearch />

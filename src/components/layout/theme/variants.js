@@ -55,54 +55,63 @@ const blueVariant = {
 };
 
 const greenVariant = {
-  name: 'Green',
+  name: 'Slate & Sage',
   palette: {
     primary: {
-      main: green[800],
+      main: '#2D3748',
       contrastText: '#FFF',
     },
     secondary: {
-      main: green[500],
+      main: '#2dad67',
       contrastText: '#FFF',
     },
+    text: {
+      primary: '#1A202C',
+      secondary: '#718096',
+    },
+    background: {
+      default: '#F7FAFC',
+      paper: '#FFFFFF',
+    },
+    divider: '#E2E8F0',
     body: {
-      background: '#fcfcfc',
+      background: '#F7FAFC',
     },
   },
   header: {
-    color: grey[500],
+    color: '#718096',
     background: '#FFF',
     search: {
-      color: grey[800],
+      color: '#2D3748',
     },
     indicator: {
-      background: green[500],
+      background: '#2dad67',
     },
   },
   sidebar: {
-    color: '#FFF',
-    background: green[700],
+    color: '#E2E8F0',
+    background: '#2D3748',
     header: {
-      color: '#FFF',
-      background: green[800],
+      color: '#E2E8F0',
+      background: '#1A202C',
       brand: {
-        color: '#FFFFFF',
+        color: '#2dad67',
       },
     },
     footer: {
-      color: '#FFF',
-      background: green[800],
+      color: '#A0AEC0',
+      background: '#1A202C',
       online: {
-        background: '#FFF',
+        background: '#2dad67',
       },
     },
     badge: {
-      color: '#000',
-      background: '#FFF',
+      color: '#FFF',
+      background: '#2dad67',
     },
   },
   body: {
-    background: '#F9F9FC',
+    background: '#F7FAFC',
   },
 };
 

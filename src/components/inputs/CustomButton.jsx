@@ -1,17 +1,16 @@
 import { Button } from '@mui/material';
-import { green as mGreen } from '@mui/material/colors';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 
 const styles = theme => ({
   green: {
-    backgroundColor: mGreen[700],
-    color: 'var(--theme.palette.primary.contrastText)',
+    backgroundColor: '#2dad67',
+    color: '#FFF',
     '&:hover': {
-      backgroundColor: mGreen[600],
+      backgroundColor: '#249457',
     },
     '&:active': {
-      backgroundColor: mGreen[600],
+      backgroundColor: '#249457',
     },
   },
   fullMobile: {

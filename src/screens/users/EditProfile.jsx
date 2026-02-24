@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import Grid from '@/components/inputs/CustomGrid';
@@ -135,63 +136,73 @@ const EditProfile = () => {
   };
 
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={12} md={6}>
-        <CustomTextField
-          id="clientNumber"
-          name="clientNumber"
-          label={t('Customer Number')}
-          value={clientNumber}
-          fullWidth
-          disabled
-        />
+    <Box>
+      <Typography
+        variant="subtitle1"
+        sx={{ fontWeight: 600, color: 'text.primary', mb: 3 }}
+      >
+        {t('editProfile')}
+      </Typography>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          <CustomTextField
+            id="clientNumber"
+            name="clientNumber"
+            label={t('Customer Number')}
+            value={clientNumber}
+            fullWidth
+            disabled
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <CustomTextField
+            id="email"
+            name="email"
+            label={t('email')}
+            value={email}
+            fullWidth
+            disabled
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <CustomTextField
+            id="first"
+            fieldName="first"
+            label={t('First Name')}
+            value={first}
+            onChange={handleChange}
+            fullWidth
+            error={isError('first')}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <CustomTextField
+            id="last"
+            fieldName="last"
+            label={t('Last Name')}
+            value={last}
+            onChange={handleChange}
+            fullWidth
+            error={isError('last')}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <CustomTextField
+            id="companyName"
+            fieldName="companyName"
+            label={t('Company Name')}
+            value={companyName}
+            onChange={handleChange}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+            <CustomButton onClick={saveProfile}>{t('Save Profile')}</CustomButton>
+          </Box>
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <CustomTextField
-          id="email"
-          name="email"
-          label={t('email')}
-          value={email}
-          fullWidth
-          disabled
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <CustomTextField
-          id="first"
-          fieldName="first"
-          label={t('First Name')}
-          value={first}
-          onChange={handleChange}
-          fullWidth
-          error={isError('first')}
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <CustomTextField
-          id="last"
-          fieldName="last"
-          label={t('Last Name')}
-          value={last}
-          onChange={handleChange}
-          fullWidth
-          error={isError('last')}
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <CustomTextField
-          id="companyName"
-          fieldName="companyName"
-          label={t('Company Name')}
-          value={companyName}
-          onChange={handleChange}
-          fullWidth
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <CustomButton fullMobile onClick={saveProfile}>{t('Save Profile')}</CustomButton>
-      </Grid>
-    </Grid>
+    </Box>
   );
 };
 

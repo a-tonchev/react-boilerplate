@@ -16,7 +16,10 @@
       "WebFetch",
       "WebSearch",
       "Bash(cd:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(grep:*)"
     ]
   }
 }

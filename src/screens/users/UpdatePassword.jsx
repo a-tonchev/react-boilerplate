@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import {
-  FormHelperText,
-  Container,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import Grid from '@/components/inputs/CustomGrid';
@@ -12,23 +9,6 @@ import useError from '@/components/validations/hooks/useError';
 import useLoading from '@/components/loading/hooks/useLoading';
 import CustomButton from '@/components/inputs/CustomButton';
 import useSnackbar from '@/components/dialogs/snackbars/hooks/useSnackbar';
-import useClasses from '@/components/layout/hooks/useClasses';
-
-const styles = {
-  paper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-  },
-  avatar: {
-    margin: 'var(--theme-spacing-1)',
-    backgroundColor: 'var(--theme-palette-primary-main)',
-  },
-  submit: {
-    margin: 'var(--theme-spacing-3_0_2)',
-  },
-};
 
 const defaultValues = {
   currentPassword: '',
@@ -37,8 +17,6 @@ const defaultValues = {
 };
 
 const UpdatePassword = () => {
-  const classes = useClasses(styles);
-
   const { t } = useTranslation();
   const [values, setValues] = useState(defaultValues);
 
@@ -108,12 +86,15 @@ const UpdatePassword = () => {
   };
 
   return (
-    <Container maxWidth="xs">
-      <Grid container spacing={1}>
+    <Box>
+      <Typography
+        variant="subtitle1"
+        sx={{ fontWeight: 600, color: 'text.primary', mb: 3 }}
+      >
+        {t('resetPassword')}
+      </Typography>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
-          <FormHelperText>
-            {t('Type Current Password')}:
-          </FormHelperText>
           <CustomTextField
             id="currentPassword"
             name="currentPassword"
@@ -128,9 +109,6 @@ const UpdatePassword = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormHelperText>
-            {t('Type New Password')}:
-          </FormHelperText>
           <CustomTextField
             id="password"
             name="password"
@@ -157,16 +135,14 @@ const UpdatePassword = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <CustomButton
-            fullWidth
-            className={classes.submit}
-            onClick={updatePassword}
-          >
-            {t('Set New Password')}
-          </CustomButton>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+            <CustomButton onClick={updatePassword}>
+              {t('Set New Password')}
+            </CustomButton>
+          </Box>
         </Grid>
       </Grid>
-    </Container>
+    </Box>
   );
 };
 

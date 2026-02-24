@@ -78,6 +78,9 @@
   "field.notValidOrRequired": "This field is not valid or required!",
 
   "resetPassword": "Reset Password",
+  "resetPassword.description": "Enter your email and we'll send you a reset link.",
+  "backToLogin": "Back to Sign In",
+  "signUp.description": "Create your account to get started.",
   "typeNewPassword": "Type your new password",
   "newPassword": "New Password",
   "repeatNewPassword": "Repeat New Password",

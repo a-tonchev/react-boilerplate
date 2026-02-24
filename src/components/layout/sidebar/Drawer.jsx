@@ -2,21 +2,12 @@ import { useState } from 'react';
 import {
   Drawer as MuiDrawer,
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { ListIcon } from '@phosphor-icons/react';
 import IconButton from '@mui/material/IconButton';
-
-import useClasses from '@/components/layout/hooks/useClasses';
 
 import Sidebar from './Sidebar';
 
-const styles = {
-  list: {
-    width: 250,
-  },
-};
-
 const Drawer = () => {
-  const classes = useClasses(styles);
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = openDrawer => event => {
@@ -30,7 +21,7 @@ const Drawer = () => {
     <div>
       <MuiDrawer anchor="left" open={open} onClose={toggleDrawer(false)}>
         <div
-          className={classes.list}
+          style={{ width: 260 }}
           role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
@@ -40,13 +31,20 @@ const Drawer = () => {
       </MuiDrawer>
       <IconButton
         edge="start"
-        className={classes.menuButton}
-        color="inherit"
         aria-label="open drawer"
         onClick={toggleDrawer(true)}
+        sx={{
+          color: '#A0AEC0',
+          borderRadius: '10px',
+          padding: '8px',
+          '&:hover': {
+            backgroundColor: 'rgba(255,255,255,0.1)',
+            color: '#FFFFFF',
+          },
+        }}
         size="large"
       >
-        <MenuIcon />
+        <ListIcon size={22} weight="regular" />
       </IconButton>
     </div>
   );

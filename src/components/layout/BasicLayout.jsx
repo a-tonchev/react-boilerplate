@@ -19,6 +19,7 @@ const styles = theme => ({
     gridTemplateRows: '1fr',
   },
   gridContainer: {
+    flex: 1,
     marginTop: 84,
     [theme.breakpoints.down('xs')]: {
       marginTop: 56,

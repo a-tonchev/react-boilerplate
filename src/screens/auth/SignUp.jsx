@@ -1,14 +1,11 @@
-import { LockOutlined } from '@mui/icons-material';
 import { useState } from 'react';
 import {
-  Avatar,
-  Button,
+  Box,
+  Divider,
   Typography,
-  Container,
 } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
-import Grid from '@/components/inputs/CustomGrid';
 import CustomLink from '@/components/inputs/CustomLink';
 import CustomTextField from '@/components/inputs/CustomTextField';
 import Connections, { ApiEndpoints } from '@/components/connections/Connections';
@@ -17,22 +14,22 @@ import useError from '@/components/validations/hooks/useError';
 import useLoading from '@/components/loading/hooks/useLoading';
 import SuccessBox from '@/components/validations/SuccessBox';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
+import CustomButton from '@/components/inputs/CustomButton';
 import useClasses from '@/components/layout/hooks/useClasses';
+import Logo from '@/components/layout/assets/logo.svg';
+import BasicConfig from '@/components/config/BasicConfig';
+
+import LoginLayout from './LoginLayout';
 
 const styles = {
   paper: {
-    marginTop: 'var(--theme-spacing-3)',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: 'var(--theme-spacing-1)',
-    backgroundColor: 'var(--theme-palette-primary-main)',
+    alignItems: 'flex-start',
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: 'var(--theme-spacing-1)',
+    width: '100%',
+    marginTop: '2em',
   },
   submit: {
     margin: 'var(--theme-spacing-3_0_2)',
@@ -121,14 +118,31 @@ const SignUp = () => {
   };
 
   return (
-    <Container maxWidth="xs">
+    <LoginLayout>
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlined />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          {t('onBoarding')}
-        </Typography>
+        <Box sx={{ mb: 5 }}>
+          <img src={Logo} alt={BasicConfig.copyright.text} width={160} height="auto" />
+        </Box>
+        <Box sx={{ width: '100%', mb: 0.5 }}>
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{
+              fontWeight: 800,
+              color: 'text.primary',
+              letterSpacing: '-0.025em',
+            }}
+          >
+            {t('onBoarding')}
+          </Typography>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ mt: 0.75 }}
+          >
+            {t('signUp.description')}
+          </Typography>
+        </Box>
         <form className={classes.form} noValidate>
           <CustomTextField
             id="email"
@@ -167,48 +181,44 @@ const SignUp = () => {
             error={isError('repeatPassword')}
           />
           <CustomCheckBox
-            label={t('legal.termsCheckbox')}
+            label={(
+              <Trans
+                i18nKey="legal.termsCheckbox"
+                values={{ privacyPolicyLink: t('legal.privacy') }}
+                components={[
+                  <span />,
+                  <CustomLink to={UrlEnums.PRIVACY_POLICY} />,
+                ]}
+              />
+            )}
             name="terms"
             onChange={handleChange}
             error={isError('terms')}
           />
-          <Button
+          <CustomButton
             fullWidth
-            variant="contained"
-            color="primary"
             className={classes.submit}
             onClick={signUp}
           >
             {t('signUp')}
-          </Button>
-          <Grid
-            container
-            justifyContent="center"
-            alignContent="center"
-            alignItems="center"
-            className={classes.signUp}
-          >
-            <Grid item xs={12}>
-              <Typography>
-                {t('login.alreadyAccount')}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
+          </CustomButton>
+          <Divider sx={{ my: 3.5 }} />
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="body2" color="text.secondary">
+              {t('login.alreadyAccount')}
+            </Typography>
+            <Box sx={{ mt: 1 }}>
               <CustomLink
                 to={UrlEnums.LOGIN}
-                button
-                buttonProps={{
-                  fullWidth: true,
-                  variant: 'outlined',
-                }}
+                variant="body2"
               >
                 {t('login')}
               </CustomLink>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </form>
       </div>
-    </Container>
+    </LoginLayout>
   );
 };
 

@@ -1,14 +1,13 @@
-import { LockOutlined } from '@mui/icons-material';
 import { useState, useEffect } from 'react';
 import {
   Alert,
-  Avatar,
+  Box,
+  Divider,
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
-import Grid from '@/components/inputs/CustomGrid';
 import CustomLink from '@/components/inputs/CustomLink';
 import CustomTextField from '@/components/inputs/CustomTextField';
 import Connections, { ApiEndpoints } from '@/components/connections/Connections';
@@ -26,25 +25,16 @@ import LoginLayout from './LoginLayout';
 
 const styles = {
   paper: {
-    marginTop: 'var(--theme-spacing-3)',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: 'var(--theme-spacing-1)',
-    backgroundColor: 'var(--theme-palette-secondary-main)',
+    alignItems: 'flex-start',
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
-    // marginTop: 'var(--theme-spacing-1)',
+    width: '100%',
+    marginTop: '2em',
   },
   submit: {
     margin: 'var(--theme-spacing-3_0_2)',
-  },
-  signUp: {
-    textAlign: 'center',
-    marginTop: '2.5em',
   },
 };
 
@@ -151,24 +141,29 @@ const Login = () => {
   return (
     <LoginLayout>
       <div className={classes.paper}>
-        <div style={{ marginBottom: '4em' }}>
-          <img src={Logo} alt={BasicConfig.copyright.text} width={200} height="auto" />
-        </div>
-        <Grid container direction="row" justify="flex-start" alignItems="center">
-          <div>
-            <Avatar className={classes.avatar}>
-              <LockOutlined />
-            </Avatar>
-          </div>
-          <div>
-            <Typography component="h1" variant="h5">
-              {t('login')}
-            </Typography>
-            <Typography>
-              {t('login.welcome')}
-            </Typography>
-          </div>
-        </Grid>
+        <Box sx={{ mb: 5 }}>
+          <img src={Logo} alt={BasicConfig.copyright.text} width={160} height="auto" />
+        </Box>
+        <Box sx={{ width: '100%', mb: 0.5 }}>
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{
+              fontWeight: 800,
+              color: 'text.primary',
+              letterSpacing: '-0.025em',
+            }}
+          >
+            {t('login')}
+          </Typography>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ mt: 0.75 }}
+          >
+            {t('login.welcome')}
+          </Typography>
+        </Box>
         <form className={classes.form} noValidate>
           {!!loginError && (
             <Alert severity="error" sx={{ mb: 2 }}>
@@ -204,6 +199,17 @@ const Login = () => {
             required
             error={isError('password')}
           />
+          <Box sx={{
+            display: 'flex', justifyContent: 'flex-end', mt: 0.5, mb: 1.5,
+          }}
+          >
+            <CustomLink
+              to={UrlEnums.PASSWORD_FORGET}
+              variant="body2"
+            >
+              {t('password.forgot')}
+            </CustomLink>
+          </Box>
           <CustomButton
             fullWidth
             className={classes.submit}
@@ -211,40 +217,26 @@ const Login = () => {
           >
             {t('login')}
           </CustomButton>
-          <Grid container>
-            <Grid item xs={12} align="right">
-              <CustomLink to={UrlEnums.PASSWORD_FORGET} variant="body2">
-                {t('password.forgot')}
+          {showVerification && (
+            <Box sx={{ mt: 2 }}>
+              <SendVerificationMail
+                email={values.email}
+                fullWidth
+              />
+            </Box>
+          )}
+          <Divider sx={{ my: 3.5 }} />
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="body2" color="text.secondary">
+              {t('signUp.noAccount')}
+              <CustomLink
+                to={UrlEnums.SIGN_UP}
+                text
+              >
+                {t('signUp')}
               </CustomLink>
-            </Grid>
-            <Grid item xs={12}>
-              {showVerification && (
-                <SendVerificationMail
-                  email={values.email}
-                  fullWidth
-                />
-              )}
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            justify="center"
-            alignContent="center"
-            alignItems="center"
-            className={classes.signUp}
-          >
-            <Grid item xs={12}>
-              <Typography>
-                {t('signUp.noAccount')}
-                <CustomLink
-                  to={UrlEnums.SIGN_UP}
-                  text
-                >
-                  {t('signUp')}
-                </CustomLink>
-              </Typography>
-            </Grid>
-          </Grid>
+            </Typography>
+          </Box>
         </form>
       </div>
     </LoginLayout>

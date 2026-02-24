@@ -3,9 +3,7 @@ import {
   MenuItem,
   Menu as MuiMenu,
 } from '@mui/material';
-import {
-  MoreVert as MoreIcon,
-} from '@mui/icons-material';
+import { DotsThreeVerticalIcon } from '@phosphor-icons/react';
 
 import { useIsAdmin, useLoggedIn, useUserData } from '@/screens/users/hooks/userDataHooks';
 import AuthHelper from '@/screens/auth/AuthHelper';
@@ -37,7 +35,7 @@ const MobileMenu = ({
     <MuiMenu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: 'bottom',
         horizontal: 'right',
       }}
       id={mobileMenuId}
@@ -87,10 +85,18 @@ const MobileMenuSection = ({ handleMobileMenuOpen }) => {
         aria-controls={mobileMenuId}
         aria-haspopup="true"
         onClick={handleMobileMenuOpen}
-        color="inherit"
+        sx={{
+          color: '#A0AEC0',
+          borderRadius: '10px',
+          padding: '8px',
+          '&:hover': {
+            backgroundColor: 'rgba(255,255,255,0.1)',
+            color: '#FFFFFF',
+          },
+        }}
         size="large"
       >
-        <MoreIcon />
+        <DotsThreeVerticalIcon size={22} weight="bold" />
       </IconButton>
     </div>
   );

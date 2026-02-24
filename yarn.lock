@@ -1467,6 +1467,11 @@
     "@parcel/watcher-win32-ia32" "2.5.6"
     "@parcel/watcher-win32-x64" "2.5.6"
 
+"@phosphor-icons/react@^2.1.10":
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/@phosphor-icons/react/-/react-2.1.10.tgz#3a97ec5b7a4b8d53afeb29125bc17e74ed2daf92"
+  integrity sha512-vt8Tvq8GLjheAZZYa+YG/pW7HDbov8El/MANW8pOAz4eGxrwhnbfrQZq0Cp4q8zBEu8NIhHdnr+r8thnfRSNYA==
+
 "@popperjs/core@^2.11.8":
   version "2.11.8"
   resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"

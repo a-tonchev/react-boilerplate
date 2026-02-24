@@ -1,92 +1,167 @@
-import { useEffect, useState } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { useEffect, useState, useRef } from 'react';
+import {
+  Box,
+  ButtonBase,
+  Grow,
+  MenuItem,
+  MenuList,
+  Paper,
+  Popper,
+  ClickAwayListener,
+  Typography,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { Box } from '@mui/material';
+import {
+  GlobeSimpleIcon,
+  CaretDownIcon,
+  CheckIcon,
+} from '@phosphor-icons/react';
 
 import { setLanguage } from '@/screens/users/stores/userStore';
-import useClasses from '@/components/layout/hooks/useClasses';
 
-function checkColor(color = '#000') {
-  let result = null;
-  if (color !== 'light' && color !== 'dark') {
-    if (color.substring(0, 1) === '#' && (color.length === 4 || color.length === 7)) {
-      result = color;
-    }
-  } else {
-    result = color === 'light' ? '#fff' : '#000';
-  }
-  if (result === null) result = '#000';
-  return result;
-}
+const languages = [
+  { code: 'en', label: 'English', flag: 'EN' },
+  { code: 'de', label: 'Deutsch', flag: 'DE' },
+];
 
-const LanguagesPicker = props => {
-  const { color = 'light', mobileColor } = props;
-  const lColor = checkColor(color);
-  const mColor = checkColor(mobileColor);
-
-  const styles = theme => ({
-    formControl: {
-      margin: 'var(--theme-spacing-1)',
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: 'var(--theme-spacing-2)',
-    },
-    select: {
-      color: lColor,
-      '&:before': {
-        borderBottomColor: `${lColor} !important`,
-      },
-      [theme.breakpoints.down('sm')]: {
-        color: mColor,
-        '&:before': {
-          borderBottomColor: `${mColor} !important`,
-        },
-      },
-    },
-    selectIcon: {
-      color: lColor,
-      [theme.breakpoints.down('sm')]: {
-        color: mColor,
-      },
-    },
-  });
-
-  const classes = useClasses(styles);
+const LanguagesPicker = () => {
   const changeLanguage = setLanguage;
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
-  const handleChange = event => {
-    changeLanguage(event.target.value);
-    setLang(event.target.value);
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+
+  const handleSelect = code => {
+    changeLanguage(code);
+    setLang(code);
+    setOpen(false);
   };
+
   const { language } = i18n;
   useEffect(() => {
     setLang(language);
   }, [language]);
 
+  const currentLang = languages.find(l => l.code === lang) || languages[0];
+
   return (
-    <Box>
-      <FormControl className={classes.formControl}>
-        <Select
-          labelId="language-chooser-label"
-          id="language-chooser"
-          variant="standard"
-          value={lang}
-          onChange={handleChange}
-          className={classes.select}
-          classes={
-                        {
-                          icon: classes.selectIcon,
-                        }
-                    }
+    <Box sx={{ position: 'relative' }}>
+      <ButtonBase
+        ref={anchorRef}
+        onClick={() => setOpen(prev => !prev)}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 0.75,
+          px: 1.5,
+          py: 0.75,
+          borderRadius: '8px',
+          border: '1px solid',
+          borderColor: 'rgba(255,255,255,0.2)',
+          backgroundColor: 'rgba(255,255,255,0.08)',
+          color: '#E2E8F0',
+          transition: 'all 0.15s ease',
+          '&:hover': {
+            backgroundColor: 'rgba(255,255,255,0.15)',
+            borderColor: 'rgba(255,255,255,0.3)',
+          },
+        }}
+      >
+        <GlobeSimpleIcon size={16} weight="regular" />
+        <Typography
+          variant="body2"
+          sx={{
+            fontWeight: 600,
+            fontSize: '0.8rem',
+            letterSpacing: '0.05em',
+            lineHeight: 1,
+          }}
         >
-          <MenuItem value="en">{t('EN')}</MenuItem>
-          <MenuItem value="de">{t('DE')}</MenuItem>
-        </Select>
-      </FormControl>
+          {currentLang.flag}
+        </Typography>
+        <CaretDownIcon
+          size={12}
+          weight="bold"
+          style={{
+            transition: 'transform 0.15s ease',
+            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+          }}
+        />
+      </ButtonBase>
+      <Popper
+        open={open}
+        anchorEl={anchorRef.current}
+        placement="bottom-start"
+        transition
+        sx={{ zIndex: 1300 }}
+      >
+        {({ TransitionProps }) => (
+          <Grow {...TransitionProps} style={{ transformOrigin: 'top left' }}>
+            <Paper
+              elevation={8}
+              sx={{
+                mt: 0.5,
+                borderRadius: '10px',
+                overflow: 'hidden',
+                minWidth: 160,
+                border: '1px solid',
+                borderColor: 'divider',
+              }}
+            >
+              <ClickAwayListener onClickAway={() => setOpen(false)}>
+                <MenuList sx={{ py: 0.5 }}>
+                  {languages.map(l => (
+                    <MenuItem
+                      key={l.code}
+                      selected={l.code === lang}
+                      onClick={() => handleSelect(l.code)}
+                      sx={{
+                        py: 1,
+                        px: 2,
+                        margin: '2px 4px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        borderRadius: '6px',
+                        '&.Mui-selected': {
+                          backgroundColor: '#F7FAFC',
+                          '&:hover': {
+                            backgroundColor: '#EDF2F7',
+                          },
+                        },
+                        '&:hover': {
+                          backgroundColor: '#EDF2F7',
+                        },
+                      }}
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            fontWeight: 700,
+                            fontSize: '0.75rem',
+                            letterSpacing: '0.05em',
+                            color: 'text.secondary',
+                            minWidth: 22,
+                          }}
+                        >
+                          {l.flag}
+                        </Typography>
+                        <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                          {l.label}
+                        </Typography>
+                      </Box>
+                      {l.code === lang && (
+                        <CheckIcon size={16} weight="bold" color="#2dad67" />
+                      )}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
     </Box>
   );
 };

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Paper } from '@mui/material';
-import { Language } from '@mui/icons-material';
+import { Box, Paper } from '@mui/material';
 
 import Grid from '@/components/inputs/CustomGrid';
 import BasicConfig from '@/components/config/BasicConfig';
@@ -12,13 +11,23 @@ import LegalButtonGroup from '@/components/inputs/LeagalButtonGroup';
 const styles = {
   root: {
     height: '100vh',
+    backgroundColor: 'var(--theme-palette-background-default, #F7FAFC)',
   },
   image: {
     backgroundImage: BasicConfig.loginImage,
     backgroundRepeat: 'no-repeat',
-    backgroundColor: 'transparent',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    position: 'relative',
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'linear-gradient(135deg, rgba(26,32,44,0.15) 0%, rgba(45,55,72,0.3) 100%)',
+    },
   },
 };
 
@@ -34,30 +43,42 @@ export default function LoginLayout({ children }) {
         md={5}
         lg={4}
         component={Paper}
-        elevation={6}
+        elevation={0}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'background.default',
+          borderLeft: 1,
+          borderColor: 'divider',
+        }}
       >
-        <Grid item xs={12}>
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            direction="row"
-            style={{ backgroundColor: '#efefef' }}
-          >
-            <Language />
-            <LanguagesPicker color="dark" />
-          </Grid>
-          <Grid
-            item
-            sx={{
-              padding: {
-                xs: 2,
-                sm: 4,
-              },
-            }}
-          >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            px: 2,
+            py: 1,
+            borderBottom: 1,
+            borderColor: 'divider',
+          }}
+        >
+          <LanguagesPicker />
+        </Box>
+        <Grid
+          item
+          sx={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            padding: {
+              xs: 3,
+              sm: 6,
+            },
+          }}
+        >
+          <div style={{ width: '100%', maxWidth: 420, margin: '0 auto' }}>
             {children}
-          </Grid>
+          </div>
         </Grid>
         <Grid
           container
@@ -65,6 +86,7 @@ export default function LoginLayout({ children }) {
           alignItems="flex-end"
           alignContent="center"
           justifyContent="center"
+          sx={{ pb: 2.5, pt: 1 }}
         >
           <LegalButtonGroup />
           <Footer

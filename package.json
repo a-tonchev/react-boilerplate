@@ -11,6 +11,7 @@
     "@mui/icons-material": "^7.3.8",
     "@mui/lab": "^7.0.1-beta.22",
     "@mui/material": "^7.3.8",
+    "@phosphor-icons/react": "^2.1.10",
     "axios": "^1.4.0",
     "history": "^5.2.0",
     "i18next": "^25.8.13",

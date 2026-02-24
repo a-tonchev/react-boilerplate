@@ -1,7 +1,6 @@
-import { LockOutlined } from '@mui/icons-material';
 import { useState } from 'react';
 import {
-  Avatar,
+  Box,
   FormHelperText,
   Typography,
 } from '@mui/material';
@@ -17,23 +16,20 @@ import SuccessBox from '@/components/validations/SuccessBox';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
 import CustomButton from '@/components/inputs/CustomButton';
 import useClasses from '@/components/layout/hooks/useClasses';
+import Logo from '@/components/layout/assets/logo.svg';
+import BasicConfig from '@/components/config/BasicConfig';
 
 import LoginLayout from './LoginLayout';
 
 const styles = {
   paper: {
-    marginTop: 'var(--theme-spacing-8)',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: 'var(--theme-spacing-1)',
-    backgroundColor: 'var(--theme-palette-primary-main)',
+    alignItems: 'flex-start',
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: 'var(--theme-spacing-1)',
+    width: '100%',
+    marginTop: '2em',
   },
   submit: {
     margin: 'var(--theme-spacing-3_0_2)',
@@ -115,16 +111,26 @@ const ResetPassword = () => {
   return (
     <LoginLayout>
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlined />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          {t('resetPassword')}
-        </Typography>
-        <form className={classes.form} noValidate>
-          <FormHelperText>
-            {t('typeNewPassword')}:
+        <Box sx={{ mb: 5 }}>
+          <img src={Logo} alt={BasicConfig.copyright.text} width={160} height="auto" />
+        </Box>
+        <Box sx={{ width: '100%', mb: 0.5 }}>
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{
+              fontWeight: 800,
+              color: 'text.primary',
+              letterSpacing: '-0.025em',
+            }}
+          >
+            {t('resetPassword')}
+          </Typography>
+          <FormHelperText sx={{ mt: 0.75, fontSize: '0.95rem' }}>
+            {t('typeNewPassword')}
           </FormHelperText>
+        </Box>
+        <form className={classes.form} noValidate>
           <CustomTextField
             id="password"
             name="password"
@@ -155,6 +161,11 @@ const ResetPassword = () => {
           >
             {t('setNewPassword')}
           </CustomButton>
+          <Box sx={{ textAlign: 'center', mt: 2 }}>
+            <CustomLink to={UrlEnums.LOGIN} variant="body2">
+              {t('backToLogin')}
+            </CustomLink>
+          </Box>
         </form>
       </div>
     </LoginLayout>

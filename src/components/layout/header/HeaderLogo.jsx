@@ -20,7 +20,17 @@ const HeaderLogo = () => {
   const { t } = useTranslation();
   return (
     <CustomLink plain to="/">
-      <Typography className={classes.title} variant="h6" noWrap>
+      <Typography
+        className={classes.title}
+        variant="h6"
+        noWrap
+        sx={{
+          fontWeight: 700,
+          color: '#FFFFFF',
+          letterSpacing: '-0.02em',
+          fontSize: '1.15rem',
+        }}
+      >
         {t('app.title')}
       </Typography>
     </CustomLink>
