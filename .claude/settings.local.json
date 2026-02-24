@@ -14,7 +14,9 @@
       "Glob",
       "Grep",
       "WebFetch",
-      "WebSearch"
+      "WebSearch",
+      "Bash(cd:*)",
+      "Bash(find:*)"
     ]
   }
 }

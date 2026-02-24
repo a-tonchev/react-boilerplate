@@ -13,7 +13,7 @@ const BasicConfig = {
    * here to use random-images use a link to a single image if
    * Image should stay the same on each login
    */
-  loginImage: 'url(https://source.unsplash.com/random/1600x900/?wallpaper)',
+  loginImage: 'url(/img/splash2.jpeg)',
   copyright: {
     url: 'https://myProject.xx',
     text: 'myProject',

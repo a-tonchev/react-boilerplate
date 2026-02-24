@@ -1,6 +1,7 @@
 import { LockOutlined } from '@mui/icons-material';
 import { useState, useEffect } from 'react';
 import {
+  Alert,
   Avatar,
   Typography,
 } from '@mui/material';
@@ -71,6 +72,7 @@ const Login = () => {
     setLoading,
   } = useLoading();
 
+  const [loginError, setLoginError] = useState('');
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -97,6 +99,7 @@ const Login = () => {
 
   const login = async () => {
     setCustomError(null);
+    setLoginError('');
     const err = getActivateError();
     if (!err) {
       setLoading(true);
@@ -111,10 +114,10 @@ const Login = () => {
       if (!response.ok) {
         if (response.errorCode === 'USER_NOT_VERIFIED') {
           setShowVerification(true);
-        } else if (response.errorData.errors?.length) {
+        } else if (response.errorData?.errors?.length) {
           setCustomError(convertErrorArray(response.errorData.errors, validations));
         } else {
-          setCustomError({ email: response.errorMessage });
+          setLoginError(response.errorMessage);
         }
         setLoading(false);
       } else {
@@ -167,6 +170,11 @@ const Login = () => {
           </div>
         </Grid>
         <form className={classes.form} noValidate>
+          {!!loginError && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {loginError}
+            </Alert>
+          )}
           <CustomTextField
             name="email"
             label="email.address"
@@ -205,7 +213,7 @@ const Login = () => {
           </CustomButton>
           <Grid container>
             <Grid item xs={12} align="right">
-              <CustomLink to={UrlEnums.PASSWORD_RESET} variant="body2">
+              <CustomLink to={UrlEnums.PASSWORD_FORGET} variant="body2">
                 {t('password.forgot')}
               </CustomLink>
             </Grid>

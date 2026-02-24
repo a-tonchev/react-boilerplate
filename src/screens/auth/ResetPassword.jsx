@@ -4,9 +4,9 @@ import {
   Avatar,
   FormHelperText,
   Typography,
-  Container,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 import CustomLink from '@/components/inputs/CustomLink';
 import CustomTextField from '@/components/inputs/CustomTextField';
@@ -17,6 +17,8 @@ import SuccessBox from '@/components/validations/SuccessBox';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
 import CustomButton from '@/components/inputs/CustomButton';
 import useClasses from '@/components/layout/hooks/useClasses';
+
+import LoginLayout from './LoginLayout';
 
 const styles = {
   paper: {
@@ -38,10 +40,9 @@ const styles = {
   },
 };
 
-const ResetPassword = ({
-  match,
-}) => {
+const ResetPassword = () => {
   const classes = useClasses(styles);
+  const { resetToken } = useParams();
 
   const { t } = useTranslation();
   const [values, setValues] = useState({
@@ -86,7 +87,6 @@ const ResetPassword = ({
     setLoading(true);
     const err = getActivateError();
     if (!err) {
-      const { resetToken } = match.params;
       const res = await Connections.postRequest(ApiEndpoints.resetPassword, {
         password: values.password,
         resetToken,
@@ -113,7 +113,7 @@ const ResetPassword = ({
   };
 
   return (
-    <Container maxWidth="xs">
+    <LoginLayout>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlined />
@@ -157,7 +157,7 @@ const ResetPassword = ({
           </CustomButton>
         </form>
       </div>
-    </Container>
+    </LoginLayout>
   );
 };
 

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {
   Avatar,
   Typography,
-  Container,
 } from '@mui/material';
 import {
   LockOutlined,
@@ -16,6 +15,8 @@ import useLoading from '@/components/loading/hooks/useLoading';
 import SuccessBox from '@/components/validations/SuccessBox';
 import CustomButton from '@/components/inputs/CustomButton';
 import useClasses from '@/components/layout/hooks/useClasses';
+
+import LoginLayout from './LoginLayout';
 
 const styles = {
   paper: {
@@ -108,7 +109,7 @@ const ForgetPassword = () => {
   };
 
   return (
-    <Container maxWidth="xs">
+    <LoginLayout>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlined />
@@ -140,7 +141,7 @@ const ForgetPassword = () => {
           </CustomButton>
         </form>
       </div>
-    </Container>
+    </LoginLayout>
   );
 };
 
