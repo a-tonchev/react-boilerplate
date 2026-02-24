@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react';
-import { withStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 import useClasses from '@/components/layout/hooks/useClasses';
 
-const StyledTabs = withStyles(theme => ({
-  indicator: {
+const StyledTabs = styled(props => (
+  <Tabs
+    variant="scrollable"
+    scrollButtons="auto"
+    {...props}
+    TabIndicatorProps={{ children: <span /> }}
+  />
+))(({ theme }) => ({
+  '& .MuiTabs-indicator': {
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: 'transparent',
@@ -16,29 +23,9 @@ const StyledTabs = withStyles(theme => ({
       backgroundColor: theme.palette.secondary.main,
     },
   },
-}))(
-  props => (
-    <Tabs
-      variant="scrollable"
-      scrollButtons="auto"
-      {...props}
-      TabIndicatorProps={{ children: <span /> }}
-    />
-  ),
-);
+}));
 
-const StyledTab = withStyles(theme => ({
-  root: {
-    textTransform: 'none',
-    color: '#000',
-    fontWeight: theme.typography.fontWeightBold,
-    fontSize: theme.typography.pxToRem(15),
-    marginRight: theme.spacing(1),
-    '&:focus': {
-      opacity: 1,
-    },
-  },
-}))(({ containErrors, ...rest }) => (
+const StyledTab = styled(({ containErrors, ...rest }) => (
   <Tab
     style={{
       border: containErrors
@@ -48,7 +35,16 @@ const StyledTab = withStyles(theme => ({
     disableRipple
     {...rest}
   />
-));
+))(({ theme }) => ({
+  textTransform: 'none',
+  color: '#000',
+  fontWeight: theme.typography.fontWeightBold,
+  fontSize: theme.typography.pxToRem(15),
+  marginRight: theme.spacing(1),
+  '&:focus': {
+    opacity: 1,
+  },
+}));
 
 const styles = {
   root: {

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Grid2 from '@mui/material/Grid2';
+import Grid2 from '@mui/material/Grid';
 import { forwardRef } from 'react';
 
 const CustomGrid = forwardRef(({

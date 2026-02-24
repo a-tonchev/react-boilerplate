@@ -1,10 +1,10 @@
-import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 import variants from './variants';
 import typography from './typography';
 import components from './components';
 
-const theme = variant => createMuiTheme({
+const theme = variant => createTheme({
   components,
   typography,
   palette: variant.palette,

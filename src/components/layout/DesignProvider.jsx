@@ -1,13 +1,9 @@
 import { useMemo } from 'react';
 import {
   ThemeProvider as MuiThemeProvider,
-  StylesProvider,
-} from '@mui/styles';
-import {
   StyledEngineProvider,
-  alpha,
-  useTheme,
-} from '@mui/material';
+} from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material';
 import { ThemeProvider, Global, css } from '@emotion/react';
 
 import SuccessSnackBar from '@/components/dialogs/snackbars/SuccessSnackBar';
@@ -55,21 +51,19 @@ const GlobalStyles = () => {
 const myTheme = muiTheme[1];
 
 const DesignProvider = ({ children }) => (
-  <StylesProvider injectFirst>
-    <StyledEngineProvider injectFirst>
-      <MuiThemeProvider theme={myTheme}>
-        <ThemeProvider theme={myTheme}>
-          <GlobalStyles />
-          <BasicLayout>
-            {children}
-          </BasicLayout>
-          <SuccessSnackBar />
-          <ErrorSnackBar />
-          <VersionDetector />
-        </ThemeProvider>
-      </MuiThemeProvider>
-    </StyledEngineProvider>
-  </StylesProvider>
+  <StyledEngineProvider injectFirst>
+    <MuiThemeProvider theme={myTheme}>
+      <ThemeProvider theme={myTheme}>
+        <GlobalStyles />
+        <BasicLayout>
+          {children}
+        </BasicLayout>
+        <SuccessSnackBar />
+        <ErrorSnackBar />
+        <VersionDetector />
+      </ThemeProvider>
+    </MuiThemeProvider>
+  </StyledEngineProvider>
 );
 
 export default DesignProvider;
