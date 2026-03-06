@@ -1,83 +1,59 @@
-import {
-  IconButton,
-  Snackbar,
-  SnackbarContent,
-  Typography,
-} from '@mui/material';
-import {
-  Info,
-  Check,
-} from '@mui/icons-material';
-
-import useClasses from '@/components/layout/hooks/useClasses';
-
-const styles = {
-  root: {
-    bottom: 64,
-    opacity: 0.95,
-    width: 'calc(100% - 16px)',
-    maxWidth: 'var(--theme-breakpoints-values-sm)',
-    boxSizing: 'border-box',
-  },
-  snackBar: {
-    width: '100%',
-    fontWeight: 'bold',
-    flexWrap: 'nowrap',
-  },
-  okButton: {
-    color: 'var(--theme-palette-success-contrastText)',
-  },
-  message: {
-    display: 'inline-block',
-    marginLeft: 15,
-  },
-  snackBarMessage: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-};
+import { useState } from 'react';
+import { Info, Check } from 'lucide-react';
 
 const AlertSnackBar = ({
   open,
   text,
   onClose,
 }) => {
-  const classes = useClasses(styles);
+  const [exiting, setExiting] = useState(false);
 
-  const closeSnackBar = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    onClose();
+  const handleClose = () => {
+    setExiting(true);
+    setTimeout(() => {
+      setExiting(false);
+      onClose();
+    }, 250);
   };
 
-  const action = (
-    <IconButton className={classes.okButton} onClick={onClose} size="large">
-      <Check />
-    </IconButton>
-  );
+  if (!open) return null;
 
   return (
-    <Snackbar
-      open={open}
-      onClose={closeSnackBar}
-      className={classes.root}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+    <div
+      className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-50
+        w-[560px] max-w-[calc(100vw-32px)]
+        ${exiting ? 'toast-exit' : 'toast-enter'}`}
     >
-      <SnackbarContent
-        message={(
-          <>
-            <Info />
-            <Typography className={classes.message}>{text}</Typography>
-          </>
-        )}
-        className={classes.snackBar}
-        classes={{
-          message: classes.snackBarMessage,
-        }}
-        action={action}
-      />
-    </Snackbar>
+      <div
+        className="flex items-center gap-4 bg-white rounded-xl
+          border border-border px-5 py-4
+          shadow-[0_8px_30px_rgba(0,0,0,0.12)]"
+      >
+        <div
+          className="flex items-center justify-center
+            w-10 h-10 rounded-full bg-[#3B82F6]/10 shrink-0"
+        >
+          <Info className="h-5 w-5 text-[#3B82F6]" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-semibold text-foreground">
+            Info
+          </p>
+          <p className="text-sm text-muted-foreground mt-0.5 truncate">
+            {text}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={handleClose}
+          className="text-success hover:opacity-80 cursor-pointer
+            shrink-0 p-1 rounded-md
+            hover:bg-muted transition-colors"
+        >
+          <Check className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
   );
 };
 

@@ -1,9 +1,4 @@
 import { useState } from 'react';
-import {
-  Box,
-  Divider,
-  Typography,
-} from '@mui/material';
 import { useTranslation, Trans } from 'react-i18next';
 
 import CustomLink from '@/components/inputs/CustomLink';
@@ -15,78 +10,31 @@ import useLoading from '@/components/loading/hooks/useLoading';
 import SuccessBox from '@/components/validations/SuccessBox';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
 import CustomButton from '@/components/inputs/CustomButton';
-import useClasses from '@/components/layout/hooks/useClasses';
 import Logo from '@/components/layout/assets/logo.svg';
 import BasicConfig from '@/components/config/BasicConfig';
 
 import LoginLayout from './LoginLayout';
 
-const styles = {
-  paper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-  form: {
-    width: '100%',
-    marginTop: '2em',
-  },
-  submit: {
-    margin: 'var(--theme-spacing-3_0_2)',
-  },
-};
-
 const SignUp = () => {
-  const classes = useClasses(styles);
-
   const { t } = useTranslation();
   const [values, setValues] = useState({
-    email: '',
-    password: '',
-    repeatPassword: '',
-    firstName: '',
-    lastName: '',
-    terms: false,
+    email: '', password: '', repeatPassword: '', firstName: '', lastName: '', terms: false,
   });
 
   const [signUpCompleted, setSignUpCompleted] = useState(false);
   const { loading, Loading, setLoading } = useLoading();
   const validations = {
-    email: {
-      type: 'isEmail',
-      text: 'errorDescription.email',
-    },
-    password: {
-      type: 'isEmpty',
-      text: 'errorDescription.password',
-    },
-    repeatPassword: {
-      customValidation: () => values.password === values.repeatPassword,
-      text: 'password.shouldMatch',
-    },
-    terms: {
-      type: 'isTrue',
-      text: 'terms.required',
-    },
+    email: { type: 'isEmail', text: 'errorDescription.email' },
+    password: { type: 'isEmpty', text: 'errorDescription.password' },
+    repeatPassword: { customValidation: () => values.password === values.repeatPassword, text: 'password.shouldMatch' },
+    terms: { type: 'isTrue', text: 'terms.required' },
   };
 
   const {
-    setCustomError,
-    isError,
-    getActivateError,
-    convertErrorArray,
-  } = useError({
-    values,
-    validations,
-  });
+    setCustomError, isError, getActivateError, convertErrorArray,
+  } = useError({ values, validations });
 
-  if (signUpCompleted) {
-    return (
-      <SuccessBox
-        text="signUp.successfulRegistration"
-      />
-    );
-  }
+  if (signUpCompleted) return <SuccessBox text="signUp.successfulRegistration" />;
 
   const signUp = async () => {
     setCustomError(null);
@@ -94,10 +42,8 @@ const SignUp = () => {
     const err = getActivateError();
     if (!err) {
       const res = await Connections.postRequest(ApiEndpoints.signUp, {
-        email: values.email,
-        password: values.password,
+        email: values.email, password: values.password,
       });
-
       if (res.ok) {
         setSignUpCompleted(true);
       } else if (res.errorCode === 'USER_ALREADY_EXISTS') {
@@ -119,31 +65,15 @@ const SignUp = () => {
 
   return (
     <LoginLayout>
-      <div className={classes.paper}>
-        <Box sx={{ mb: 5 }}>
+      <div className="flex flex-col items-start">
+        <div className="mb-10">
           <img src={Logo} alt={BasicConfig.copyright.text} width={160} height="auto" />
-        </Box>
-        <Box sx={{ width: '100%', mb: 0.5 }}>
-          <Typography
-            component="h1"
-            variant="h4"
-            sx={{
-              fontWeight: 800,
-              color: 'text.primary',
-              letterSpacing: '-0.025em',
-            }}
-          >
-            {t('onBoarding')}
-          </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            sx={{ mt: 0.75 }}
-          >
-            {t('signUp.description')}
-          </Typography>
-        </Box>
-        <form className={classes.form} noValidate>
+        </div>
+        <div className="w-full mb-1">
+          <h1 className="text-2xl font-extrabold text-foreground tracking-tight">{t('onBoarding')}</h1>
+          <p className="text-base text-muted-foreground mt-1.5">{t('signUp.description')}</p>
+        </div>
+        <form className="w-full mt-8" noValidate>
           <CustomTextField
             id="email"
             name="email"
@@ -180,42 +110,28 @@ const SignUp = () => {
             required
             error={isError('repeatPassword')}
           />
-          <CustomCheckBox
-            label={(
-              <Trans
-                i18nKey="legal.termsCheckbox"
-                values={{ privacyPolicyLink: t('legal.privacy') }}
-                components={[
-                  <span />,
-                  <CustomLink to={UrlEnums.PRIVACY_POLICY} />,
-                ]}
-              />
-            )}
-            name="terms"
-            onChange={handleChange}
-            error={isError('terms')}
-          />
-          <CustomButton
-            fullWidth
-            className={classes.submit}
-            onClick={signUp}
-          >
-            {t('signUp')}
-          </CustomButton>
-          <Divider sx={{ my: 3.5 }} />
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="body2" color="text.secondary">
-              {t('login.alreadyAccount')}
-            </Typography>
-            <Box sx={{ mt: 1 }}>
-              <CustomLink
-                to={UrlEnums.LOGIN}
-                variant="body2"
-              >
-                {t('login')}
-              </CustomLink>
-            </Box>
-          </Box>
+          <div className="mt-4">
+            <CustomCheckBox
+              label={(
+                <Trans
+                  i18nKey="legal.termsCheckbox"
+                  values={{ privacyPolicyLink: t('legal.privacy') }}
+                  components={[<span />, <CustomLink to={UrlEnums.PRIVACY_POLICY} className="text-sm" />]}
+                />
+              )}
+              name="terms"
+              onChange={handleChange}
+              error={isError('terms')}
+            />
+          </div>
+          <CustomButton fullWidth className="mt-6" onClick={signUp}>{t('signUp')}</CustomButton>
+          <div className="h-px bg-border my-7" />
+          <div className="text-center">
+            <p className="text-sm text-muted-foreground">{t('login.alreadyAccount')}</p>
+            <div className="mt-2">
+              <CustomLink to={UrlEnums.LOGIN}>{t('login')}</CustomLink>
+            </div>
+          </div>
         </form>
       </div>
     </LoginLayout>

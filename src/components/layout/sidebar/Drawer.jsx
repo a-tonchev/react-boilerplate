@@ -1,52 +1,75 @@
-import { useState } from 'react';
-import {
-  Drawer as MuiDrawer,
-} from '@mui/material';
+import { useEffect, useState } from 'react';
 import { ListIcon } from '@phosphor-icons/react';
-import IconButton from '@mui/material/IconButton';
+
+import { createRipple } from '@/lib/utils';
 
 import Sidebar from './Sidebar';
 
 const Drawer = () => {
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  const toggleDrawer = openDrawer => event => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
+  useEffect(() => {
+    if (open) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setVisible(true));
+      });
+    } else {
+      setVisible(false);
     }
-    setOpen(openDrawer);
+  }, [open]);
+
+  const handleClose = () => {
+    setVisible(false);
+    setTimeout(() => setOpen(false), 300);
   };
 
   return (
-    <div>
-      <MuiDrawer anchor="left" open={open} onClose={toggleDrawer(false)}>
-        <div
-          style={{ width: 260 }}
-          role="presentation"
-          onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
-        >
-          <Sidebar />
-        </div>
-      </MuiDrawer>
-      <IconButton
-        edge="start"
+    <>
+      {open && (
+        <>
+          <div
+            className={[
+              'fixed inset-0 z-40 bg-black/60 transition-opacity duration-300',
+              visible ? 'opacity-100' : 'opacity-0',
+            ].join(' ')}
+            role="button"
+            tabIndex={0}
+            aria-label="close drawer"
+            onClick={handleClose}
+            onKeyDown={handleClose}
+          />
+          <div
+            className={[
+              'fixed inset-y-0 left-0 z-50 w-[260px]',
+              'bg-sidebar-background text-sidebar-foreground shadow-lg',
+              'transition-transform duration-300 ease-in-out',
+              visible ? 'translate-x-0' : '-translate-x-full',
+            ].join(' ')}
+          >
+            <div
+              role="presentation"
+              onClick={handleClose}
+              onKeyDown={handleClose}
+            >
+              <Sidebar />
+            </div>
+          </div>
+        </>
+      )}
+      <button
+        type="button"
         aria-label="open drawer"
-        onClick={toggleDrawer(true)}
-        sx={{
-          color: '#A0AEC0',
-          borderRadius: '10px',
-          padding: '8px',
-          '&:hover': {
-            backgroundColor: 'rgba(255,255,255,0.1)',
-            color: '#FFFFFF',
-          },
-        }}
-        size="large"
+        onClick={e => { createRipple(e); setOpen(true); }}
+        className={[
+          'text-[#A0AEC0] rounded-lg p-2 hover:bg-white/10',
+          'hover:text-white transition-all cursor-pointer',
+          'relative overflow-hidden',
+        ].join(' ')}
       >
         <ListIcon size={22} weight="regular" />
-      </IconButton>
-    </div>
+      </button>
+    </>
   );
 };
 

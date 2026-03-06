@@ -1,10 +1,4 @@
-import {
-  AppBar,
-  Toolbar,
-} from '@mui/material';
 import { useState } from 'react';
-
-import useClasses from '@/components/layout/hooks/useClasses';
 
 import Drawer from '../sidebar/Drawer';
 import { MobileMenu, MobileMenuSection } from './MobileMenu';
@@ -12,14 +6,7 @@ import { ProfileMenu, DesktopMenuSection } from './DesktopMenu';
 import HeaderLogo from './HeaderLogo';
 import HeaderSearch from './HeaderSearch';
 
-const styles = {
-  grow: {
-    flexGrow: 1,
-  },
-};
-
 const Header = () => {
-  const classes = useClasses(styles);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -42,20 +29,20 @@ const Header = () => {
 
   return (
     <div>
-      <AppBar position="fixed">
-        <Toolbar sx={{ px: { xs: 1, sm: 2 }, gap: 0.5 }}>
+      <header className="fixed top-0 left-0 right-0 z-40 bg-primary border-b border-white/[0.08]">
+        <div className="flex items-center px-2 sm:px-4 gap-1 h-16">
           <Drawer />
           <HeaderLogo />
           <HeaderSearch />
-          <div className={classes.grow} />
+          <div className="flex-grow" />
           <DesktopMenuSection
             handleProfileMenuOpen={handleProfileMenuOpen}
           />
           <MobileMenuSection
             handleMobileMenuOpen={handleMobileMenuOpen}
           />
-        </Toolbar>
-      </AppBar>
+        </div>
+      </header>
       <MobileMenu
         mobileMoreAnchorEl={mobileMoreAnchorEl}
         handleMobileMenuClose={handleMobileMenuClose}

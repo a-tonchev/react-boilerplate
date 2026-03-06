@@ -1,34 +1,16 @@
-import { Done } from '@mui/icons-material';
-import { Container, Typography } from '@mui/material';
+import { Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import useClasses from '@/components/layout/hooks/useClasses';
-
-const styles = {
-  icon: {
-    color: 'green',
-    margin: 15,
-    fontSize: '4rem',
-  },
-  paper: {
-    marginTop: 'var(--theme-spacing-8)',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-};
-
 const SuccessBox = ({ text, button }) => {
-  const classes = useClasses(styles);
   const { t } = useTranslation();
   return (
-    <Container maxWidth="md">
-      <div className={classes.paper}>
-        <Done className={classes.icon} />
-        <Typography align="center" variant="h5">{t(text)}</Typography>
+    <div className="max-w-2xl mx-auto">
+      <div className="mt-16 flex flex-col items-center">
+        <Check className="text-success m-4 h-16 w-16" />
+        <h5 className="text-center text-lg font-semibold">{t(text)}</h5>
         {button || ''}
       </div>
-    </Container>
+    </div>
   );
 };
 

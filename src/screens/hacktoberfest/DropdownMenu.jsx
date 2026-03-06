@@ -1,56 +1,63 @@
-import Popper from '@mui/material/Popper';
-import Paper from '@mui/material/Paper';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { useEffect, useRef, useState } from 'react';
 
 const DefaultMenu = ({ categories }) => (
-  <List>
+  <ul className="py-1">
     {categories.map(({ name, link }, i) => (
-      <ListItem dense key={i}>
-        <a href={link}>
-          <ListItemText>{name}</ListItemText>
-        </a>
-      </ListItem>
+      <li key={i} className="px-3 py-1">
+        <a href={link} className="text-sm hover:text-secondary">{name}</a>
+      </li>
     ))}
-  </List>
+  </ul>
 );
 
 const ComplexMenu = ({ categories }) => (
-  <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+  <div className="flex flex-wrap">
     {categories.map(({ name, children }, ind) => (
-      <List dense sx={{ maxWidth: '200px' }} key={ind}>
-        <ListItem>
-          <Typography variant="h3" component="h2">
-            {name}
-          </Typography>
-        </ListItem>
+      <ul key={ind} className="max-w-[200px] py-1">
+        <li className="px-3 py-1">
+          <h2 className="text-base font-semibold">{name}</h2>
+        </li>
         {children.map(({ name: n, link }, i) => (
-          <ListItem key={i}>
-            <a href={link}>
-              <ListItemText>{n}</ListItemText>
-            </a>
-          </ListItem>
+          <li key={i} className="px-3 py-1">
+            <a href={link} className="text-sm hover:text-secondary">{n}</a>
+          </li>
         ))}
-      </List>
+      </ul>
     ))}
-  </Box>
+  </div>
 );
 
 const DropdownMenu = ({
   open, categories, anchorEl, variant = 'default',
-}) => (
-  <Popper open={open} anchorEl={anchorEl} placement="bottom-start">
-    <Paper>
+}) => {
+  const popperRef = useRef(null);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+
+  useEffect(() => {
+    if (open && anchorEl) {
+      const el = typeof anchorEl === 'function' ? anchorEl() : anchorEl;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        setPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+      }
+    }
+  }, [open, anchorEl]);
+
+  if (!open) return null;
+
+  return (
+    <div
+      ref={popperRef}
+      className="absolute z-50 bg-popover rounded-lg border shadow-lg"
+      style={{ top: position.top, left: position.left }}
+    >
       {variant === 'default' ? (
         <DefaultMenu categories={categories} />
       ) : (
         <ComplexMenu categories={categories} />
       )}
-    </Paper>
-  </Popper>
-);
+    </div>
+  );
+};
 
 export default DropdownMenu;

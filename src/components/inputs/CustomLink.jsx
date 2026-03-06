@@ -1,31 +1,11 @@
 import { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Link as MuiLink } from '@mui/material';
 
-import useClasses from '@/components/layout/hooks/useClasses';
+import { cn } from '@/lib/utils';
 
 import CustomButton from './CustomButton';
 
-const styles = {
-  link: {
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'none',
-    },
-    boxSizing: 'border-box',
-  },
-  text: {
-    marginLeft: 3,
-  },
-};
-
-const PureLink = forwardRef((props, ref) => {
-  const { href, children, ...rest } = props;
-  return <a href={href} {...rest} ref={ref}>{children}</a>;
-});
-
 const CustomLink = forwardRef((props, ref) => {
-  const classes = useClasses(styles);
   const {
     button,
     buttonProps = {},
@@ -35,6 +15,7 @@ const CustomLink = forwardRef((props, ref) => {
     children,
     plain,
     className = '',
+    variant,
     ...rest
   } = props;
 
@@ -44,7 +25,7 @@ const CustomLink = forwardRef((props, ref) => {
 
   let content = (
     <>
-      {text ? <span className={classes.text}>{text}</span> : null}
+      {text ? <span className="ml-0.5">{text}</span> : null}
       {childrenContent || null}
     </>
   );
@@ -52,7 +33,7 @@ const CustomLink = forwardRef((props, ref) => {
   if (button) {
     content = (
       <CustomButton
-        className={classes.link}
+        className="no-underline"
         {...buttonProps}
       >
         {content}
@@ -60,7 +41,13 @@ const CustomLink = forwardRef((props, ref) => {
     );
   }
 
-  if (tooltip) content = <Button className={classes.link}>{content}</Button>;
+  if (tooltip) {
+    content = (
+      <button type="button" className="no-underline">
+        {content}
+      </button>
+    );
+  }
 
   const { to } = rest;
 
@@ -79,34 +66,28 @@ const CustomLink = forwardRef((props, ref) => {
     rest.to = '/';
   }
 
-  if (plain) {
+  const linkClass = cn(
+    'no-underline hover:no-underline text-secondary font-medium hover:text-secondary/80 transition-colors',
+    className,
+  );
+
+  if (plain || buttonProps.disabled) {
     if (buttonProps.disabled) {
-      return content;
+      return <span className={linkClass} ref={ref}>{content}</span>;
     }
     if (rest.href) {
-      return <a className={`${className} ${classes.link}`} ref={ref} {...rest}>{content}</a>;
+      return <a className={linkClass} ref={ref} {...rest}>{content}</a>;
     }
-    return <Link className={`${className} ${classes.link}`} ref={ref} {...rest}>{content}</Link>;
+    return <Link className={linkClass} ref={ref} {...rest}>{content}</Link>;
   }
 
-  if (buttonProps.disabled) {
-    return (
-      <MuiLink className={className} {...rest} ref={ref} component="div">
-        {content}
-      </MuiLink>
-    );
+  if (rest.href) {
+    return <a className={linkClass} ref={ref} {...rest}>{content}</a>;
   }
 
-  return (
-    <MuiLink
-      className={className}
-      {...rest}
-      ref={ref}
-      component={rest.href ? PureLink : Link}
-    >
-      {content}
-    </MuiLink>
-  );
+  return <Link className={linkClass} ref={ref} {...rest}>{content}</Link>;
 });
+
+CustomLink.displayName = 'CustomLink';
 
 export default CustomLink;

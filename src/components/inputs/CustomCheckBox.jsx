@@ -1,55 +1,46 @@
-import {
-  Checkbox, FormControlLabel,
-  FormHelperText,
-} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const CustomCheckBox = (
-  {
-    label,
-    name,
-    value,
-    onChange,
-    error,
-    valid,
-    endText,
-    fullWidth,
-    ...rest
-  },
-) => {
+import { Checkbox } from '@/components/ui/checkbox';
+import { cn } from '@/lib/utils';
+
+const CustomCheckBox = ({
+  label,
+  name,
+  value,
+  onChange,
+  error,
+  fullWidth,
+  ...rest
+}) => {
   const { t } = useTranslation();
 
-  const handleChangeCheckBox = e => {
-    const { checked } = e.target;
+  const handleChange = checked => {
     onChange({ name, value: checked });
   };
 
   const labelToShow = typeof label === 'string' ? t(label) : label;
 
   return (
-    <>
-      <FormControlLabel
-        control={(
-          <Checkbox
-            value={value}
-            checked={value}
-            onChange={handleChangeCheckBox}
-            name={name}
-            color="primary"
-            {...rest}
-          />
-        )}
-        label={labelToShow}
-        style={{ width: fullWidth ? '100%' : 'auto', marginRight: 0 }}
-      />
+    <div className="mt-2">
+      <div className={cn('flex items-center space-x-2', fullWidth && 'w-full')}>
+        <Checkbox
+          id={name}
+          checked={value}
+          onCheckedChange={handleChange}
+          name={name}
+          {...rest}
+        />
+        <label
+          htmlFor={name}
+          className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+        >
+          {labelToShow}
+        </label>
+      </div>
       {!!error && (
-      <FormHelperText
-        error={!!error}
-      >
-        {t(error)}
-      </FormHelperText>
+        <p className="mt-1.5 text-sm text-destructive">{t(error)}</p>
       )}
-    </>
+    </div>
   );
 };
 

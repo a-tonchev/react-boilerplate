@@ -1,19 +1,13 @@
-import {
-  Dialog, DialogActions, DialogContent, DialogTitle, Typography,
-} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import CustomButton from '@/components/inputs/CustomButton';
-import useClasses from '@/components/layout/hooks/useClasses';
-
-const styles = {
-  button: {
-    width: '100%',
-  },
-  text: {
-    textAlign: 'center',
-  },
-};
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 
 const ConfirmDialog = ({
   title,
@@ -22,43 +16,34 @@ const ConfirmDialog = ({
   onClose,
   onConfirm,
 }) => {
-  const classes = useClasses(styles);
   const { t } = useTranslation();
 
   return (
-    <Dialog
-      open={open}
-      onClose={() => onClose()}
-      aria-labelledby="confirm-dialog"
-      fullWidth
-      maxWidth="sm"
-    >
-      <DialogTitle id="confirm-dialog">{title}</DialogTitle>
+    <Dialog open={open} onOpenChange={isOpen => { if (!isOpen) onClose(); }}>
       <DialogContent>
-        <Typography className={classes.text} variant="subtitle1">
-          {text}
-        </Typography>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+        </DialogHeader>
+        <p className="text-center text-sm">{text}</p>
+        <DialogFooter className="gap-2">
+          <CustomButton
+            onClick={() => {
+              onClose(true);
+              onConfirm();
+            }}
+            className="w-full"
+          >
+            {t('yes')}
+          </CustomButton>
+          <CustomButton
+            onClick={() => onClose()}
+            variant="outlined"
+            className="w-full"
+          >
+            {t('no')}
+          </CustomButton>
+        </DialogFooter>
       </DialogContent>
-      <DialogActions>
-        <CustomButton
-          onClick={() => {
-            onClose(true);
-            onConfirm();
-          }}
-          color="primary"
-          className={classes.button}
-        >
-          {t('yes')}
-        </CustomButton>
-        <CustomButton
-          onClick={() => onClose()}
-          color="primary"
-          variant="outlined"
-          className={classes.button}
-        >
-          {t('no')}
-        </CustomButton>
-      </DialogActions>
     </Dialog>
   );
 };

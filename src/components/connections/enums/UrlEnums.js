@@ -7,6 +7,7 @@ const UrlEnums = {
   LOGOUT: '/logout',
   PASSWORD_FORGET: '/forgetPassword',
   PASSWORD_RESET: '/resetPassword/:resetToken',
+  VERIFY: '/verify/:verificationToken',
   SHOWCASE: '/showcase',
   NOT_FOUND: '/notFound',
   PRIVACY_POLICY: '/privacyPolicy',

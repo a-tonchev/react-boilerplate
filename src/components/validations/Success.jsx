@@ -1,49 +1,16 @@
-import {
-  Zoom,
-  Alert,
-} from '@mui/material';
+import { CheckCircle } from 'lucide-react';
 
-import Grid from '@/components/inputs/CustomGrid';
-import useClasses from '@/components/layout/hooks/useClasses';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
-const styles = {
-  alert: {
-    fontSize: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    marginTop: 40,
-    marginBottom: 40,
-    textAlign: 'center',
-    flexDirection: 'column',
-  },
-  alertIcon: {
-    fontSize: '100px',
-  },
-};
-
-const Success = ({ children }) => {
-  const classes = useClasses(styles);
-  return (
-    <Grid
-      container
-      justifyContent="center"
-      alignItems="center"
-      alignContent="center"
-    >
-      <Zoom in timeout={500}>
-        <Alert
-          className={classes.alert}
-          severity="success"
-          classes={{
-            icon: classes.alertIcon,
-          }}
-        >
-          {children}
-        </Alert>
-      </Zoom>
-    </Grid>
-  );
-};
+const Success = ({ children }) => (
+  <div className="flex justify-center items-center">
+    <Alert variant="success" className="flex flex-col items-center text-center bg-white mt-10 mb-10 max-w-md">
+      <CheckCircle className="h-24 w-24 mb-4" />
+      <AlertDescription className="text-base">
+        {children}
+      </AlertDescription>
+    </Alert>
+  </div>
+);
 
 export default Success;

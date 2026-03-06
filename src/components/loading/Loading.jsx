@@ -1,27 +1,18 @@
-import { LinearProgress, CircularProgress } from '@mui/material';
+import { cn } from '@/lib/utils';
 
-import useClasses from '@/components/layout/hooks/useClasses';
-
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-};
-
-const Loading = ({ type, ...rest }) => {
-  const classes = useClasses(styles);
-
-  return (
-    <span className={classes.root}>
-      {type === 'circular'
-        ? <CircularProgress {...rest} />
-        : <LinearProgress {...rest} />}
-    </span>
-  );
-};
-
-Loading.defaultProps = {
-  size: 'default',
-};
+const Loading = ({ type, className, ...rest }) => (
+  <span className={cn('flex-grow flex items-center justify-center', className)}>
+    {type === 'circular' ? (
+      <div
+        className="h-8 w-8 animate-spin rounded-full border-4 border-muted border-t-primary"
+        {...rest}
+      />
+    ) : (
+      <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
+        <div className="h-full bg-primary rounded-full animate-pulse w-2/3" />
+      </div>
+    )}
+  </span>
+);
 
 export default Loading;

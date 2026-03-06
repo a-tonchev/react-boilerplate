@@ -1,53 +1,44 @@
-import {
-  FormControlLabel,
-  FormHelperText,
-  Radio,
-} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const CustomRadio = (
-  {
-    label,
-    name,
-    onChange,
-    error,
-    valid,
-    endText,
-    checked,
-    ...rest
-  },
-) => {
+import { RadioGroupItem } from '@/components/ui/radio-group';
+
+const CustomRadio = ({
+  label,
+  name,
+  onChange,
+  error,
+  checked,
+  value,
+  ...rest
+}) => {
   const { t } = useTranslation();
 
-  const handleChangeRadio = e => {
-    const { value } = e.target;
-    onChange({ name, value });
+  const handleChange = () => {
+    onChange({ name, value: value || name });
   };
 
   return (
-    <>
-      <FormControlLabel
-        control={(
-          <Radio
-            checked={checked}
-            onChange={handleChangeRadio}
-            name={name}
-            inputProps={{
-              'aria-label': label,
-            }}
-            {...rest}
-          />
-        )}
-        label={t(label)}
-      />
+    <div className="mt-2">
+      <div className="flex items-center space-x-2">
+        <RadioGroupItem
+          value={value || name}
+          id={name}
+          checked={checked}
+          onClick={handleChange}
+          aria-label={label}
+          {...rest}
+        />
+        <label
+          htmlFor={name}
+          className="text-sm leading-none cursor-pointer"
+        >
+          {t(label)}
+        </label>
+      </div>
       {!!error && (
-      <FormHelperText
-        error={!!error}
-      >
-        {t(error)}
-      </FormHelperText>
+        <p className="mt-1.5 text-sm text-destructive">{t(error)}</p>
       )}
-    </>
+    </div>
   );
 };
 

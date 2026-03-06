@@ -1,21 +1,15 @@
 import { useState } from 'react';
-import {
-  Dialog, DialogActions, DialogContent, DialogTitle, Typography,
-} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import CustomButton from '@/components/inputs/CustomButton';
 import CustomTextField from '@/components/inputs/CustomTextField';
-import useClasses from '@/components/layout/hooks/useClasses';
-
-const styles = {
-  button: {
-    width: '100%',
-  },
-  text: {
-    textAlign: 'center',
-  },
-};
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 
 const InputDialog = ({
   title,
@@ -27,25 +21,17 @@ const InputDialog = ({
   onClose,
   onSave,
 }) => {
-  const classes = useClasses(styles);
   const { t } = useTranslation();
   const [value, setValue] = useState('');
   return (
-    <Dialog
-      open={open}
-      onClose={() => onClose()}
-      aria-labelledby="input-dialog"
-      fullWidth
-      maxWidth="sm"
-    >
-      <DialogTitle id="input-dialog">{title}</DialogTitle>
+    <Dialog open={open} onOpenChange={isOpen => { if (!isOpen) onClose(); }}>
       <DialogContent>
-        <Typography className={classes.text} variant="subtitle1">
-          {text}
-        </Typography>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+        </DialogHeader>
+        <p className="text-center text-sm">{text}</p>
         <CustomTextField
           autoFocus
-          margin="dense"
           label={label}
           id="input-value"
           type={type}
@@ -53,31 +39,27 @@ const InputDialog = ({
           value={value}
           onChange={({ value: newValue }) => setValue(newValue)}
         />
+        <DialogFooter className="gap-2">
+          <CustomButton
+            onClick={() => onClose()}
+            className="w-full"
+          >
+            {t('cancel')}
+          </CustomButton>
+          <CustomButton
+            variant="outlined"
+            onClick={() => {
+              onClose();
+              onSave({ name, value });
+              setValue('');
+            }}
+            buttonTheme="green"
+            className="w-full"
+          >
+            {t('save')}
+          </CustomButton>
+        </DialogFooter>
       </DialogContent>
-      <DialogActions>
-        <CustomButton
-          onClick={() => onClose()}
-          color="primary"
-          className={classes.button}
-        >
-          {t('cancel')}
-        </CustomButton>
-        <CustomButton
-          variant="outlined"
-          onClick={() => {
-            onClose();
-            onSave({
-              name,
-              value,
-            });
-            setValue('');
-          }}
-          color="secondary"
-          className={classes.button}
-        >
-          {t('save')}
-        </CustomButton>
-      </DialogActions>
     </Dialog>
   );
 };

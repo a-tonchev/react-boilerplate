@@ -3,16 +3,8 @@ import { useState } from 'react';
 import CustomButton from '../inputs/CustomButton';
 import CustomCheckBox from '../inputs/CustomCheckBox';
 import CustomTextField from '../inputs/CustomTextField';
-import useClasses from '../layout/hooks/useClasses';
-
-const styles = {
-  button: {
-    marginTop: '0.5rem',
-  },
-};
 
 export default function CustomForm({ elements, onSubmit }) {
-  const classes = useClasses(styles);
   const [formValues, setFormValues] = useState(
     elements.map(element => {
       const valueToReturn = element.defaultValue || element.type === 'checkbox' ? false : '';
@@ -44,7 +36,7 @@ export default function CustomForm({ elements, onSubmit }) {
           {...inputElementData}
         />
       ))}
-      <CustomButton className={classes.button} text="Submit" type="submit" fullMobile>
+      <CustomButton className="mt-2" text="Submit" type="submit" fullMobile>
         Submit
       </CustomButton>
     </form>

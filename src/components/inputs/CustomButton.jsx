@@ -1,51 +1,53 @@
-import { Button } from '@mui/material';
+import { forwardRef } from 'react';
 
-import useClasses from '@/components/layout/hooks/useClasses';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-const styles = theme => ({
-  green: {
-    backgroundColor: '#2dad67',
-    color: '#FFF',
-    '&:hover': {
-      backgroundColor: '#249457',
-    },
-    '&:active': {
-      backgroundColor: '#249457',
-    },
-  },
-  fullMobile: {
-    [theme.breakpoints.down('md')]: {
-      width: '100%',
-    },
-  },
-});
+const variantMap = {
+  outlined: 'outline',
+  contained: 'default',
+  text: 'ghost',
+};
 
-const CustomButton = ({
+const colorMap = {
+  primary: 'default',
+  secondary: 'secondary',
+  error: 'destructive',
+};
+
+const CustomButton = forwardRef(({
   children,
   text,
   buttonTheme,
   fullMobile,
   color = 'primary',
+  variant = 'contained',
+  className = '',
+  fullWidth,
   ...rest
-}) => {
-  const buttonProps = { ...rest, color };
-  let { className: buttonClassName = '' } = buttonProps;
-
-  if (buttonTheme === 'primary') buttonProps.color = 'primary';
-  const classes = useClasses(styles);
-  if (buttonTheme === 'green') buttonClassName += ` ${classes.green}`;
-  if (fullMobile) buttonClassName += ` ${classes.fullMobile}`;
+}, ref) => {
+  let resolvedVariant = variantMap[variant] || 'default';
+  if (buttonTheme === 'green') resolvedVariant = 'secondary';
+  else if (buttonTheme === 'primary') resolvedVariant = 'default';
+  else if (colorMap[color] && variant === 'contained') resolvedVariant = colorMap[color];
 
   return (
     <Button
+      ref={ref}
       aria-label={text || 'button'}
-      variant="contained"
-      {...buttonProps}
-      className={buttonClassName}
+      variant={resolvedVariant}
+      className={cn(
+        fullMobile && 'w-full md:w-auto',
+        fullWidth && 'w-full',
+        className,
+      )}
+      {...rest}
     >
       {children}
     </Button>
   );
-};
+});
+
+CustomButton.displayName = 'CustomButton';
 
 export default CustomButton;
