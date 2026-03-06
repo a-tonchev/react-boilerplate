@@ -19,7 +19,11 @@
       "Bash(find:*)",
       "Bash(head:*)",
       "Bash(tail:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "MCPTool",
+      "Bash",
+      "Task",
+      "NotebookEdit"
     ]
   }
 }
