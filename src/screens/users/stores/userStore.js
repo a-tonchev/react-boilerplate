@@ -124,11 +124,12 @@ export const loginUser = ({ token, redirectedFrom, ...userData }) => {
   }
 };
 
-export const logoutUser = () => {
+export const logoutUser = async () => {
   UserStores.userDataStore.set(defaultUserData);
   UserStores.isAdminStore.set(false);
   UserStores.isLoggedInStore.set(false);
-  Storage.remove(StorageEnums.userData).then();
+  await Storage.remove(StorageEnums.userData);
+  await Storage.remove(StorageEnums.token);
 };
 
 export default {};

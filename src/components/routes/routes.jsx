@@ -11,6 +11,7 @@ import Home from '@/screens/Home';
 import Profile from '@/screens/users/Profile';
 import ForgotPassword from '@/screens/auth/ForgetPassword';
 import ResetPassword from '@/screens/auth/ResetPassword';
+import Verify from '@/screens/auth/Verify';
 import Showcase from '@/screens/hacktoberfest/Showcase';
 
 const routes = [
@@ -25,6 +26,7 @@ const routes = [
   { path: UrlEnums.SIGN_UP, element: <SignUp />, type: 'public' },
   { path: UrlEnums.PASSWORD_FORGET, element: <ForgotPassword />, type: 'public' },
   { path: UrlEnums.PASSWORD_RESET, element: <ResetPassword />, type: 'public' },
+  { path: UrlEnums.VERIFY, element: <Verify />, type: 'public' },
   { path: UrlEnums.SHOWCASE, element: <Showcase /> },
   { path: UrlEnums.NOT_FOUND, element: <NotFoundPage /> },
   { path: '*', element: <Navigate to={UrlEnums.NOT_FOUND} replace /> },
