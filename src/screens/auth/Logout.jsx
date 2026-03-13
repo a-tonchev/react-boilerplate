@@ -8,11 +8,10 @@ const Logout = () => {
   useEffect(() => {
     const doLogout = async () => {
       await Connections.postRequest(ApiEndpoints.logout);
-    };
-    doLogout().then(() => {
       tokenStore.remove();
-    });
-    logoutUser();
+      await logoutUser();
+    };
+    doLogout();
   }, []);
 
   return <div />;

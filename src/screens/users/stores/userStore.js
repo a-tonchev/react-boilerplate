@@ -124,11 +124,13 @@ export const loginUser = ({ token, redirectedFrom, ...userData }) => {
   }
 };
 
-export const logoutUser = () => {
+export const logoutUser = async () => {
+  const language = UserStores.languageStore.get();
   UserStores.userDataStore.set(defaultUserData);
   UserStores.isAdminStore.set(false);
   UserStores.isLoggedInStore.set(false);
-  Storage.remove(StorageEnums.userData).then();
+  await Storage.clear();
+  await Storage.save(StorageEnums.language, language);
 };
 
 export default {};
