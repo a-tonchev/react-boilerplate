@@ -130,7 +130,9 @@ export const logoutUser = async () => {
   UserStores.isAdminStore.set(false);
   UserStores.isLoggedInStore.set(false);
   await Storage.clear();
-  await Storage.save(StorageEnums.language, language);
+  if (language) {
+    await Storage.save(StorageEnums.language, language);
+  }
 };
 
 export default {};
