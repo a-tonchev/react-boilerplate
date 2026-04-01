@@ -19,11 +19,11 @@ const SidebarItem = ({ icon: Icon, label, to }) => (
       type="button"
       className={[
         'flex items-center gap-3 w-full rounded-lg mx-1 mb-0.5 px-3 py-2',
-        'text-[#A0AEC0] hover:bg-[rgba(45,173,103,0.1)] hover:text-white',
+        'text-sidebar-muted hover:bg-sidebar-accent hover:text-white',
         'text-sm font-medium transition-colors cursor-pointer',
       ].join(' ')}
     >
-      <Icon size={20} weight="regular" className="text-[#718096]" />
+      <Icon size={20} weight="regular" className="text-sidebar-muted" />
       {label}
     </button>
   </CustomLink>
@@ -34,10 +34,10 @@ const Sidebar = () => {
   return (
     <>
       <div className="flex items-center justify-between px-4 py-3 min-h-[64px]">
-        <span className="font-bold text-white text-[1.1rem] tracking-tight">
+        <span className="font-bold text-white text-lg tracking-tight">
           {t('app.title')}
         </span>
-        <button type="button" className="text-[#A0AEC0] hover:text-white p-1">
+        <button type="button" className="text-sidebar-muted hover:text-white p-1">
           <CaretLeftIcon size={20} weight="bold" />
         </button>
       </div>
@@ -53,12 +53,12 @@ const Sidebar = () => {
             type="button"
             className={[
               'flex items-center gap-3 w-full rounded-lg mx-1 mb-0.5',
-              'px-3 py-2 text-[#A0AEC0]',
-              'hover:bg-[rgba(45,173,103,0.1)] hover:text-white',
+              'px-3 py-2 text-sidebar-muted',
+              'hover:bg-sidebar-accent hover:text-white',
               'text-sm font-medium transition-colors cursor-pointer',
             ].join(' ')}
           >
-            <BrowserIcon size={20} weight="regular" className="text-[#718096]" />
+            <BrowserIcon size={20} weight="regular" className="text-sidebar-muted" />
             {t('pages.my')}
           </button>
         </Authorized>

@@ -15,7 +15,7 @@ import i18n from '@/components/translations/i18n';
 import { Badge } from '@/components/ui/badge';
 import { createRipple } from '@/lib/utils';
 
-const iconButtonClass = 'text-[#A0AEC0] rounded-lg p-2 transition-all'
+const iconButtonClass = 'text-sidebar-muted rounded-lg p-2 transition-all'
   + ' hover:bg-white/10 hover:text-white cursor-pointer relative overflow-hidden';
 
 const menu = [
@@ -39,7 +39,7 @@ const menu = [
           className={
             'absolute -top-1.5 -right-2 h-5 min-w-5'
             + ' flex items-center justify-center'
-            + ' text-[10px] px-1.5 pointer-events-none'
+            + ' text-xs px-1.5 pointer-events-none'
           }
         >
           4
@@ -65,7 +65,7 @@ const menu = [
           className={
             'absolute -top-1.5 -right-2 h-5 min-w-5'
             + ' flex items-center justify-center'
-            + ' text-[10px] px-1.5 pointer-events-none'
+            + ' text-xs px-1.5 pointer-events-none'
           }
         >
           17
@@ -134,7 +134,7 @@ const ProfileMenu = ({
                 + ' transition-colors cursor-pointer'
               }
             >
-              <UserIcon size={18} weight="regular" color="#718096" />
+              <UserIcon size={18} weight="regular" className="text-muted-foreground" />
               <span className="font-medium">{t('profile')}</span>
             </button>
           </CustomLink>
@@ -147,7 +147,7 @@ const ProfileMenu = ({
               + ' transition-colors cursor-pointer'
             }
           >
-            <GearIcon size={18} weight="regular" color="#718096" />
+            <GearIcon size={18} weight="regular" className="text-muted-foreground" />
             <span className="font-medium">{t('Settings')}</span>
           </button>
           <div className="h-px bg-border my-1" />
@@ -161,7 +161,7 @@ const ProfileMenu = ({
                 + ' transition-colors cursor-pointer'
               }
             >
-              <SignOutIcon size={18} weight="regular" color="#718096" />
+              <SignOutIcon size={18} weight="regular" className="text-muted-foreground" />
               <span className="font-medium">{t('logout')}</span>
             </button>
           </CustomLink>
@@ -177,7 +177,7 @@ const ProfileMenu = ({
                 + ' transition-colors cursor-pointer'
               }
             >
-              <SignOutIcon size={18} weight="regular" color="#718096" />
+              <SignOutIcon size={18} weight="regular" className="text-muted-foreground" />
               <span className="font-medium">{t('login')}</span>
             </button>
           </CustomLink>

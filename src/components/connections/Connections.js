@@ -9,7 +9,20 @@ import tokenStore from './stores/tokenStore';
 import UrlEnums from './enums/UrlEnums';
 import History from './History';
 
-const baseURL = `${BasicConfig.SERVER_URL}/${BasicConfig.API_VERSION}`;
+const getServerHost = () => {
+  if (BasicConfig.HOST_SAME_URL) {
+    return window.location.hostname;
+  }
+  return BasicConfig.SERVER_HOST;
+};
+
+const buildBaseURL = () => {
+  const host = getServerHost();
+  const port = BasicConfig.SERVER_PORT ? `:${BasicConfig.SERVER_PORT}` : '';
+  return `${BasicConfig.SERVER_PROTOCOL}://${host}${port}${BasicConfig.SERVER_PATH}/${BasicConfig.API_VERSION}`;
+};
+
+const baseURL = buildBaseURL();
 
 export const ApiEndpoints = {
   login: '/users/login',

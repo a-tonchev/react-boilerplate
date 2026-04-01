@@ -13,7 +13,9 @@ const HeaderSearch = () => {
         'ml-0 sm:ml-6 mr-4 transition-all',
       ].join(' ')}
     >
-      <div className="px-2 h-full absolute pointer-events-none flex items-center justify-center text-[#A0AEC0] z-10">
+      <div
+        className="px-2 h-full absolute pointer-events-none flex items-center justify-center text-sidebar-muted z-10"
+      >
         <MagnifyingGlassIcon size={18} weight="regular" />
       </div>
       <input
@@ -23,7 +25,7 @@ const HeaderSearch = () => {
         autoComplete="off"
         data-form-type="other"
         className={[
-          'bg-transparent border-none outline-none text-[#E2E8F0]',
+          'bg-transparent border-none outline-none text-sidebar-foreground',
           'text-sm py-2 pl-10 pr-2 w-full md:w-[20ch] transition-all',
         ].join(' ')}
       />

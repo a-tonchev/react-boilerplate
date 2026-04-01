@@ -10,7 +10,7 @@ export default function LoginLayout({ children }) {
         className="hidden sm:block sm:w-1/3 md:w-7/12 lg:w-2/3 bg-cover bg-center relative"
         style={{ backgroundImage: BasicConfig.loginImage }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-[rgba(26,32,44,0.15)] to-[rgba(45,55,72,0.3)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-foreground/15 to-foreground/30" />
       </div>
       <div className="flex flex-col w-full sm:w-2/3 md:w-5/12 lg:w-1/3 bg-background border-l border-border">
         <div className="flex justify-end px-4 py-2 border-b border-border">

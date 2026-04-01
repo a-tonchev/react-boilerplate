@@ -1,5 +1,5 @@
 import Grid from '@/components/inputs/CustomGrid';
-import { Button } from '@/components/ui/button';
+import CustomButton from '@/components/inputs/CustomButton';
 
 const Header = ({
   imageUrl, title, buttonLink, buttonText, items,
@@ -13,9 +13,9 @@ const Header = ({
     >
       <img className="absolute top-0 left-0 h-full w-full object-cover -z-1" src={imageUrl} alt="" />
       <h1 className="uppercase text-white text-4xl font-bold">{title}</h1>
-      <Button variant="default" size="lg" className="uppercase" asChild>
+      <CustomButton variant="default" size="lg" className="uppercase" asChild>
         <a href={buttonLink}>{buttonText}</a>
-      </Button>
+      </CustomButton>
     </div>
     <Grid
       justifyContent="spaceEvenly"

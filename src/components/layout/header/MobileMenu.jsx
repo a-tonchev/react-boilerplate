@@ -72,7 +72,7 @@ const MobileMenuSection = ({ handleMobileMenuOpen }) => (
       aria-label="show more"
       aria-haspopup="true"
       onClick={handleMobileMenuOpen}
-      className="text-[#A0AEC0] rounded-lg p-2 hover:bg-white/10 hover:text-white transition-all"
+      className="text-sidebar-muted rounded-lg p-2 hover:bg-white/10 hover:text-white transition-all"
     >
       <DotsThreeVerticalIcon size={22} weight="bold" />
     </button>

@@ -52,12 +52,12 @@ const LanguagesPicker = () => {
         onClick={() => setOpen(prev => !prev)}
         className={[
           'flex items-center gap-1.5 px-3 py-1.5 rounded-lg border',
-          'border-white/20 bg-white/[0.08] text-[#E2E8F0] transition-all',
+          'border-white/20 bg-white/[0.08] text-sidebar-foreground transition-all',
           'hover:bg-white/[0.15] hover:border-white/30 cursor-pointer',
         ].join(' ')}
       >
         <GlobeSimpleIcon size={16} weight="regular" />
-        <span className="font-semibold text-[0.8rem] tracking-wider leading-none">
+        <span className="font-semibold text-xs tracking-wider leading-none">
           {currentLang.flag}
         </span>
         <CaretDownIcon
@@ -86,8 +86,8 @@ const LanguagesPicker = () => {
                 className={[
                   'flex justify-between items-center w-full py-2 px-4',
                   'mx-0.5 rounded-md text-sm transition-colors cursor-pointer',
-                  l.code === lang ? 'bg-[#F7FAFC]' : '',
-                  'hover:bg-[#EDF2F7]',
+                  l.code === lang ? 'bg-background' : '',
+                  'hover:bg-muted',
                 ].join(' ')}
               >
                 <span className="flex items-center gap-3">
@@ -97,7 +97,7 @@ const LanguagesPicker = () => {
                   <span className="font-medium">{l.label}</span>
                 </span>
                 {l.code === lang && (
-                  <CheckIcon size={16} weight="bold" color="#0F766E" />
+                  <CheckIcon size={16} weight="bold" className="text-success" />
                 )}
               </button>
             ))}

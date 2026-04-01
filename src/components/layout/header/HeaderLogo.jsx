@@ -6,7 +6,7 @@ const HeaderLogo = () => {
   const { t } = useTranslation();
   return (
     <CustomLink plain to="/">
-      <span className="hidden sm:block font-bold text-white tracking-tight text-[1.15rem]">
+      <span className="hidden sm:block font-bold text-white tracking-tight text-lg">
         {t('app.title')}
       </span>
     </CustomLink>

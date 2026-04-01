@@ -1,5 +1,9 @@
 const BasicConfig = {
-  SERVER_URL: import.meta.env.VITE_SERVER_URL,
+  SERVER_PROTOCOL: import.meta.env.VITE_SERVER_PROTOCOL,
+  SERVER_HOST: import.meta.env.VITE_SERVER_HOST,
+  SERVER_PORT: import.meta.env.VITE_SERVER_PORT,
+  SERVER_PATH: import.meta.env.VITE_SERVER_PATH,
+  HOST_SAME_URL: import.meta.env.VITE_HOST_SAME_URL === 'true',
   API_VERSION: import.meta.env.VITE_API_VERSION,
   SOFTWARE_VERSION: import.meta.env.VITE_SOFTWARE_VERSION
     ? parseFloat(import.meta.env.VITE_SOFTWARE_VERSION)

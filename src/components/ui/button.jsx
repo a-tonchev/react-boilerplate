@@ -6,7 +6,7 @@ import { cn, createRipple } from '@/lib/utils';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center gap-2 whitespace-nowrap '
-  + 'rounded-lg text-[0.95rem] font-semibold tracking-wide transition-colors '
+  + 'rounded-lg text-base font-semibold tracking-wide transition-colors '
   + 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring '
   + 'focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 '
   + 'cursor-pointer relative overflow-hidden',
@@ -14,7 +14,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground shadow-sm hover:bg-[#1A202C]',
+          'bg-primary text-primary-foreground shadow-sm hover:bg-primary/90',
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
         outline:

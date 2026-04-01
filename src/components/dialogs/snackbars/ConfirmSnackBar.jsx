@@ -41,9 +41,9 @@ const ConfirmSnackBar = ({
       >
         <div
           className="flex items-center justify-center
-            w-10 h-10 rounded-full bg-[#3B82F6]/10 shrink-0"
+            w-10 h-10 rounded-full bg-info/10 shrink-0"
         >
-          <Info className="h-5 w-5 text-[#3B82F6]" />
+          <Info className="h-5 w-5 text-info" />
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold text-foreground">

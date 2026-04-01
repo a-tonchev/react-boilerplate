@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { AlertCircle } from 'lucide-react';
 
 import CustomLink from '@/components/inputs/CustomLink';
 import CustomTextField from '@/components/inputs/CustomTextField';
@@ -13,7 +12,7 @@ import CustomButton from '@/components/inputs/CustomButton';
 import { loginUser } from '@/screens/users/stores/userStore';
 import Logo from '@/components/layout/assets/logo.svg';
 import BasicConfig from '@/components/config/BasicConfig';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import FormErrorAlert from '@/components/validations/FormErrorAlert';
 
 import SendVerificationMail from './SendVerificationMail';
 import LoginLayout from './LoginLayout';
@@ -108,12 +107,7 @@ const Login = () => {
           </p>
         </div>
         <form className="w-full mt-8" noValidate>
-          {!!loginError && (
-            <Alert variant="destructive" className="mb-4">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>{loginError}</AlertDescription>
-            </Alert>
-          )}
+          <FormErrorAlert error={loginError} />
           <CustomTextField
             name="email"
             label="email.address"
