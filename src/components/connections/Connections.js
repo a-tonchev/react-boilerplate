@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import BasicConfig from '@/components/config/BasicConfig';
 import Storage from '@/components/storage/Storage';
 import StorageEnums from '@/components/storage/enums/StorageEnums';
@@ -49,58 +47,51 @@ const encodeQueryData = data => {
   return ret.join('&');
 };
 
-const getLoginHeader = async () => {
+const getAuthHeaders = () => {
   const token = tokenStore.get();
   const headers = {};
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
-  return {
-    headers,
-  };
+  return headers;
 };
 
-const connectionSuccessResponse = response => {
+const connectionSuccessResponse = data => {
   if (BasicConfig.system?.debug) {
     console.info('---success---');
-    console.info(response);
+    console.info(data);
   }
-  if (!response || !response.data?.ok) {
+  if (!data || !data.ok) {
     return { ok: false };
   }
 
   return {
     ok: true,
-    data: response.data.data,
+    data: data.data,
   };
 };
 
-const connectionErrorResponse = error => {
+const connectionErrorResponse = (status, responseData) => {
   let errorMessage = i18n.t('error.unknown');
   if (BasicConfig.system?.debug) {
     console.error('---error---');
-    console.error(error);
+    console.error(status, responseData);
   }
   let errorData = null;
   let errorCode = null;
 
-  if (error && error.response && error.response.data) {
-    const responseError = error.response.data;
-
-    if (responseError.code) {
-      if (
-        responseError.code
-        && i18n.exists(`error.${responseError.code}`)
-      ) {
-        errorMessage = i18n.t(`error.${responseError.code}`);
+  if (responseData) {
+    if (responseData.code) {
+      if (i18n.exists(`error.${responseData.code}`)) {
+        errorMessage = i18n.t(`error.${responseData.code}`);
       }
-      errorCode = responseError.code;
+      errorCode = responseData.code;
     }
 
-    if (responseError.data) {
-      errorData = responseError.data;
+    if (responseData.data) {
+      errorData = responseData.data;
     }
-    if (error.response.status === 401) {
+    if (status === 401) {
       Storage.getObject(StorageEnums.token).then(
         tokenStored => {
           (async () => {
@@ -116,7 +107,7 @@ const connectionErrorResponse = error => {
           })();
         },
       );
-    } else if (error.response.status === 403) {
+    } else if (status === 403) {
       History.navigate(UrlEnums.MAIN);
     }
   }
@@ -125,8 +116,16 @@ const connectionErrorResponse = error => {
     errorCode,
     errorMessage,
     errorData,
-    online: !!error.response,
+    online: status != null,
   };
+};
+
+const handleResponse = async response => {
+  const data = await response.json();
+  if (response.ok) {
+    return connectionSuccessResponse(data);
+  }
+  return connectionErrorResponse(response.status, data);
 };
 
 export default {
@@ -134,22 +133,29 @@ export default {
     url, params, path = '',
   }) {
     try {
-      const loginHeader = await getLoginHeader();
-      const result = await axios.post(getUrl(url) + path, params, loginHeader);
-      return connectionSuccessResponse(result);
+      const headers = getAuthHeaders();
+      headers['Content-Type'] = 'application/json';
+      const response = await fetch(getUrl(url) + path, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(params),
+      });
+      return handleResponse(response);
     } catch (error) {
-      return connectionErrorResponse(error);
+      return connectionErrorResponse(null, null);
     }
   },
   async get({
     url, params, suppressError,
   }) {
     try {
-      const loginHeader = await getLoginHeader();
-      const result = await axios.get(`${getUrl(url)}${params ? '?' : ''}${encodeQueryData(params)}`, loginHeader);
-      return connectionSuccessResponse(result);
+      const headers = getAuthHeaders();
+      const response = await fetch(`${getUrl(url)}${params ? '?' : ''}${encodeQueryData(params)}`, {
+        headers,
+      });
+      return handleResponse(response);
     } catch (error) {
-      if (!suppressError) return connectionErrorResponse(error);
+      if (!suppressError) return connectionErrorResponse(null, null);
     }
   },
   async getRequest(url, params) {
