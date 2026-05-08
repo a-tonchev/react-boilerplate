@@ -1,7 +1,4 @@
 import { useEffect } from 'react';
-import {
-  Dialog, DialogActions, DialogContent, DialogTitle, Typography,
-} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import Grid from '@/components/inputs/CustomGrid';
@@ -9,16 +6,13 @@ import useValues from '@/components/dataHandling/hooks/useValues';
 import CustomButton from '@/components/inputs/CustomButton';
 import CustomSelect from '@/components/inputs/CustomSelect';
 import CustomTextField from '@/components/inputs/CustomTextField';
-import useClasses from '@/components/layout/hooks/useClasses';
-
-const styles = {
-  button: {
-    width: '100%',
-  },
-  text: {
-    textAlign: 'center',
-  },
-};
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 
 const ValuesDialog = ({
   title,
@@ -29,7 +23,6 @@ const ValuesDialog = ({
   onClose,
   onSave,
 }) => {
-  const classes = useClasses(styles);
   const { t } = useTranslation();
   const { values, handleChange, resetValues } = useValues({ defaultValues });
 
@@ -39,18 +32,12 @@ const ValuesDialog = ({
   }, [inputs, defaultValues]);
 
   return (
-    <Dialog
-      open={open}
-      onClose={() => onClose()}
-      aria-labelledby="input-dialog"
-      fullWidth
-      maxWidth="sm"
-    >
-      <DialogTitle id="input-dialog">{title}</DialogTitle>
+    <Dialog open={open} onOpenChange={isOpen => { if (!isOpen) onClose(); }}>
       <DialogContent>
-        <Typography className={classes.text} variant="subtitle1">
-          {text}
-        </Typography>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+        </DialogHeader>
+        <p className="text-center text-sm">{text}</p>
         <Grid container>
           {inputs.map((inputData, index) => {
             const {
@@ -80,27 +67,26 @@ const ValuesDialog = ({
             );
           })}
         </Grid>
+        <DialogFooter className="gap-2">
+          <CustomButton
+            onClick={() => onClose()}
+            className="w-full"
+          >
+            {t('cancel')}
+          </CustomButton>
+          <CustomButton
+            variant="outlined"
+            onClick={() => {
+              onClose();
+              onSave(values);
+            }}
+            buttonTheme="green"
+            className="w-full"
+          >
+            {t('save')}
+          </CustomButton>
+        </DialogFooter>
       </DialogContent>
-      <DialogActions>
-        <CustomButton
-          onClick={() => onClose()}
-          color="primary"
-          className={classes.button}
-        >
-          {t('cancel')}
-        </CustomButton>
-        <CustomButton
-          variant="outlined"
-          onClick={() => {
-            onClose();
-            onSave(values);
-          }}
-          color="secondary"
-          className={classes.button}
-        >
-          {t('save')}
-        </CustomButton>
-      </DialogActions>
     </Dialog>
   );
 };

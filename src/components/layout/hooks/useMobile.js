@@ -1,15 +1,16 @@
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { useState, useEffect } from 'react';
 
 const useMobile = () => {
-  const theme = useTheme();
-  const mobileBorder = theme.breakpoints.values.md;
-  const windowWidth = window.innerWidth;
-  const themeIsMobile = !useMediaQuery(theme.breakpoints.up('md'));
-  const isMobile = windowWidth > mobileBorder ? false : themeIsMobile;
-  return {
-    isMobile,
-  };
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    const handler = e => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
+  return { isMobile };
 };
 
 export default useMobile;

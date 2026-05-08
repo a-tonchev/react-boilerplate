@@ -1,36 +1,26 @@
-import { Box, Container, Typography } from '@mui/material';
-import { css } from '@emotion/react';
-
 import CustomLink from '@/components/inputs/CustomLink';
 
-const Copyright = ({ href, children, className }) => (
-  <Typography
-    variant="caption"
-    display="block"
-    gutterBottom
-    color="textSecondary"
-    align="center"
-    css={css`${className}`}
-  >
+const Copyright = ({ href, children }) => (
+  <p className="text-xs text-muted-foreground text-center">
     {'Copyright © '}
     <CustomLink
       rel="noreferrer noopener"
       plain
       target="_blank"
       href={href}
-    >     {new Date().getFullYear()}{' '}
+    >
+      {new Date().getFullYear()}{' '}
       {children}
     </CustomLink>
-  </Typography>
+  </p>
 );
 
-const Footer = ({ href, children, className = '' }) => (
-  <Container>
-    <Box mt={1} align="center">
-      <Copyright className={className} href={href}>
-        {children}
-      </Copyright>
-    </Box>
-  </Container>
+const Footer = ({ href, children }) => (
+  <div className="mt-2 text-center">
+    <Copyright href={href}>
+      {children}
+    </Copyright>
+  </div>
 );
+
 export default Footer;

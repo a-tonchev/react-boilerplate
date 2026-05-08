@@ -1,35 +1,12 @@
-import { Container } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 
-import Grid from '@/components/inputs/CustomGrid';
 import BasicConfig from '@/components/config/BasicConfig';
-import useClasses from '@/components/layout/hooks/useClasses';
 
 import Header from './header/Header';
 import Footer from './footer/Footer';
 
-const styles = theme => ({
-  wrapper: {
-    display: 'flex',
-    backgroundColor: theme.palette.body.background,
-    minHeight: '100vh',
-  },
-  container: {
-    display: 'grid',
-    gridTemplateRows: '1fr',
-  },
-  gridContainer: {
-    flex: 1,
-    marginTop: 84,
-    [theme.breakpoints.down('xs')]: {
-      marginTop: 56,
-    },
-  },
-});
-
 const BasicLayout = ({ children }) => {
   const location = useLocation();
-  const classes = useClasses(styles);
 
   function checkRegExp(arr) {
     return arr.some(regexp => regexp.test(location.pathname));
@@ -42,26 +19,18 @@ const BasicLayout = ({ children }) => {
 
   return noLayout ? (children)
     : (
-      <div className={classes.wrapper}>
+      <div className="flex bg-background min-h-screen">
         <Header />
-        <Grid
-          container
-          direction="row"
-          className={classes.gridContainer}
-        >
-          <Container
-            maxWidth={fullSizeContent ? null : 'lg'}
-            className={classes.container}
-          >
+        <div className="flex-1 mt-[84px] max-sm:mt-14">
+          <div className={`mx-auto px-4 grid grid-rows-[1fr] ${fullSizeContent ? 'max-w-full' : 'max-w-screen-lg'}`}>
             {children}
             <Footer
               href={BasicConfig.copyright.url}
-              className={{ fontSize: 'smaller' }}
             >
               {BasicConfig.copyright.text}
             </Footer>
-          </Container>
-        </Grid>
+          </div>
+        </div>
       </div>
     );
 };

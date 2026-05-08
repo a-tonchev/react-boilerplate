@@ -2,6 +2,7 @@
 import { defineConfig, loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
+import tailwindcss from '@tailwindcss/vite';
 import visualizer from 'rollup-plugin-visualizer';
 import path, { resolve } from 'path';
 import react from '@vitejs/plugin-react';
@@ -18,6 +19,7 @@ export default ({ mode }) => {
     },
     plugins: [
       react(),
+      tailwindcss(),
       VitePWA({
         srcDir: 'src',
         strategies: 'injectManifest',
@@ -53,10 +55,6 @@ export default ({ mode }) => {
           '..',
         ],
       },
-    },
-    esbuild: {
-      // jsxFactory: 'jsx',
-      // jsxInject: 'import { jsx } from \'@emotion/react\'',
     },
   });
 };

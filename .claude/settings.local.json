@@ -23,7 +23,11 @@
       "MCPTool",
       "Bash",
       "Task",
-      "NotebookEdit"
+      "NotebookEdit",
+      "mcp__claude-ide__getObserver",
+      "mcp__claude-ide__setObserver",
+      "mcp__claude_ai_Documentation_MCP__list_files",
+      "mcp__claude_ai_Documentation_MCP__read_note"
     ]
   }
 }

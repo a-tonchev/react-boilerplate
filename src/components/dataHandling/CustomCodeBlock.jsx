@@ -1,40 +1,17 @@
-import {
-  Typography,
-} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import useClasses from '@/components/layout/hooks/useClasses';
-
-const styles = {
-  pre: {
-    display: 'block',
-    padding: '9.5px',
-    margin: '0 0 10px',
-    fontSize: '13px',
-    lineHeight: 1.42857143,
-    color: '#333',
-    wordBreak: 'break-all',
-    backgroundColor: '#f8f8f8',
-    border: '1px solid #ccc',
-    borderRadius: '4px',
-    whiteSpace: 'pre-wrap',
-  },
-};
-
-const CustomCodeBlock = (
-  {
-    text,
-    code,
-  },
-) => {
+const CustomCodeBlock = ({ text, code }) => {
   const { t } = useTranslation();
-
-  const classes = useClasses(styles);
   return (
     <>
       <br />
-      <Typography variant="body2">{t(text)}</Typography>
-      <pre className={classes.pre}>
+      <p className="text-sm">{t(text)}</p>
+      <pre
+        className={[
+          'block p-2.5 my-2.5 text-sm leading-relaxed text-foreground',
+          'break-all bg-muted border border-border rounded whitespace-pre-wrap',
+        ].join(' ')}
+      >
         <code>{code}</code>
       </pre>
     </>

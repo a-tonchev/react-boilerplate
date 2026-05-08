@@ -1,93 +1,72 @@
-import { Close, Error } from '@mui/icons-material';
-import {
-  IconButton,
-  Snackbar,
-  SnackbarContent,
-  Typography,
-} from '@mui/material';
-
-import useClasses from '@/components/layout/hooks/useClasses';
+import { useEffect, useState } from 'react';
+import { AlertCircle, X } from 'lucide-react';
 
 import {
   useErrorSnackbar,
   useSetErrorSnackbar,
 } from './hooks/snackBarHooks';
 
-const styles = {
-  root: {
-    bottom: 64,
-    opacity: 0.95,
-    width: 'calc(100% - 16px)',
-    maxWidth: 'var(--theme-breakpoints-values-sm)',
-    boxSizing: 'border-box',
-  },
-  snackBar: {
-    backgroundColor: 'var(--theme-palette-error-main)',
-    border: '1px solid var(--theme-palette-error-contrastText)',
-    color: 'var(--theme-palette-error-contrastText)',
-    width: '100%',
-    fontWeight: 'bold',
-  },
-  closeButton: {
-    color: 'var(--theme-palette-error-contrastText)',
-  },
-  message: {
-    display: 'inline-block',
-    color: 'var(--theme-palette-error-contrastText)',
-    marginLeft: 5,
-  },
-  snackBarMessage: {
-    display: 'flex',
-    alignItems: 'center',
-    maxWidth: '85%',
-  },
-};
-
 const ErrorSnackBar = () => {
-  const classes = useClasses(styles);
-
   const errorSnackbar = useErrorSnackbar();
   const setErrorSnackBar = useSetErrorSnackbar();
   const { open, message = '' } = errorSnackbar;
+  const [exiting, setExiting] = useState(false);
 
-  const onClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setErrorSnackBar({
-      open: false,
-      message: '',
-    });
+  const handleClose = () => {
+    setExiting(true);
+    setTimeout(() => {
+      setErrorSnackBar({ open: false, message: '' });
+      setExiting(false);
+    }, 250);
   };
 
-  const action = (
-    <IconButton onClick={onClose} size="large">
-      <Close className={classes.closeButton} />
-    </IconButton>
-  );
+  useEffect(() => {
+    if (open) {
+      setExiting(false);
+      const timer = setTimeout(() => handleClose(), 6000);
+      return () => clearTimeout(timer);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
+  if (!open) return null;
 
   return (
-    <Snackbar
-      open={open}
-      autoHideDuration={6000}
-      onClose={onClose}
-      className={classes.root}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+    <div
+      className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-50
+        w-[560px] max-w-[calc(100vw-32px)]
+        ${exiting ? 'toast-exit' : 'toast-enter'}`}
     >
-      <SnackbarContent
-        message={(
-          <>
-            <Error />
-            <Typography className={classes.message}>{message}</Typography>
-          </>
-        )}
-        className={classes.snackBar}
-        classes={{
-          message: classes.snackBarMessage,
-        }}
-        action={action}
-      />
-    </Snackbar>
+      <div
+        className="flex items-center gap-4 bg-white rounded-xl
+          border border-border px-5 py-4
+          shadow-[0_8px_30px_rgba(0,0,0,0.12)]"
+      >
+        <div
+          className="flex items-center justify-center
+            w-10 h-10 rounded-full bg-destructive/10 shrink-0"
+        >
+          <AlertCircle className="h-5 w-5 text-destructive" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-semibold text-foreground">
+            Error
+          </p>
+          <p className="text-sm text-muted-foreground mt-0.5 truncate">
+            {message}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={handleClose}
+          className="text-muted-foreground hover:text-foreground
+            cursor-pointer shrink-0 p-1 rounded-md
+            hover:bg-muted transition-colors"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
   );
 };
 

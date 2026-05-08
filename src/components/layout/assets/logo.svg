@@ -13,8 +13,8 @@
       <stop offset="100%" stop-color="#3a3a3a"/>
     </linearGradient>
     <linearGradient id="f" x1="2.04" x2="178.66" y1="90" y2="90" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#2dad67"/>
-      <stop offset="100%" stop-color="#2dad67"/>
+      <stop offset="0%" stop-color="#0F766E"/>
+      <stop offset="100%" stop-color="#0F766E"/>
     </linearGradient>
     <linearGradient id="i" x1="190.02" x2="332.17" y1="59.22" y2="59.22" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#3a3a3a"/>

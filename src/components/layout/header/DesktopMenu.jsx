@@ -1,13 +1,4 @@
 import {
-  IconButton,
-  Badge,
-  MenuItem,
-  Menu,
-  Box,
-  Typography,
-  Divider,
-} from '@mui/material';
-import {
   UserCircleIcon,
   EnvelopeSimpleIcon,
   BellIcon,
@@ -21,31 +12,11 @@ import Authorized from '@/screens/auth/Authorized';
 import CustomLink from '@/components/inputs/CustomLink';
 import LanguagesPicker from '@/components/translations/LanguagesPicker';
 import i18n from '@/components/translations/i18n';
-import useClasses from '@/components/layout/hooks/useClasses';
+import { Badge } from '@/components/ui/badge';
+import { createRipple } from '@/lib/utils';
 
-const styles = theme => ({
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '4px',
-    },
-  },
-});
-
-const menuId = 'primary-search-account-menu';
-
-const iconButtonSx = {
-  color: '#A0AEC0',
-  borderRadius: '10px',
-  padding: '8px',
-  transition: 'all 0.15s ease',
-  '&:hover': {
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    color: '#FFFFFF',
-  },
-};
+const iconButtonClass = 'text-sidebar-muted rounded-lg p-2 transition-all'
+  + ' hover:bg-white/10 hover:text-white cursor-pointer relative overflow-hidden';
 
 const menu = [
   {
@@ -54,40 +25,67 @@ const menu = [
   {
     authorizations: { authenticated: true },
     component: () => (
-      <IconButton aria-label="show 4 new mails" sx={iconButtonSx} size="large">
-        <Badge badgeContent={4} color="secondary">
+      <span className="relative">
+        <button
+          type="button"
+          aria-label="show 4 new mails"
+          onClick={createRipple}
+          className={iconButtonClass}
+        >
           <EnvelopeSimpleIcon size={22} weight="regular" />
+        </button>
+        <Badge
+          variant="secondary"
+          className={
+            'absolute -top-1.5 -right-2 h-5 min-w-5'
+            + ' flex items-center justify-center'
+            + ' text-xs px-1.5 pointer-events-none'
+          }
+        >
+          4
         </Badge>
-      </IconButton>
+      </span>
     ),
     text: i18n.t('messages'),
   },
   {
     authorizations: { authenticated: true },
-    component:
-      () => (
-        <IconButton aria-label="show 17 new notifications" sx={iconButtonSx} size="large">
-          <Badge badgeContent={17} color="secondary">
-            <BellIcon size={22} weight="regular" />
-          </Badge>
-        </IconButton>
-      ),
+    component: () => (
+      <span className="relative">
+        <button
+          type="button"
+          aria-label="show 17 new notifications"
+          onClick={createRipple}
+          className={iconButtonClass}
+        >
+          <BellIcon size={22} weight="regular" />
+        </button>
+        <Badge
+          variant="secondary"
+          className={
+            'absolute -top-1.5 -right-2 h-5 min-w-5'
+            + ' flex items-center justify-center'
+            + ' text-xs px-1.5 pointer-events-none'
+          }
+        >
+          17
+        </Badge>
+      </span>
+    ),
     text: i18n.t('notifications'),
   },
   {
-    component:
-      ({ onClick }) => (
-        <IconButton
-          aria-label="account of current user"
-          aria-controls={menuId}
-          aria-haspopup="true"
-          onClick={onClick}
-          sx={iconButtonSx}
-          size="large"
-        >
-          <UserCircleIcon size={24} weight="regular" />
-        </IconButton>
-      ),
+    component: ({ onClick }) => (
+      <button
+        type="button"
+        aria-label="account of current user"
+        aria-haspopup="true"
+        onClick={e => { createRipple(e); onClick(e); }}
+        className={iconButtonClass}
+      >
+        <UserCircleIcon size={24} weight="regular" />
+      </button>
+    ),
     onClick: 'handleProfileMenuOpen',
     text: i18n.t('profile'),
   },
@@ -99,78 +97,114 @@ const ProfileMenu = ({
 }) => {
   const isMenuOpen = Boolean(anchorEl);
   const { t } = useTranslation();
+
+  if (!isMenuOpen) return null;
+
   return (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
+    <div
+      className="fixed inset-0 z-50"
+      role="button"
+      tabIndex={0}
+      onClick={handleMenuClose}
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleMenuClose(e); }}
     >
-      <div>
+      <div
+        className={
+          'absolute bg-popover rounded-lg border'
+          + ' shadow-lg min-w-[200px] py-1'
+        }
+        style={{
+          top: (anchorEl?.getBoundingClientRect()?.bottom ?? 0) + 4,
+          right: window.innerWidth
+            - (anchorEl?.getBoundingClientRect()?.right ?? 0),
+        }}
+        role="button"
+        tabIndex={0}
+        onClick={e => e.stopPropagation()}
+        onKeyDown={e => e.stopPropagation()}
+      >
         <Authorized authenticated>
           <CustomLink plain to="/profile">
-            <MenuItem onClick={handleMenuClose}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                <UserIcon size={18} weight="regular" color="#718096" />
-                <Typography variant="body2" sx={{ fontWeight: 500 }}>{t('profile')}</Typography>
-              </Box>
-            </MenuItem>
+            <button
+              type="button"
+              onClick={handleMenuClose}
+              className={
+                'flex items-center gap-3 w-full px-3 py-2 mx-1.5'
+                + ' rounded-md text-sm hover:bg-accent'
+                + ' transition-colors cursor-pointer'
+              }
+            >
+              <UserIcon size={18} weight="regular" className="text-muted-foreground" />
+              <span className="font-medium">{t('profile')}</span>
+            </button>
           </CustomLink>
-          <MenuItem onClick={handleMenuClose}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-              <GearIcon size={18} weight="regular" color="#718096" />
-              <Typography variant="body2" sx={{ fontWeight: 500 }}>{t('Settings')}</Typography>
-            </Box>
-          </MenuItem>
-          <Divider sx={{ my: 0.5 }} />
+          <button
+            type="button"
+            onClick={handleMenuClose}
+            className={
+              'flex items-center gap-3 w-full px-3 py-2 mx-1.5'
+              + ' rounded-md text-sm hover:bg-accent'
+              + ' transition-colors cursor-pointer'
+            }
+          >
+            <GearIcon size={18} weight="regular" className="text-muted-foreground" />
+            <span className="font-medium">{t('Settings')}</span>
+          </button>
+          <div className="h-px bg-border my-1" />
           <CustomLink plain to="/logout">
-            <MenuItem onClick={handleMenuClose}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                <SignOutIcon size={18} weight="regular" color="#718096" />
-                <Typography variant="body2" sx={{ fontWeight: 500 }}>{t('logout')}</Typography>
-              </Box>
-            </MenuItem>
+            <button
+              type="button"
+              onClick={handleMenuClose}
+              className={
+                'flex items-center gap-3 w-full px-3 py-2 mx-1.5'
+                + ' rounded-md text-sm hover:bg-accent'
+                + ' transition-colors cursor-pointer'
+              }
+            >
+              <SignOutIcon size={18} weight="regular" className="text-muted-foreground" />
+              <span className="font-medium">{t('logout')}</span>
+            </button>
           </CustomLink>
         </Authorized>
         <Authorized publicOnly>
           <CustomLink plain to="/login">
-            <MenuItem onClick={handleMenuClose}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                <SignOutIcon size={18} weight="regular" color="#718096" />
-                <Typography variant="body2" sx={{ fontWeight: 500 }}>{t('login')}</Typography>
-              </Box>
-            </MenuItem>
+            <button
+              type="button"
+              onClick={handleMenuClose}
+              className={
+                'flex items-center gap-3 w-full px-3 py-2 mx-1.5'
+                + ' rounded-md text-sm hover:bg-accent'
+                + ' transition-colors cursor-pointer'
+              }
+            >
+              <SignOutIcon size={18} weight="regular" className="text-muted-foreground" />
+              <span className="font-medium">{t('login')}</span>
+            </button>
           </CustomLink>
         </Authorized>
       </div>
-    </Menu>
-  );
-};
-
-const DesktopMenuSection = props => {
-  const classes = useClasses(styles);
-  return (
-    <div className={classes.sectionDesktop}>
-      {menu.map((el, ind) => {
-        const { component: Component, onClick, authorizations } = el;
-        const { [onClick]: onClickFunction } = props;
-        let WrappedComponent = onClick
-          ? <Component key={`${ind}_${1}`} onClick={onClickFunction} />
-          : <Component key={`${ind}_${1}`} />;
-        if (authorizations) {
-          WrappedComponent = (
-            <Authorized key={`${ind}_${0}`} {...authorizations}>
-              {WrappedComponent}
-            </Authorized>
-          );
-        }
-        return WrappedComponent;
-      })}
     </div>
   );
 };
+
+const DesktopMenuSection = props => (
+  <div className="hidden md:flex items-center gap-1">
+    {menu.map((el, ind) => {
+      const { component: Component, onClick, authorizations } = el;
+      const { [onClick]: onClickFunction } = props;
+      let WrappedComponent = onClick
+        ? <Component key={`${ind}_${1}`} onClick={onClickFunction} />
+        : <Component key={`${ind}_${1}`} />;
+      if (authorizations) {
+        WrappedComponent = (
+          <Authorized key={`${ind}_${0}`} {...authorizations}>
+            {WrappedComponent}
+          </Authorized>
+        );
+      }
+      return WrappedComponent;
+    })}
+  </div>
+);
 
 export { ProfileMenu, DesktopMenuSection, menu };

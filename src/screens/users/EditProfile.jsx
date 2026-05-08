@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import Grid from '@/components/inputs/CustomGrid';
@@ -11,103 +10,50 @@ import Connections, { ApiEndpoints } from '@/components/connections/Connections'
 import useLoading from '@/components/loading/hooks/useLoading';
 
 const fullValidations = {
-  first: {
-    type: 'isName',
-    text: 'name.invalid',
-  },
-  last: {
-    type: 'isName',
-    text: 'name.invalid',
-  },
+  first: { type: 'isName', text: 'name.invalid' },
+  last: { type: 'isName', text: 'name.invalid' },
 };
 
-const defaultProfileValues = {
-  name: {
-    first: '',
-    last: '',
-  },
-  companyName: '',
-};
-
-const defaultDisabledValues = {
-  email: '',
-  clientNumber: '',
-};
+const defaultProfileValues = { name: { first: '', last: '' }, companyName: '' };
+const defaultDisabledValues = { email: '', clientNumber: '' };
 
 const EditProfile = () => {
   const [disabledValues, setDisabledValues] = useState(defaultDisabledValues);
   const [profileValues, setProfileValues] = useState(defaultProfileValues);
-
   const { t } = useTranslation();
 
   const handleChange = ({ name, value }) => {
     setProfileValues({ ...profileValues, [name]: value });
   };
 
+  const { createSuccessSnackbar, createErrorSnackbar } = useSnackbar();
   const {
-    createSuccessSnackbar,
-    createErrorSnackbar,
-  } = useSnackbar();
-
-  const {
-    setCustomError,
-    isError,
-    getActivateError,
-    convertErrorArray,
-  } = useError({
-    values: profileValues,
-    validations: fullValidations,
-  });
-
-  const {
-    loading,
-    Loading,
-    setLoading,
-  } = useLoading(true);
+    setCustomError, isError, getActivateError, convertErrorArray,
+  } = useError({ values: profileValues, validations: fullValidations });
+  const { loading, Loading, setLoading } = useLoading(true);
 
   useEffect(() => {
     const getOwnProfile = async () => {
       const res = await Connections.postRequest(ApiEndpoints.getOwnProfile);
       if (res.ok) {
-        const {
-          profile, email, clientNumber,
-        } = res.data;
-        const {
-          name,
-          companyName,
-        } = profile;
-        const newValues = {
-          companyName,
-          first: name ? name.first : defaultProfileValues.name.first,
-          last: name ? name.last : defaultProfileValues.name.last,
-        };
+        const { profile, email, clientNumber } = res.data;
+        const { name, companyName } = profile;
         setProfileValues({
           ...defaultProfileValues,
-          ...newValues,
+          companyName,
+          first: name ? name.first : '',
+          last: name ? name.last : '',
         });
-
-        setDisabledValues({
-          email,
-          clientNumber,
-        });
+        setDisabledValues({ email, clientNumber });
       }
       setLoading(false);
     };
-
     getOwnProfile().then();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const {
-    first,
-    last,
-    companyName,
-  } = profileValues;
-
-  const {
-    email,
-    clientNumber,
-  } = disabledValues;
+  const { first, last, companyName } = profileValues;
+  const { email, clientNumber } = disabledValues;
 
   if (loading) return <Loading />;
 
@@ -116,13 +62,7 @@ const EditProfile = () => {
     if (!error) {
       setLoading(true);
       const res = await Connections.postRequest(ApiEndpoints.updateOwnProfile, {
-        profile: {
-          name: {
-            first,
-            last,
-          },
-          companyName,
-        },
+        profile: { name: { first, last }, companyName },
       });
       if (res.ok) {
         createSuccessSnackbar(t('Profile Updated Successfully!'));
@@ -136,13 +76,8 @@ const EditProfile = () => {
   };
 
   return (
-    <Box>
-      <Typography
-        variant="subtitle1"
-        sx={{ fontWeight: 600, color: 'text.primary', mb: 3 }}
-      >
-        {t('editProfile')}
-      </Typography>
+    <div>
+      <h3 className="font-semibold text-foreground mb-6">{t('editProfile')}</h3>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <CustomTextField
@@ -197,12 +132,12 @@ const EditProfile = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+          <div className="flex justify-end mt-2">
             <CustomButton onClick={saveProfile}>{t('Save Profile')}</CustomButton>
-          </Box>
+          </div>
         </Grid>
       </Grid>
-    </Box>
+    </div>
   );
 };
 

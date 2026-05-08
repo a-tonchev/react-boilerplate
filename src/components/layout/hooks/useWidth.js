@@ -1,17 +1,32 @@
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { useState, useEffect } from 'react';
 
-const useWidth = myTheme => {
-  const currentTheme = useTheme();
-  const theme = myTheme || currentTheme;
-  const keys = [...theme.breakpoints.keys].reverse();
-  return (
-    keys.reduce((output, key) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const matches = useMediaQuery(theme.breakpoints.up(key));
-      return !output && matches ? key : output;
-    }, null) || 'xs'
-  );
+const breakpoints = {
+  xs: 0,
+  sm: 600,
+  md: 900,
+  lg: 1200,
+  xl: 1536,
+};
+
+const getWidth = () => {
+  const w = window.innerWidth;
+  if (w >= breakpoints.xl) return 'xl';
+  if (w >= breakpoints.lg) return 'lg';
+  if (w >= breakpoints.md) return 'md';
+  if (w >= breakpoints.sm) return 'sm';
+  return 'xs';
+};
+
+const useWidth = () => {
+  const [width, setWidth] = useState(getWidth());
+
+  useEffect(() => {
+    const handler = () => setWidth(getWidth());
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
+
+  return width;
 };
 
 export default useWidth;

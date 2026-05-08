@@ -1,14 +1,4 @@
 import {
-  List,
-  Divider,
-  ListItemIcon,
-  ListItemText,
-  IconButton,
-  ListItemButton,
-  Box,
-  Typography,
-} from '@mui/material';
-import {
   CaretLeftIcon,
   LockIcon,
   HouseIcon,
@@ -23,128 +13,61 @@ import Authorized from '@/screens/auth/Authorized';
 import CustomLink from '@/components/inputs/CustomLink';
 import UrlEnums from '@/components/connections/enums/UrlEnums';
 
-const listItemSx = {
-  borderRadius: '8px',
-  mx: 1,
-  mb: 0.5,
-  color: '#A0AEC0',
-  '&:hover': {
-    backgroundColor: 'rgba(45, 173, 103, 0.1)',
-    color: '#FFFFFF',
-    '& .MuiListItemIcon-root': {
-      color: '#2dad67',
-    },
-  },
-};
-
-const listItemIconSx = {
-  color: '#718096',
-  minWidth: 40,
-};
+const SidebarItem = ({ icon: Icon, label, to }) => (
+  <CustomLink plain to={to}>
+    <button
+      type="button"
+      className={[
+        'flex items-center gap-3 w-full rounded-lg mx-1 mb-0.5 px-3 py-2',
+        'text-sidebar-muted hover:bg-sidebar-accent hover:text-white',
+        'text-sm font-medium transition-colors cursor-pointer',
+      ].join(' ')}
+    >
+      <Icon size={20} weight="regular" className="text-sidebar-muted" />
+      {label}
+    </button>
+  </CustomLink>
+);
 
 const Sidebar = () => {
   const { t } = useTranslation();
   return (
     <>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          px: 2,
-          py: 1.5,
-          minHeight: 64,
-        }}
-      >
-        <Typography
-          variant="h6"
-          sx={{
-            fontWeight: 700,
-            color: '#FFFFFF',
-            fontSize: '1.1rem',
-            letterSpacing: '-0.01em',
-          }}
-        >
+      <div className="flex items-center justify-between px-4 py-3 min-h-[64px]">
+        <span className="font-bold text-white text-lg tracking-tight">
           {t('app.title')}
-        </Typography>
-        <IconButton size="small" sx={{ color: '#A0AEC0', '&:hover': { color: '#FFFFFF' } }}>
+        </span>
+        <button type="button" className="text-sidebar-muted hover:text-white p-1">
           <CaretLeftIcon size={20} weight="bold" />
-        </IconButton>
-      </Box>
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)' }} />
-      <List sx={{ px: 0.5, py: 1 }}>
-        <CustomLink plain to={UrlEnums.MAIN}>
-          <ListItemButton key="home" sx={listItemSx}>
-            <ListItemIcon sx={listItemIconSx}>
-              <HouseIcon size={20} weight="regular" />
-            </ListItemIcon>
-            <ListItemText
-              primary={t('home')}
-              slotProps={{ primary: { sx: { fontSize: '0.875rem', fontWeight: 500 } } }}
-            />
-          </ListItemButton>
-        </CustomLink>
+        </button>
+      </div>
+      <div className="h-px bg-white/[0.08]" />
+      <nav className="px-1 py-2">
+        <SidebarItem icon={HouseIcon} label={t('home')} to={UrlEnums.MAIN} />
         <Authorized publicOnly>
-          <CustomLink plain to={UrlEnums.LOGIN}>
-            <ListItemButton key="login" sx={listItemSx}>
-              <ListItemIcon sx={listItemIconSx}>
-                <LockIcon size={20} weight="regular" />
-              </ListItemIcon>
-              <ListItemText
-                primary={t('login')}
-                slotProps={{ primary: { sx: { fontSize: '0.875rem', fontWeight: 500 } } }}
-              />
-            </ListItemButton>
-          </CustomLink>
+          <SidebarItem icon={LockIcon} label={t('login')} to={UrlEnums.LOGIN} />
         </Authorized>
         <Authorized authenticated>
-          <CustomLink plain to={UrlEnums.PROFILE}>
-            <ListItemButton key="profile" sx={listItemSx}>
-              <ListItemIcon sx={listItemIconSx}>
-                <UserCircleIcon size={20} weight="regular" />
-              </ListItemIcon>
-              <ListItemText
-                primary={t('profile')}
-                slotProps={{ primary: { sx: { fontSize: '0.875rem', fontWeight: 500 } } }}
-              />
-            </ListItemButton>
-          </CustomLink>
-          <ListItemButton key="myPages" sx={listItemSx}>
-            <ListItemIcon sx={listItemIconSx}>
-              <BrowserIcon size={20} weight="regular" />
-            </ListItemIcon>
-            <ListItemText
-              primary={t('pages.my')}
-              slotProps={{ primary: { sx: { fontSize: '0.875rem', fontWeight: 500 } } }}
-            />
-          </ListItemButton>
+          <SidebarItem icon={UserCircleIcon} label={t('profile')} to={UrlEnums.PROFILE} />
+          <button
+            type="button"
+            className={[
+              'flex items-center gap-3 w-full rounded-lg mx-1 mb-0.5',
+              'px-3 py-2 text-sidebar-muted',
+              'hover:bg-sidebar-accent hover:text-white',
+              'text-sm font-medium transition-colors cursor-pointer',
+            ].join(' ')}
+          >
+            <BrowserIcon size={20} weight="regular" className="text-sidebar-muted" />
+            {t('pages.my')}
+          </button>
         </Authorized>
         <Authorized adminOnly>
-          <Divider sx={{ borderColor: 'rgba(255,255,255,0.08)', my: 1 }} />
-          <CustomLink plain to={UrlEnums.ALL_USERS}>
-            <ListItemButton key="allUsers" sx={listItemSx}>
-              <ListItemIcon sx={listItemIconSx}>
-                <UsersThreeIcon size={20} weight="regular" />
-              </ListItemIcon>
-              <ListItemText
-                primary={t('users.all')}
-                slotProps={{ primary: { sx: { fontSize: '0.875rem', fontWeight: 500 } } }}
-              />
-            </ListItemButton>
-          </CustomLink>
-          <CustomLink plain to={UrlEnums.MAIN}>
-            <ListItemButton key="allPages" sx={listItemSx}>
-              <ListItemIcon sx={listItemIconSx}>
-                <GlobeIcon size={20} weight="regular" />
-              </ListItemIcon>
-              <ListItemText
-                primary={t('pages.all')}
-                slotProps={{ primary: { sx: { fontSize: '0.875rem', fontWeight: 500 } } }}
-              />
-            </ListItemButton>
-          </CustomLink>
+          <div className="h-px bg-white/[0.08] my-2" />
+          <SidebarItem icon={UsersThreeIcon} label={t('users.all')} to={UrlEnums.ALL_USERS} />
+          <SidebarItem icon={GlobeIcon} label={t('pages.all')} to={UrlEnums.MAIN} />
         </Authorized>
-      </List>
+      </nav>
     </>
   );
 };

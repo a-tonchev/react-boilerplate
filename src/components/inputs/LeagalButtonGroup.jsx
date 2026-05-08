@@ -1,39 +1,30 @@
-import { Button, ButtonGroup } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-
-import useClasses from '@/components/layout/hooks/useClasses';
 
 import UrlEnums from '../connections/enums/UrlEnums';
 
-const styles = {
-  buttonInGroup: {
-    fontWeight: 'normal',
-    fontSize: 'smaller',
-    color: 'gray',
-  },
-};
-
 export default function LegalButtonGroup() {
   const { t } = useTranslation();
-  const classes = useClasses(styles);
 
   return (
-    <ButtonGroup variant="text" size="small" aria-label="small text button group">
-      <Button
-        className={classes.buttonInGroup}
+    <div className="flex gap-1">
+      <a
+        className="text-xs font-normal text-muted-foreground hover:text-foreground transition-colors px-2 py-1"
         href={UrlEnums.IMPRINT}
-      >{t('legal.imprint')}
-      </Button>
-      <Button
-        className={classes.buttonInGroup}
+      >
+        {t('legal.imprint')}
+      </a>
+      <a
+        className="text-xs font-normal text-muted-foreground hover:text-foreground transition-colors px-2 py-1"
         href={UrlEnums.PRIVACY_POLICY}
-      >{t('legal.privacy')}
-      </Button>
-      <Button
-        className={classes.buttonInGroup}
+      >
+        {t('legal.privacy')}
+      </a>
+      <a
+        className="text-xs font-normal text-muted-foreground hover:text-foreground transition-colors px-2 py-1"
         href={UrlEnums.TERMS}
-      >{t('legal.terms')}
-      </Button>
-    </ButtonGroup>
+      >
+        {t('legal.terms')}
+      </a>
+    </div>
   );
 }

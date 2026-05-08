@@ -1,19 +1,15 @@
-import { FormHelperText } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const ErrorText = ({ error, center, ...rest }) => {
   const { t } = useTranslation();
-  return (error ? (
-    <FormHelperText
-      error
-      style={{
-        textAlign: center ? 'center' : 'left',
-      }}
+  return error ? (
+    <p
+      className={`text-sm text-destructive ${center ? 'text-center' : 'text-left'}`}
       {...rest}
     >
       {t(error)}
-    </FormHelperText>
-  ) : null);
+    </p>
+  ) : null;
 };
 
 export default ErrorText;

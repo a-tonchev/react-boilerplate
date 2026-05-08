@@ -125,14 +125,11 @@ export const loginUser = ({ token, redirectedFrom, ...userData }) => {
 };
 
 export const logoutUser = async () => {
-  const language = UserStores.languageStore.get();
   UserStores.userDataStore.set(defaultUserData);
   UserStores.isAdminStore.set(false);
   UserStores.isLoggedInStore.set(false);
-  await Storage.clear();
-  if (language) {
-    await Storage.save(StorageEnums.language, language);
-  }
+  await Storage.remove(StorageEnums.userData);
+  await Storage.remove(StorageEnums.token);
 };
 
 export default {};

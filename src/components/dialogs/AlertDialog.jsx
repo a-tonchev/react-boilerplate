@@ -1,19 +1,13 @@
-import {
-  Dialog, DialogActions, DialogContent, DialogTitle, Typography,
-} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import CustomButton from '@/components/inputs/CustomButton';
-import useClasses from '@/components/layout/hooks/useClasses';
-
-const styles = {
-  button: {
-    width: '100%',
-  },
-  text: {
-    textAlign: 'center',
-  },
-};
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 
 const AlertDialog = ({
   title,
@@ -21,33 +15,23 @@ const AlertDialog = ({
   open,
   onClose,
 }) => {
-  const classes = useClasses(styles);
   const { t } = useTranslation();
   return (
-    <Dialog
-      open={open}
-      onClose={() => onClose()}
-      aria-labelledby="alert-dialog"
-      fullWidth
-      maxWidth="sm"
-    >
-      <DialogTitle id="alert-dialog">{title}</DialogTitle>
+    <Dialog open={open} onOpenChange={isOpen => { if (!isOpen) onClose(); }}>
       <DialogContent>
-        <Typography className={classes.text} variant="subtitle1">
-          {text}
-        </Typography>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+        </DialogHeader>
+        <p className="text-center text-sm">{text}</p>
+        <DialogFooter>
+          <CustomButton
+            onClick={() => onClose()}
+            className="w-full"
+          >
+            {t('ok')}
+          </CustomButton>
+        </DialogFooter>
       </DialogContent>
-      <DialogActions>
-        <CustomButton
-          onClick={() => {
-            onClose();
-          }}
-          color="primary"
-          className={classes.button}
-        >
-          {t('ok')}
-        </CustomButton>
-      </DialogActions>
     </Dialog>
   );
 };

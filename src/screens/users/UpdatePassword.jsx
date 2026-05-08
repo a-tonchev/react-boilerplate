@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import Grid from '@/components/inputs/CustomGrid';
@@ -10,46 +9,21 @@ import useLoading from '@/components/loading/hooks/useLoading';
 import CustomButton from '@/components/inputs/CustomButton';
 import useSnackbar from '@/components/dialogs/snackbars/hooks/useSnackbar';
 
-const defaultValues = {
-  currentPassword: '',
-  password: '',
-  repeatPassword: '',
-};
+const defaultValues = { currentPassword: '', password: '', repeatPassword: '' };
 
 const UpdatePassword = () => {
   const { t } = useTranslation();
   const [values, setValues] = useState(defaultValues);
-
   const { loading, Loading, setLoading } = useLoading();
   const validations = {
-    currentPassword: {
-      type: 'isPassword',
-      text: 'errorDescription.password',
-    },
-    password: {
-      type: 'isPassword',
-      text: 'errorDescription.password',
-    },
-    repeatPassword: {
-      customValidation: () => values.password === values.repeatPassword,
-      text: 'password.shouldMatch',
-    },
+    currentPassword: { type: 'isPassword', text: 'errorDescription.password' },
+    password: { type: 'isPassword', text: 'errorDescription.password' },
+    repeatPassword: { customValidation: () => values.password === values.repeatPassword, text: 'password.shouldMatch' },
   };
-
   const {
-    setCustomError,
-    isError,
-    getActivateError,
-    convertErrorArray,
-    deactivateError,
-  } = useError({
-    values,
-    validations,
-  });
-
-  const {
-    createSuccessSnackbar,
-  } = useSnackbar();
+    setCustomError, isError, getActivateError, convertErrorArray, deactivateError,
+  } = useError({ values, validations });
+  const { createSuccessSnackbar } = useSnackbar();
 
   const updatePassword = async () => {
     setCustomError(null);
@@ -57,10 +31,8 @@ const UpdatePassword = () => {
     const err = getActivateError();
     if (!err) {
       const res = await Connections.postRequest(ApiEndpoints.updatePassword, {
-        currentPassword: values.currentPassword,
-        password: values.password,
+        currentPassword: values.currentPassword, password: values.password,
       });
-
       if (res.ok) {
         createSuccessSnackbar(t('Password updated successfully!'));
         deactivateError();
@@ -68,11 +40,8 @@ const UpdatePassword = () => {
       } else if (res.errorData && res.errorData.errors) {
         setCustomError(convertErrorArray(res.errorData.errors));
       } else {
-        setCustomError({
-          currentPassword: res.errorMessage,
-        });
+        setCustomError({ currentPassword: res.errorMessage });
       }
-
       setLoading(false);
     } else {
       setLoading(false);
@@ -81,18 +50,11 @@ const UpdatePassword = () => {
 
   if (loading) return <Loading />;
 
-  const handleChange = ({ name, value }) => {
-    setValues({ ...values, [name]: value });
-  };
+  const handleChange = ({ name, value }) => { setValues({ ...values, [name]: value }); };
 
   return (
-    <Box>
-      <Typography
-        variant="subtitle1"
-        sx={{ fontWeight: 600, color: 'text.primary', mb: 3 }}
-      >
-        {t('resetPassword')}
-      </Typography>
+    <div>
+      <h3 className="font-semibold text-foreground mb-6">{t('resetPassword')}</h3>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <CustomTextField
@@ -135,14 +97,12 @@ const UpdatePassword = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
-            <CustomButton onClick={updatePassword}>
-              {t('Set New Password')}
-            </CustomButton>
-          </Box>
+          <div className="flex justify-end mt-2">
+            <CustomButton onClick={updatePassword}>{t('Set New Password')}</CustomButton>
+          </div>
         </Grid>
       </Grid>
-    </Box>
+    </div>
   );
 };
 
