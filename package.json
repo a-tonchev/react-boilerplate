@@ -57,6 +57,8 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
+    "stampVersion": "node scripts/stampVersion.mjs",
+    "prebuild": "node scripts/stampVersion.mjs .env.production",
     "updateVersion": "node scripts/updateVersion.mjs",
     "serve": "serve -s build -l 4000",
     "lint": "eslint --ext .jsx,.js src/ --fix"

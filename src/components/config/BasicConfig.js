@@ -9,8 +9,8 @@ const BasicConfig = {
     ? parseFloat(import.meta.env.VITE_SOFTWARE_VERSION)
     : 0,
   localizations: {
-    defaultLanguage: 'de',
-    availableLanguages: ['de', 'en'],
+    defaultLanguage: 'en',
+    availableLanguages: ['en', 'de'],
   },
   /**
    * You can also create an own Collections at unsplash and link the collection

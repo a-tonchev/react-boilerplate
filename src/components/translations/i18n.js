@@ -6,7 +6,7 @@ import de from './de.json';
 
 i18n.use(initReactI18next).init(
   {
-    lng: 'de',
+    lng: 'en',
     fallbackLng: 'en',
     keySeparator: false, // we do not use keys in form messages.welcome
     resources: {
