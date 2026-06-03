@@ -212,3 +212,68 @@ export default function Login() {
  // ......
 }
 ```
+
+---
+
+# Project Structure & Conventions (UIM/VOLVO)
+
+> Team conventions shared with the backend boilerplate (`../rest-api-boilerplate`). The Clean Code rules apply to both projects; everything else here is frontend-specific.
+
+## Clean Code & Consistency (CCC)
+
+### Best practices
+- Keep code as simple as possible; favour proven design patterns.
+- Use consistent names — we use **camelCase**.
+- Use as few comments as possible (best case: none — the code should explain itself).
+- A file should have **max ~500 lines** of code (rare exceptions allowed).
+- **Reuse before building**: most needs are already covered by existing components, hooks and helpers. Before building a complex feature, discuss it briefly with the team. Always reuse the shared helpers for currency, prices, numbers, rounding, etc.
+- In React, **use hooks only — never class components**.
+
+### React namespacing
+1. Always camelCase.
+2. **lower case** start: directories, hooks, stores, function exports.
+3. **Upper case** start: Objects, Enums, Components (class & functional), Helper Objects.
+4. A filename starts lower- or upper-case depending on the name of its exported element.
+5. The filename matches the name of its default export.
+
+### ESLint & packages
+- ESLint enforces code consistency and helps catch issues — keep it green.
+- When adding a package: good reputation (many downloads), actively maintained, **small footprint** (check [bundlephobia](https://bundlephobia.com/)), few transitive dependencies. Prefer a small custom solution over a heavy dependency. Periodically run `yarn outdated` / `yarn upgrade` (mind version compatibility).
+
+### Why not TypeScript?
+We use plain JavaScript on purpose. For our focus (functionality, performance, fast delivery) TypeScript adds friction: slower development, false errors, slower builds, 3rd-party compatibility issues, larger payloads, harder live debugging and much more config. The few real benefits are covered by **ESLint + a good IDE + PropTypes**.
+
+> **Clean code is not everything.** We follow the Pareto principle — ship a fast, bug-light, nice-looking UX first; the user pays for, and judges, only what they can see. Give your best on the first implementation and avoid endless refactoring once the functionality is 100 % there.
+
+## Project Structure
+
+```
+/src/screens     – main components, usually corresponding to a route
+/src/components  – all reusable components, organised modularly in sub-directories
+```
+
+Both are reachable through path aliases:
+
+```js
+import ComponentName from '@/components/someDirectory/ComponentName';
+import ScreenName    from '@/screens/someDirectory/ScreenName';
+```
+
+## Common Components (prefer reuse)
+
+Before writing new UI or logic, reuse the shared building blocks:
+
+| Component / Hook | Import | Use for |
+| ---------------- | ------ | ------- |
+| `useError` hook | `@/components/validations/hooks/useError` | Validating form fields (see *Validation and errors* above) |
+| Custom inputs | `@/components/inputs/…` | Any kind of form or data input (`CustomTextField`, `CustomSelect`, …) |
+| `useValues` hook | `@/components/dataHandling/hooks/useValues` | An intelligent reducer for form / values state |
+| Dialogs | `@/components/dialogs/…` | Alerts and confirm messages (`AlertDialog`, `ConfirmDialog`, …) |
+
+## Connections & API
+
+All calls to the backend go through the `Connections` helper layer (`@/components/connections/Connections`) instead of calling `fetch` from components directly — see the login example above (`Connections.getFakeLogin`). This keeps endpoints, the auth-token header (`Bearer {{token}}`) and error handling in one place. The token itself is persisted in the browser's IndexedDB via `localForage`.
+
+## UI library
+
+The boilerplate originally shipped with **Material UI**; the styling has since migrated to **[shadcn/ui](https://ui.shadcn.com/)** (Radix primitives + Tailwind), with the shared primitives living under `@/components/ui`. The custom inputs above wrap these primitives, so feature code stays the same regardless of the underlying library.
