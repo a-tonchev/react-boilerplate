@@ -118,17 +118,17 @@ const prepareCachesForUpdate = async () => {
 };
 
 const resetClients = async clients => {
-  const { currentCacheName, otherCacheNames } = await getCacheStorageNames(true);
+  const { latestCacheName, outdatedCacheNames } = await getCacheStorageNames();
 
-  const [waitingCacheName] = otherCacheNames;
+  const [waitingCacheName] = outdatedCacheNames || [];
 
   prepareCachesForUpdate({
     currentCacheName: waitingCacheName,
-    otherCacheNames: [currentCacheName],
+    otherCacheNames: [latestCacheName],
   }).then(() => {
     const [firstClient] = clients;
 
-    firstClient.postMessage({
+    firstClient?.postMessage({
       msg: 'CACHE_PREPARED',
     });
   });

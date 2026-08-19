@@ -2,10 +2,6 @@
 
 This is the **frontend** project (React boilerplate). The **backend** lives in `../rest-api-boilerplate`. These two projects work together as a full-stack application.
 
-## Phosphor Icons
+## Icons
 
-Phosphor icon names without the `Icon` suffix are deprecated.
-- Old (deprecated): `CaretLeft`, `Plus`, `Trash`, etc.
-- New (correct): `CaretLeftIcon`, `PlusIcon`, `TrashIcon`, etc.
-
-Always use the `*Icon` suffix when importing/using Phosphor icons.
+This project uses `lucide-react` as its sole icon library. `@phosphor-icons/react` has been removed — do not add it back or import from it. Use named imports from `lucide-react` (e.g. `import { ChevronLeft, Trash2 } from 'lucide-react';`).

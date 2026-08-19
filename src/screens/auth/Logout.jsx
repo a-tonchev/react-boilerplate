@@ -1,20 +1,10 @@
-import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
-import Connections, { ApiEndpoints } from '@/components/connections/Connections';
-import tokenStore from '@/components/connections/stores/tokenStore';
-import { logoutUser } from '@/screens/users/stores/userStore';
+import UrlEnums from '@/components/connections/enums/UrlEnums';
 
-const Logout = () => {
-  useEffect(() => {
-    const doLogout = async () => {
-      await Connections.postRequest(ApiEndpoints.logout);
-      tokenStore.remove();
-      await logoutUser();
-    };
-    doLogout();
-  }, []);
-
-  return <div />;
-};
+// Deliberately inert: this URL used to execute the logout on mount, which made
+// every /logout history entry a session killer on back-navigation. The real
+// logout lives in performLogout(), triggered directly from the menus.
+const Logout = () => <Navigate to={UrlEnums.MAIN} replace />;
 
 export default Logout;

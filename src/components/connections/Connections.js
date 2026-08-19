@@ -1,7 +1,9 @@
 import BasicConfig from '@/components/config/BasicConfig';
 import Storage from '@/components/storage/Storage';
 import StorageEnums from '@/components/storage/enums/StorageEnums';
+import StringHelper from '@/components/helpers/StringHelper';
 import i18n from '@/components/translations/i18n';
+import { logoutUser } from '@/screens/users/stores/userStore';
 
 import tokenStore from './stores/tokenStore';
 import UrlEnums from './enums/UrlEnums';
@@ -71,7 +73,39 @@ const connectionSuccessResponse = data => {
   };
 };
 
-const connectionErrorResponse = (status, responseData) => {
+let handlingUnauthorized = false;
+
+const handleUnauthorized = async sentToken => {
+  // Guard against concurrent 401s so we don't reload/navigate more than once.
+  if (handlingUnauthorized) return;
+  handlingUnauthorized = true;
+
+  const storedRaw = await Storage.get(StorageEnums.token);
+  const storedToken = storedRaw ? StringHelper.decode(storedRaw) : '';
+
+  // Only a 401 for the token that is actually stored is a real logout. A
+  // mismatch means this tab is out of date (its in-memory token is older than
+  // the session a newer login saved) — reload so the tab re-hydrates the fresh
+  // session instead of destroying it.
+  if (storedToken && sentToken !== storedToken) {
+    window.location.reload();
+    return;
+  }
+
+  // Clear the in-memory bearer token AND the logged-in store, not just
+  // storage, otherwise the app keeps sending the dead token and the
+  // Public route bounces the user back in an infinite redirect loop.
+  tokenStore.remove();
+  await logoutUser();
+  if (storedToken) {
+    window.location.reload();
+  } else {
+    History.navigate(UrlEnums.LOGIN);
+    handlingUnauthorized = false;
+  }
+};
+
+const connectionErrorResponse = (status, responseData, sentToken) => {
   let errorMessage = i18n.t('error.unknown');
   if (BasicConfig.system?.debug) {
     console.error('---error---');
@@ -79,6 +113,13 @@ const connectionErrorResponse = (status, responseData) => {
   }
   let errorData = null;
   let errorCode = null;
+
+  // Handle auth failures regardless of whether the body was valid JSON.
+  if (status === 401) {
+    handleUnauthorized(sentToken);
+  } else if (status === 403) {
+    History.navigate(UrlEnums.MAIN);
+  }
 
   if (responseData) {
     if (responseData.code) {
@@ -91,25 +132,6 @@ const connectionErrorResponse = (status, responseData) => {
     if (responseData.data) {
       errorData = responseData.data;
     }
-    if (status === 401) {
-      Storage.getObject(StorageEnums.token).then(
-        tokenStored => {
-          (async () => {
-            const tokenPromise = Storage.remove(StorageEnums.token);
-            const udPromise = Storage.remove(StorageEnums.userData);
-
-            await Promise.all([tokenPromise, udPromise]);
-            if (tokenStored) {
-              window.location.reload();
-            } else {
-              History.navigate(UrlEnums.LOGIN);
-            }
-          })();
-        },
-      );
-    } else if (status === 403) {
-      History.navigate(UrlEnums.MAIN);
-    }
   }
   return {
     ok: false,
@@ -120,12 +142,19 @@ const connectionErrorResponse = (status, responseData) => {
   };
 };
 
-const handleResponse = async response => {
-  const data = await response.json();
+const handleResponse = async (response, sentToken) => {
+  // A non-JSON body (empty 401, proxy HTML error page, plain-text 404) must not
+  // throw before status handling runs.
+  let data = null;
+  try {
+    data = await response.json();
+  } catch (error) {
+    data = null;
+  }
   if (response.ok) {
     return connectionSuccessResponse(data);
   }
-  return connectionErrorResponse(response.status, data);
+  return connectionErrorResponse(response.status, data, sentToken);
 };
 
 export default {
@@ -133,6 +162,7 @@ export default {
     url, params, path = '',
   }) {
     try {
+      const sentToken = tokenStore.get();
       const headers = getAuthHeaders();
       headers['Content-Type'] = 'application/json';
       const response = await fetch(getUrl(url) + path, {
@@ -140,7 +170,7 @@ export default {
         headers,
         body: JSON.stringify(params),
       });
-      return handleResponse(response);
+      return handleResponse(response, sentToken);
     } catch (error) {
       return connectionErrorResponse(null, null);
     }
@@ -149,11 +179,12 @@ export default {
     url, params, suppressError,
   }) {
     try {
+      const sentToken = tokenStore.get();
       const headers = getAuthHeaders();
       const response = await fetch(`${getUrl(url)}${params ? '?' : ''}${encodeQueryData(params)}`, {
         headers,
       });
-      return handleResponse(response);
+      return handleResponse(response, sentToken);
     } catch (error) {
       if (!suppressError) return connectionErrorResponse(null, null);
     }
@@ -165,13 +196,9 @@ export default {
     });
   },
   async postRequest(url, params) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(this.post({
-          url,
-          params,
-        }));
-      }, 0);
+    return this.post({
+      url,
+      params,
     });
   },
 };

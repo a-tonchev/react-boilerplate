@@ -1,4 +1,4 @@
-import { UserCircleIcon, ShieldCheckIcon } from '@phosphor-icons/react';
+import { CircleUserRound, ShieldCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -27,7 +27,7 @@ const Profile = () => {
                 'data-[state=active]:border-secondary rounded-none',
               ].join(' ')}
             >
-              <UserCircleIcon size={18} weight="regular" />
+              <CircleUserRound size={18} />
               {t('editProfile')}
             </TabsTrigger>
             <TabsTrigger
@@ -38,7 +38,7 @@ const Profile = () => {
                 'data-[state=active]:border-secondary rounded-none',
               ].join(' ')}
             >
-              <ShieldCheckIcon size={18} weight="regular" />
+              <ShieldCheck size={18} />
               {t('Security')}
             </TabsTrigger>
           </TabsList>

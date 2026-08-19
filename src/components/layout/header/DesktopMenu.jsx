@@ -1,14 +1,15 @@
 import {
-  UserCircleIcon,
-  EnvelopeSimpleIcon,
-  BellIcon,
-  UserIcon,
-  GearIcon,
-  SignOutIcon,
-} from '@phosphor-icons/react';
+  CircleUserRound,
+  Mail,
+  Bell,
+  User,
+  Settings,
+  LogOut,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import Authorized from '@/screens/auth/Authorized';
+import performLogout from '@/screens/auth/performLogout';
 import CustomLink from '@/components/inputs/CustomLink';
 import LanguagesPicker from '@/components/translations/LanguagesPicker';
 import i18n from '@/components/translations/i18n';
@@ -32,7 +33,7 @@ const menu = [
           onClick={createRipple}
           className={iconButtonClass}
         >
-          <EnvelopeSimpleIcon size={22} weight="regular" />
+          <Mail size={22} />
         </button>
         <Badge
           variant="secondary"
@@ -58,7 +59,7 @@ const menu = [
           onClick={createRipple}
           className={iconButtonClass}
         >
-          <BellIcon size={22} weight="regular" />
+          <Bell size={22} />
         </button>
         <Badge
           variant="secondary"
@@ -83,7 +84,7 @@ const menu = [
         onClick={e => { createRipple(e); onClick(e); }}
         className={iconButtonClass}
       >
-        <UserCircleIcon size={24} weight="regular" />
+        <CircleUserRound size={24} />
       </button>
     ),
     onClick: 'handleProfileMenuOpen',
@@ -134,7 +135,7 @@ const ProfileMenu = ({
                 + ' transition-colors cursor-pointer'
               }
             >
-              <UserIcon size={18} weight="regular" className="text-muted-foreground" />
+              <User size={18} className="text-muted-foreground" />
               <span className="font-medium">{t('profile')}</span>
             </button>
           </CustomLink>
@@ -147,24 +148,25 @@ const ProfileMenu = ({
               + ' transition-colors cursor-pointer'
             }
           >
-            <GearIcon size={18} weight="regular" className="text-muted-foreground" />
+            <Settings size={18} className="text-muted-foreground" />
             <span className="font-medium">{t('Settings')}</span>
           </button>
           <div className="h-px bg-border my-1" />
-          <CustomLink plain to="/logout">
-            <button
-              type="button"
-              onClick={handleMenuClose}
-              className={
-                'flex items-center gap-3 w-full px-3 py-2 mx-1.5'
-                + ' rounded-md text-sm hover:bg-accent'
-                + ' transition-colors cursor-pointer'
-              }
-            >
-              <SignOutIcon size={18} weight="regular" className="text-muted-foreground" />
-              <span className="font-medium">{t('logout')}</span>
-            </button>
-          </CustomLink>
+          <button
+            type="button"
+            onClick={() => {
+              handleMenuClose();
+              performLogout();
+            }}
+            className={
+              'flex items-center gap-3 w-full px-3 py-2 mx-1.5'
+              + ' rounded-md text-sm hover:bg-accent'
+              + ' transition-colors cursor-pointer'
+            }
+          >
+            <LogOut size={18} className="text-muted-foreground" />
+            <span className="font-medium">{t('logout')}</span>
+          </button>
         </Authorized>
         <Authorized publicOnly>
           <CustomLink plain to="/login">
@@ -177,7 +179,7 @@ const ProfileMenu = ({
                 + ' transition-colors cursor-pointer'
               }
             >
-              <SignOutIcon size={18} weight="regular" className="text-muted-foreground" />
+              <LogOut size={18} className="text-muted-foreground" />
               <span className="font-medium">{t('login')}</span>
             </button>
           </CustomLink>

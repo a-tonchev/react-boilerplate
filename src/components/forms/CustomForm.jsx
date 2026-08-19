@@ -7,7 +7,9 @@ import CustomTextField from '../inputs/CustomTextField';
 export default function CustomForm({ elements, onSubmit }) {
   const [formValues, setFormValues] = useState(
     elements.map(element => {
-      const valueToReturn = element.defaultValue || element.type === 'checkbox' ? false : '';
+      const valueToReturn = element.type === 'checkbox'
+        ? Boolean(element.defaultValue)
+        : (element.defaultValue ?? '');
       return { label: element.label, value: valueToReturn };
     }),
   );

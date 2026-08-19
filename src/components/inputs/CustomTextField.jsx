@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { EyeIcon, EyeSlashIcon } from '@phosphor-icons/react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { cn } from '@/lib/utils';
@@ -91,8 +91,8 @@ const CustomTextField = ({
             ].join(' ')}
           >
             {showPassword
-              ? <EyeSlashIcon size={20} weight="regular" />
-              : <EyeIcon size={20} weight="regular" />}
+              ? <EyeOff size={20} />
+              : <Eye size={20} />}
           </button>
         )}
         {!isPassword && !!endText && (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ListIcon } from '@phosphor-icons/react';
+import { Menu } from 'lucide-react';
 
 import { createRipple } from '@/lib/utils';
 
@@ -67,7 +67,7 @@ const Drawer = () => {
           'relative overflow-hidden',
         ].join(' ')}
       >
-        <ListIcon size={22} weight="regular" />
+        <Menu size={22} />
       </button>
     </>
   );

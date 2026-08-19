@@ -25,5 +25,5 @@ const Checkbox = forwardRef(({ className, ...props }, ref) => (
 ));
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
-// eslint-disable-next-line import/prefer-default-export
+// eslint-disable-next-line import-x/prefer-default-export
 export { Checkbox };

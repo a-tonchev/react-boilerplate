@@ -16,6 +16,16 @@ const UrlHelper = {
     return parseInt(queryParam) || res;
   },
 
+  isUrl(value) {
+    if (typeof value !== 'string' || !value) return false;
+    try {
+      const { protocol } = new URL(value);
+      return protocol === 'http:' || protocol === 'https:';
+    } catch {
+      return false;
+    }
+  },
+
   deleteParam(param) {
     const { location } = window;
     const query = this.getQuery(location);

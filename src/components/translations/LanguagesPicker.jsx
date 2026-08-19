@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  GlobeSimpleIcon,
-  CaretDownIcon,
-  CheckIcon,
-} from '@phosphor-icons/react';
+  Globe,
+  ChevronDown,
+  Check,
+} from 'lucide-react';
 
 import { setLanguage } from '@/screens/users/stores/userStore';
 
@@ -56,13 +56,13 @@ const LanguagesPicker = () => {
           'hover:bg-white/[0.15] hover:border-white/30 cursor-pointer',
         ].join(' ')}
       >
-        <GlobeSimpleIcon size={16} weight="regular" />
+        <Globe size={16} />
         <span className="font-semibold text-xs tracking-wider leading-none">
           {currentLang.flag}
         </span>
-        <CaretDownIcon
+        <ChevronDown
           size={12}
-          weight="bold"
+          strokeWidth={2.5}
           style={{
             transition: 'transform 0.15s ease',
             transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -97,7 +97,7 @@ const LanguagesPicker = () => {
                   <span className="font-medium">{l.label}</span>
                 </span>
                 {l.code === lang && (
-                  <CheckIcon size={16} weight="bold" className="text-success" />
+                  <Check size={16} strokeWidth={2.5} className="text-success" />
                 )}
               </button>
             ))}

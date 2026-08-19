@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import-x/no-extraneous-dependencies */
 import { defineConfig, loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import eslintPlugin from '@nabla/vite-plugin-eslint';
@@ -34,7 +34,7 @@ export default ({ mode }) => {
     build: {
       outDir: 'build',
       assetsDir: 'static',
-      sourcemap: true,
+      sourcemap: false,
       rollupOptions: {
         plugins: [
           visualizer({
@@ -46,15 +46,13 @@ export default ({ mode }) => {
       },
     },
     server: {
+      // Intentionally reachable on the LAN (0.0.0.0 via VITE_DEV_HOST). Do NOT
+      // widen `fs.allow` back to '..': that would let the LAN-visible dev server
+      // serve the sibling backend's settings.js secrets. Vite's default keeps
+      // filesystem serving scoped to the project root.
       host: process.env.VITE_DEV_HOST || 'localhost',
       port: process.env.VITE_DEV_PORT || 3000,
       open: true,
-      fs: {
-        // Allow serving files from one level up to the project root
-        allow: [
-          '..',
-        ],
-      },
     },
   });
 };

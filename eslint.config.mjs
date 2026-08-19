@@ -1,31 +1,19 @@
-import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import babelParser from '@babel/eslint-parser';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
+import { configs, plugins } from 'eslint-config-airbnb-extended';
 
 export default [
   {
     ignores: ['src/local_modules/*', './src/local_modules/*'],
   },
-  ...fixupConfigRules(compat.extends('plugin:react/recommended', 'airbnb')),
+  plugins.stylistic,
+  plugins.importX,
+  ...configs.base.recommended,
+  plugins.react,
+  plugins.reactHooks,
+  plugins.reactA11y,
+  ...configs.react.recommended,
   {
     files: ['**/*.{js,jsx,mjs}'],
-    plugins: {
-      react: fixupPluginRules(react),
-      'react-hooks': fixupPluginRules(reactHooks),
-    },
 
     languageOptions: {
       globals: {
@@ -55,33 +43,30 @@ export default [
         __APP_VERSION__: 'readonly',
       },
 
-      parser: babelParser,
-      ecmaVersion: 2018,
+      ecmaVersion: 'latest',
       sourceType: 'module',
 
       parserOptions: {
-        requireConfigFile: false,
-
-        babelOptions: {
-          presets: ['@babel/preset-react'],
+        ecmaVersion: 'latest',
+        ecmaFeatures: {
+          jsx: true,
         },
       },
     },
 
     settings: {
-      'import/resolver': {
-        alias: {
-          map: [['@', './src']],
-          extensions: ['.js', '.jsx'],
-        },
-      },
+      'import-x/resolver-next': [
+        createTypeScriptImportResolver({
+          project: './jsconfig.json',
+        }),
+      ],
     },
 
     rules: {
       'no-alert': 'off',
       'consistent-return': 'off',
       'no-return-assign': 'off',
-      'import/no-extraneous-dependencies': 'off',
+      'import-x/no-extraneous-dependencies': 'off',
       'no-unused-vars': 'warn',
 
       'no-console': ['warn', {
@@ -92,13 +77,13 @@ export default [
       'no-process-exit': 'off',
       'object-shorthand': 'off',
       'class-methods-use-this': 'off',
-      'arrow-parens': ['error', 'as-needed'],
-      'operator-linebreak': 'off',
-      quotes: [2, 'single', 'avoid-escape'],
-      'linebreak-style': 'off',
+      '@stylistic/arrow-parens': ['error', 'as-needed'],
+      '@stylistic/operator-linebreak': 'off',
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
+      '@stylistic/linebreak-style': 'off',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-      'max-len': ['error', {
+      '@stylistic/max-len': ['error', {
         code: 120,
       }],
 
@@ -109,7 +94,7 @@ export default [
       radix: 'off',
       camelcase: 'warn',
       'no-restricted-globals': 'off',
-      'use-isnan': 2,
+      'use-isnan': 'error',
       'no-plusplus': 'off',
       'no-underscore-dangle': 'off',
 
@@ -121,8 +106,17 @@ export default [
         allowShortCircuit: true,
       }],
 
+      '@stylistic/brace-style': ['error', '1tbs', {
+        allowSingleLine: true,
+      }],
+      '@stylistic/max-statements-per-line': 'off',
+      'import-x/no-rename-default': 'off',
+      'react-hooks/set-state-in-effect': 'warn',
+      'react-hooks/immutability': 'warn',
+
       'react/no-array-index-key': 'off',
       'react/jsx-one-expression-per-line': 'off',
+      '@stylistic/jsx-one-expression-per-line': 'off',
       'react/react-in-jsx-scope': 'off',
 
       'react/prop-types': [0, {
@@ -146,7 +140,7 @@ export default [
 
       'jsx-a11y/label-has-associated-control': 'off',
 
-      'import/order': ['error', {
+      'import-x/order': ['error', {
         'newlines-between': 'always',
         groups: [['builtin', 'external'], 'internal', ['parent', 'sibling', 'index']],
 

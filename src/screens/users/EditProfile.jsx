@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Grid from '@/components/inputs/CustomGrid';
@@ -32,9 +32,18 @@ const EditProfile = () => {
   } = useError({ values: profileValues, validations: fullValidations });
   const { loading, Loading, setLoading } = useLoading(true);
 
+  const didFetch = useRef(false);
+
   useEffect(() => {
+    // Ref guard prevents StrictMode's double mount from fetching twice; the
+    // mounted flag avoids setState after the component unmounts mid-request.
+    if (didFetch.current) return undefined;
+    didFetch.current = true;
+
+    let mounted = true;
     const getOwnProfile = async () => {
       const res = await Connections.postRequest(ApiEndpoints.getOwnProfile);
+      if (!mounted) return;
       if (res.ok) {
         const { profile, email, clientNumber } = res.data;
         const { name, companyName } = profile;
@@ -49,6 +58,10 @@ const EditProfile = () => {
       setLoading(false);
     };
     getOwnProfile().then();
+
+    return () => {
+      mounted = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -1,4 +1,4 @@
-import { DotsThreeVerticalIcon } from '@phosphor-icons/react';
+import { EllipsisVertical } from 'lucide-react';
 
 import { useIsAdmin, useLoggedIn, useUserData } from '@/screens/users/hooks/userDataHooks';
 import AuthHelper from '@/screens/auth/AuthHelper';
@@ -74,7 +74,7 @@ const MobileMenuSection = ({ handleMobileMenuOpen }) => (
       onClick={handleMobileMenuOpen}
       className="text-sidebar-muted rounded-lg p-2 hover:bg-white/10 hover:text-white transition-all"
     >
-      <DotsThreeVerticalIcon size={22} weight="bold" />
+      <EllipsisVertical size={22} strokeWidth={2.5} />
     </button>
   </div>
 );

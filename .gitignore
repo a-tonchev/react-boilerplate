@@ -27,3 +27,4 @@ yarn-error.log*
 /certs
 webpack.config.js
 analyzed.html
+framework-analysis/

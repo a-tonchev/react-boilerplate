@@ -1,18 +1,20 @@
+import { lazy } from 'react';
 import {
   Navigate,
 } from 'react-router-dom';
 
 import UrlEnums from '@/components/connections/enums/UrlEnums';
-import Login from '@/screens/auth/Login';
-import SignUp from '@/screens/auth/SignUp';
-import Logout from '@/screens/auth/Logout';
-import NotFoundPage from '@/screens/NotFoundPage';
-import Home from '@/screens/Home';
-import Profile from '@/screens/users/Profile';
-import ForgotPassword from '@/screens/auth/ForgetPassword';
-import ResetPassword from '@/screens/auth/ResetPassword';
-import Verify from '@/screens/auth/Verify';
-import Showcase from '@/screens/hacktoberfest/Showcase';
+
+const Login = lazy(() => import('@/screens/auth/Login'));
+const SignUp = lazy(() => import('@/screens/auth/SignUp'));
+const Logout = lazy(() => import('@/screens/auth/Logout'));
+const NotFoundPage = lazy(() => import('@/screens/NotFoundPage'));
+const Home = lazy(() => import('@/screens/Home'));
+const Profile = lazy(() => import('@/screens/users/Profile'));
+const ForgotPassword = lazy(() => import('@/screens/auth/ForgetPassword'));
+const ResetPassword = lazy(() => import('@/screens/auth/ResetPassword'));
+const Verify = lazy(() => import('@/screens/auth/Verify'));
+const Showcase = lazy(() => import('@/screens/hacktoberfest/Showcase'));
 
 const routes = [
   {

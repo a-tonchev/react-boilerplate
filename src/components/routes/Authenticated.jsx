@@ -13,6 +13,7 @@ const Authenticated = ({
   return loggedIn ? element : (
     <Navigate
       to={UrlEnums.LOGIN}
+      replace
       state={{
         redirectFrom:
           location.pathname + location.search,

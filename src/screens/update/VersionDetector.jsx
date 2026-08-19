@@ -44,7 +44,7 @@ const VersionDetector = () => {
 
     return () => {
       navigator.serviceWorker?.removeEventListener('message', swMessageHandler);
-      navigator.serviceWorker?.removeEventListener('newVersion', openNewVersionDialog);
+      window.removeEventListener('newVersion', openNewVersionDialog);
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

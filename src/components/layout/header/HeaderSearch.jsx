@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from '@phosphor-icons/react';
+import { Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const HeaderSearch = () => {
@@ -16,7 +16,7 @@ const HeaderSearch = () => {
       <div
         className="px-2 h-full absolute pointer-events-none flex items-center justify-center text-sidebar-muted z-10"
       >
-        <MagnifyingGlassIcon size={18} weight="regular" />
+        <Search size={18} />
       </div>
       <input
         placeholder={`${t('search')}...`}
